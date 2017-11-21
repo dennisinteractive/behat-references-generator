@@ -13,8 +13,8 @@
     "phpspec/phpspec": "~2.0"
   },
   "autoload": {
-    "psr-0": {
-      "DennisDigital\\Drupal\\EntityReferenceGenerator": "src/"
+    "psr-4": {
+      "Drupal\\EntityReferenceGenerator": "src/"
     }
   },
   "extra": {
