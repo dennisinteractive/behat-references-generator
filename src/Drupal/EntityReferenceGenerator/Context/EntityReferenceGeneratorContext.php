@@ -8,7 +8,7 @@ use Drupal\DrupalDriverManager;
 use Drupal\DrupalExtension\Context\DrupalAwareInterface;
 use Drupal\DrupalUserManagerInterface;
 
-class EntityReferenceGenerator implements DrupalAwareInterface {
+class EntityReferenceGeneratorContext implements DrupalAwareInterface {
 
   /**
    * @var DrupalDriverManager

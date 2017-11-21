@@ -2,4 +2,4 @@ default:
   suites:
     default:
       contexts:
-        - DennisDigital\EntityReferenceGenerator\Context\EntityReferenceGeneratorContext
+        - DennisDigital\Drupal\EntityReferenceGenerator\Context\EntityReferenceGeneratorContext
