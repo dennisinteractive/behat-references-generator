@@ -14,7 +14,6 @@
   },
   "require": {
     "drupal/drupal-extension": "dev-master#7756b54f",
-    "drupal/drupal-driver": "dev-node_reference_handler",
     "behat/mink": "^1.7"
   },
   "require-dev": {
