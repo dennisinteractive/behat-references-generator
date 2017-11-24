@@ -5,9 +5,16 @@
   "keywords": ["behat", "content", "entities"],
   "homepage": "https://github.com/dennisinteractive/behat-drupal-entity-reference-generator",
   "license": "MIT",
+  "repositories": {
+    "drupal-driver": {
+      "type": "vcs",
+      "url": "git@github.com:marcelovani/DrupalDriver.git",
+      "no-api": true
+    }
+  },
   "require": {
     "drupal/drupal-extension": "dev-master#7756b54f",
-    "drupal/drupal-driver": "node_reference_handler-dev",
+    "drupal/drupal-driver": "dev-node_reference_handler",
     "behat/mink": "^1.7"
   },
   "require-dev": {
