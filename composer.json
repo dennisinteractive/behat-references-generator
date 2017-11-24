@@ -7,7 +7,7 @@
   "license": "MIT",
   "require": {
     "drupal/drupal-extension": "dev-master#7756b54f",
-    "drupal/drupal-driver": "dev-master#74d4ef1377",
+    "drupal/drupal-driver": "node_reference_handler-dev",
     "behat/mink": "^1.7"
   },
   "require-dev": {
