@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\EntityReferenceGenerator\Context;
 
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
