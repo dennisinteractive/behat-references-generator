@@ -213,7 +213,7 @@ class EntityReferenceGeneratorContext implements DrupalAwareInterface {
               //$fieldHandler = 'FileContext';
               break;
             case 'node_reference':
-              //$generator = new NodeReferenceGenerator();
+              $generator = new NodeReferenceGenerator($entity, $fieldType, $fieldName);
               break;
             case 'entityreference':
               $generator = new EntityReferenceGenerator($entity, $fieldType, $fieldName);
