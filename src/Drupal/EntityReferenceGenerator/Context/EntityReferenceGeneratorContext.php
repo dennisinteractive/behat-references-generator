@@ -216,7 +216,7 @@ class EntityReferenceGeneratorContext implements DrupalAwareInterface {
               //$generator = new NodeReferenceGenerator();
               break;
             case 'entityreference':
-              //$generator = new EntityReferenceGenerator();
+              $generator = new EntityReferenceGenerator($entity, $fieldType, $fieldName);
               break;
             case 'taxonomy_term_reference':
               $generator = new TaxonomyTermReferenceGenerator($entity, $fieldType, $fieldName);

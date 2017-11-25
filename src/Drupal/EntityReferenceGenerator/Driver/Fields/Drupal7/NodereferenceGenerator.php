@@ -56,12 +56,12 @@ class NodeReferenceGenerator implements FieldHandlerInterface {
    *
    * @return mixed
    */
-  public function createReferencedItem($field, $title) {
+  public function createReferencedItem($field, $value) {
     //$this->drupalContext->createNodes($type, TableNode $nodesTable);
     //return $this->createReferencedNode($field, $value);
     $type = array_filter($field['settings']['referenceable_types']);
     $node = (object) array(
-      'title' => $title,
+      'title' => $value,
       'type' => reset($type),
     );
     return $this->drupalContext->nodeCreate($node);

@@ -47,8 +47,8 @@ class TaxonomyTermReferenceGenerator extends TaxonomyTermReferenceHandler {
       throw new \Exception(sprintf("Invalid content type %s for field %s", $field['type'], $fieldName));
     }
 
-    $key = array_keys($field['settings']['allowed_values']);
-    $key = reset($key);
+//    $key = array_keys($field['settings']['allowed_values']);
+//    $key = reset($key);
     $vocabName = $this->getVocab();//$field['settings']['allowed_values'][$key]['vocabulary'];
     if ($vocabulary = taxonomy_vocabulary_machine_name_load($vocabName)) {
       echo 'Creating term for vocab ' . $this->getVocab(). PHP_EOL;ob_flush();
