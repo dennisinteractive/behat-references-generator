@@ -24,7 +24,7 @@ class TaxonomyTermReferenceGenerator extends TaxonomyTermReferenceHandler {
    * {@inheritdoc}
    */
   public function referenceExists($name) {
-    echo 'Searching term ' . $name . PHP_EOL;ob_flush();
+    // echo 'Searching term ' . $name . PHP_EOL;ob_flush();
     $return = array();
     $terms = taxonomy_get_term_by_name($name, $this->getVocab());
     if (!empty($terms)) {
@@ -51,16 +51,16 @@ class TaxonomyTermReferenceGenerator extends TaxonomyTermReferenceHandler {
 //    $key = reset($key);
     $vocabName = $this->getVocab();//$field['settings']['allowed_values'][$key]['vocabulary'];
     if ($vocabulary = taxonomy_vocabulary_machine_name_load($vocabName)) {
-      echo 'Creating term for vocab ' . $this->getVocab(). PHP_EOL;ob_flush();
+      // echo 'Creating term for vocab ' . $this->getVocab(). PHP_EOL;ob_flush();
       $term = new \stdClass();
       $term->name = $value;
       $term->path = array('pathauto' => 1);
       $term->vid = $vocabulary->vid;
 
-      print_r($term);ob_flush();
+      // print_r($term);ob_flush();
       // Create the term so that drupal context will mark it for deletion in @AfterScenario.
       $term = $this->drupalContext->termCreate($term);
-      echo 'CREATED TERM ' . $term->name . '(' . $term->tid . ')' . PHP_EOL; ob_flush();
+      // echo 'CREATED TERM ' . $term->name . '(' . $term->tid . ')' . PHP_EOL; ob_flush();
       return $term->tid;
     }
     else {

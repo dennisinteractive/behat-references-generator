@@ -115,7 +115,7 @@ class EntityReferenceGeneratorContext implements DrupalAwareInterface {
    * @beforeNodeCreate
    */
   public function assignEntityTypeNode(EntityScope $scope) {
-    echo 'B4 Node';ob_flush();
+    // echo 'B4 Node';ob_flush();
     $entity = $scope->getEntity();
     $entity->entityType = 'node';
   }
@@ -126,7 +126,7 @@ class EntityReferenceGeneratorContext implements DrupalAwareInterface {
    * @beforeTermCreate
    */
   public function assignEntityTypeTerm(EntityScope $scope) {
-    echo 'B4 Term';ob_flush();
+    // echo 'B4 Term';ob_flush();
     $entity = $scope->getEntity();
     $entity->entityType = 'term';
   }
@@ -144,18 +144,18 @@ class EntityReferenceGeneratorContext implements DrupalAwareInterface {
     if (!isset($entity->entityType)) {
       return;
     }
-    echo 'Now create '. $entity->entityType; ob_flush();
+    // echo 'Now create '. $entity->entityType; ob_flush();
 //
 //    if ($entity->entityType != 'node') {
-//      var_dump('Entity type not supported: ' . $entity->entityType);
+//      //var_dump('Entity type not supported: ' . $entity->entityType);
 //      ob_flush();
 //      return;
 //    }
     if (isset($this->useDefaultContent) && $this->useDefaultContent == TRUE) {
-//      print_r($entity);
+//      // print_r($entity);
 //      ob_flush();
 //      if (!isset($entity->type)) {
-//        var_dump('Bundle not supported: ' . $entity->type);
+//        //var_dump('Bundle not supported: ' . $entity->type);
 //        ob_flush();
 //
 //        return;
@@ -163,9 +163,9 @@ class EntityReferenceGeneratorContext implements DrupalAwareInterface {
       // Fill in default values
       //$bundleName = $entity->type;
       //$defaults = $this->getDefaultNode($entity->entityType, $bundleName);
-      echo 'Default content for ' . $entity->entityType . PHP_EOL; ob_flush();
+      // echo 'Default content for ' . $entity->entityType . PHP_EOL; ob_flush();
       $defaults = $this->getDefaultEntityValues($entity);
-      print_r($defaults);ob_flush();
+      // print_r($defaults);ob_flush();
       //if (!is_array($defaults)) return;//@todo remove
       foreach ($defaults as $fieldName => $value) {
         if (!isset($entity->{$fieldName})) {
@@ -174,9 +174,9 @@ class EntityReferenceGeneratorContext implements DrupalAwareInterface {
       }
       // Create referenced entities.
       $tmpEntity = clone $entity;
-      //var_dump($tmpEntity);
+      ////var_dump($tmpEntity);
       $this->rawDrupalContext->parseEntityFields($entity->entityType, $tmpEntity);
-      var_dump($tmpEntity);
+      //var_dump($tmpEntity);
 
       foreach ($tmpEntity as $fieldName => $fieldValues) {
         if (!is_array($fieldValues)) {
@@ -184,20 +184,20 @@ class EntityReferenceGeneratorContext implements DrupalAwareInterface {
         }
         $field = field_read_field($fieldName);
         $fieldType = $field['type'];
-        echo 'Field Name:' . $fieldName . '(' . $fieldType . ')';
+        // echo 'Field Name:' . $fieldName . '(' . $fieldType . ')';
         if (empty($field)) {
           // Field doesn't exist.
           continue;
         }
         foreach ($fieldValues as $key => $fieldValue) {
-          echo ' Value:' . $fieldValue . PHP_EOL;
-          ob_flush();
+          // echo ' Value:' . $fieldValue . PHP_EOL;
+          //ob_flush();
           // @todo this switch should be on a function
-//            echo 'Looking at Field: ' . $fieldName . PHP_EOL;
-//            echo 'Field ref type: ' . $fieldType . PHP_EOL;
-//            echo 'Field value: ' . $fieldValue . PHP_EOL;
+//            // echo 'Looking at Field: ' . $fieldName . PHP_EOL;
+//            // echo 'Field ref type: ' . $fieldType . PHP_EOL;
+//            // echo 'Field value: ' . $fieldValue . PHP_EOL;
           $generator = NULL;
-          echo 'FT ' . $fieldType . PHP_EOL;
+          // echo 'FT ' . $fieldType . PHP_EOL;
           switch ($fieldType) {
             case 'list_boolean':
             case 'list_text':
@@ -230,21 +230,21 @@ class EntityReferenceGeneratorContext implements DrupalAwareInterface {
 
           if (isset($generator)) {
             $generator->setDrupalContext($this->drupalContext);
-            echo 'GENERATOR';ob_flush();
-//print_r($generator->expand(array($fieldValue)));ob_flush();exit;
+            // echo 'GENERATOR';ob_flush();
+//// print_r($generator->expand(array($fieldValue)));ob_flush();exit;
             if (!$generator->referenceExists($fieldValue)) {
-              echo 'Creating: ' . $fieldName . ' ' . $fieldValue . PHP_EOL; ob_flush();
+              // echo 'Creating: ' . $fieldName . ' ' . $fieldValue . PHP_EOL; ob_flush();
               // @todo createReferencedItem() should use $scope->getContext()->createNode() instead of this->drupalcontext
               $generator->createReferencedItem($field, $fieldValue);
             }
           }
         }
-        ob_flush();
+        //ob_flush();
         //}
-//        echo PHP_EOL;
+//        // echo PHP_EOL;
 //        ob_flush();
       }
-      echo 'Now set the path';ob_flush();
+      // echo 'Now set the path';ob_flush();
       // If pathauto is enabled, set the path.
       //if (module_exists('pathauto') && isset($entity->alias)) {
       if (isset($entity->alias)) {
@@ -270,9 +270,8 @@ class EntityReferenceGeneratorContext implements DrupalAwareInterface {
 //          )
 //        );
 //      }
-      // @todo for some reason the entity that is altered is not being passed back to nodeCreate()
-      print_r($entity);
-      ob_flush();
+      // print_r($entity);
+      //ob_flush();
     }
   }
 
