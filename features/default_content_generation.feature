@@ -6,7 +6,7 @@ Feature: Table
 
   @horizontal_table @reference_generator
   Scenario: Create content using table and non-existing references
-    Given "test" content:
+    Given a default "test" content:
       | title           | body      | field_related_articles |
       | Testing content | TEST BODY | Art1                   |
 
@@ -39,13 +39,3 @@ Feature: Table
     Then I should see "Art3"
     Then I should see "Art4"
 
-#    Then the cache has been cleared
-#    Then the cache has been cleared
-#    Then the cache has been cleared
-#    Then the cache has been cleared
-#    Then the cache has been cleared
-#    Then the cache has been cleared
-#    Then the cache has been cleared
-#    Then the cache has been cleared
-#    Then the cache has been cleared
-    Then print last response

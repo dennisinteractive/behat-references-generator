@@ -351,13 +351,24 @@ class EntityReferenceGeneratorContext implements DrupalAwareInterface {
   }
 
   /**
-   * @Given I am viewing a default :type content:
+   * @Given a default :type content:
    */
-  public function viewDefaultContent($type, TableNode $fields) {
+  public function aDefaultContent($type, TableNode $table)
+  {
     if ($this->automaticallyCreateReferencedItems) {
       $this->useDefaultContent = TRUE;
     }
-    $this->drupalContext->assertViewingNode($type, $fields);
+    $this->drupalContext->createNodes($type, $table);
+  }
+
+  /**
+   * @Given I am viewing a default :type content:
+   */
+  public function viewDefaultContent($type, TableNode $table) {
+    if ($this->automaticallyCreateReferencedItems) {
+      $this->useDefaultContent = TRUE;
+    }
+    $this->drupalContext->assertViewingNode($type, $table);
   }
 
 
