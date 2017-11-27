@@ -4,6 +4,10 @@ Feature: Table
   as a user,
   I want to use Table tests
 
+  Background:
+    Given I have an image
+    Then the file "bddtest.jpg" should be available
+
   @horizontal_table @reference_generator
   Scenario: Create content using table and non-existing references
     Given a default "test" content:

@@ -13,8 +13,12 @@ use Drupal\DrupalUserManagerInterface;
 use Drupal\EntityReferenceGenerator\Driver\Fields\Drupal7\NodeReferenceGenerator;
 use Drupal\EntityReferenceGenerator\Driver\Fields\Drupal7\EntityReferenceGenerator;
 use Drupal\EntityReferenceGenerator\Driver\Fields\Drupal7\TaxonomyTermReferenceGenerator;
+use Drupal\EntityReferenceGenerator\Driver\Fields\Drupal7\FileGenerator;
 
 class EntityReferenceGeneratorContext implements DrupalAwareInterface {
+
+  use NodeGeneratorContext;
+  use ImageGeneratorContext;
 
   /**
    * Drupal context.
@@ -197,7 +201,7 @@ class EntityReferenceGeneratorContext implements DrupalAwareInterface {
 //            // echo 'Field ref type: ' . $fieldType . PHP_EOL;
 //            // echo 'Field value: ' . $fieldValue . PHP_EOL;
           $generator = NULL;
-          // echo 'FT ' . $fieldType . PHP_EOL;
+          //echo 'FT ' . $fieldType . PHP_EOL; ob_flush();
           switch ($fieldType) {
             case 'list_boolean':
             case 'list_text':
@@ -210,7 +214,7 @@ class EntityReferenceGeneratorContext implements DrupalAwareInterface {
               break;
             case 'file':
             case 'image':
-              //$fieldHandler = 'FileContext';
+              $generator = new FileGenerator($entity, $fieldType, $fieldName);
               break;
             case 'node_reference':
               $generator = new NodeReferenceGenerator($entity, $fieldType, $fieldName);
@@ -350,25 +354,24 @@ class EntityReferenceGeneratorContext implements DrupalAwareInterface {
   }
 
   /**
-   * @Given a default :type content:
+   * Generates a table node from array.
+   *
+   * @param $table
    */
-  public function aDefaultContent($type, TableNode $table)
+  public function getTableNode($table)
   {
-    if ($this->automaticallyCreateReferencedItems) {
-      $this->useDefaultContent = TRUE;
-    }
-    $this->drupalContext->createNodes($type, $table);
+    // Reformat array.
+    $table = array_merge(
+      array(
+        array_keys($table)),
+      array(
+        array_values($table)
+      ));
+
+//    print_r($table);
+//    $t=new TableNode($table);
+//    print_r($t->getHash());
+
+    return new TableNode($table);
   }
-
-  /**
-   * @Given I am viewing a default :type content:
-   */
-  public function viewDefaultContent($type, TableNode $table) {
-    if ($this->automaticallyCreateReferencedItems) {
-      $this->useDefaultContent = TRUE;
-    }
-    $this->drupalContext->assertViewingNode($type, $table);
-  }
-
-
 }
