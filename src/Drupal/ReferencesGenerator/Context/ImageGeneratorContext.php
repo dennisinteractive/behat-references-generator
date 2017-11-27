@@ -1,9 +1,9 @@
 <?php
 
-namespace Drupal\EntityReferenceGenerator\Context;
+namespace Drupal\ReferencesGenerator\Context;
 
 use Behat\Gherkin\Node\TableNode;
-use Drupal\EntityReferenceGenerator\Content\DefaultContent;
+use Drupal\ReferencesGenerator\Content\DefaultContent;
 
 trait ImageGeneratorContext {
 

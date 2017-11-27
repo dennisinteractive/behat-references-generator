@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\EntityReferenceGenerator\Driver\Fields\Drupal7;
+namespace Drupal\ReferencesGenerator\Driver\Fields\Drupal7;
 
 use Drupal\Driver\Fields\FieldHandlerInterface;
 use Drupal\DrupalExtension\Context\DrupalContext;

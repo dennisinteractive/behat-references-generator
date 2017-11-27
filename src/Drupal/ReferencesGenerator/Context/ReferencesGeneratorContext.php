@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\EntityReferenceGenerator\Context;
+namespace Drupal\ReferencesGenerator\Context;
 
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Behat\Hook\Scope\AfterScenarioScope;
@@ -10,10 +10,10 @@ use Behat\Gherkin\Node\TableNode;
 use Drupal\DrupalExtension\Hook\Scope\EntityScope;
 use Drupal\DrupalExtension\Context\DrupalAwareInterface;
 use Drupal\DrupalUserManagerInterface;
-use Drupal\EntityReferenceGenerator\Driver\Fields\Drupal7\NodeReferenceGenerator;
-use Drupal\EntityReferenceGenerator\Driver\Fields\Drupal7\EntityReferenceGenerator;
-use Drupal\EntityReferenceGenerator\Driver\Fields\Drupal7\TaxonomyTermReferenceGenerator;
-use Drupal\EntityReferenceGenerator\Driver\Fields\Drupal7\FileGenerator;
+use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\NodeReferenceGenerator;
+use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\ReferencesGenerator;
+use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\TaxonomyTermReferenceGenerator;
+use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\FileGenerator;
 
 class ReferencesGeneratorContext implements DrupalAwareInterface {
 
@@ -220,7 +220,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
               $generator = new NodeReferenceGenerator($entity, $fieldType, $fieldName);
               break;
             case 'entityreference':
-              $generator = new EntityReferenceGenerator($entity, $fieldType, $fieldName);
+              $generator = new ReferencesGenerator($entity, $fieldType, $fieldName);
               break;
             case 'taxonomy_term_reference':
               $generator = new TaxonomyTermReferenceGenerator($entity, $fieldType, $fieldName);

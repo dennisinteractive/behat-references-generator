@@ -27,7 +27,7 @@
   },
   "autoload": {
     "psr-0": {
-      "Drupal\\EntityReferenceGenerator": "src/"
+      "Drupal\\ReferencesGenerator": "src/"
     }
   },
   "extra": {

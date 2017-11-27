@@ -2,4 +2,4 @@ default:
   suites:
     default:
       contexts:
-        - Drupal\EntityReferenceGenerator\Context\ReferencesGeneratorContext
+        - Drupal\ReferencesGenerator\Context\ReferencesGeneratorContext

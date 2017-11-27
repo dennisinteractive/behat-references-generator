@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\EntityReferenceGenerator\Content;
+namespace Drupal\ReferencesGenerator\Content;
 
 /**
  * Class DefaultContent
  *
  * @todo This content will be loaded from a yml file.
  *
- * @package Drupal\EntityReferenceGenerator\Content
+ * @package Drupal\ReferencesGenerator\Content
  */
 class DefaultContent {
   public function __get($type) {
