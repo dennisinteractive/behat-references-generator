@@ -15,7 +15,7 @@ use Drupal\EntityReferenceGenerator\Driver\Fields\Drupal7\EntityReferenceGenerat
 use Drupal\EntityReferenceGenerator\Driver\Fields\Drupal7\TaxonomyTermReferenceGenerator;
 use Drupal\EntityReferenceGenerator\Driver\Fields\Drupal7\FileGenerator;
 
-class EntityReferenceGeneratorContext implements DrupalAwareInterface {
+class ReferencesGeneratorContext implements DrupalAwareInterface {
 
   use NodeGeneratorContext;
   use ImageGeneratorContext;
