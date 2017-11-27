@@ -8,7 +8,7 @@ use Drupal\Driver\Fields\Drupal7\EntityreferenceHandler;
 /**
  * Entity reference field generator for Drupal 7.
  */
-class ReferencesGenerator extends EntityreferenceHandler {
+class EntityReferenceGenerator extends EntityreferenceHandler {
 
   private $drupalContext;
 

@@ -11,7 +11,7 @@ use Drupal\DrupalExtension\Hook\Scope\EntityScope;
 use Drupal\DrupalExtension\Context\DrupalAwareInterface;
 use Drupal\DrupalUserManagerInterface;
 use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\NodeReferenceGenerator;
-use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\ReferencesGenerator;
+use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\EntityReferenceGenerator;
 use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\TaxonomyTermReferenceGenerator;
 use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\FileGenerator;
 
@@ -220,7 +220,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
               $generator = new NodeReferenceGenerator($entity, $fieldType, $fieldName);
               break;
             case 'entityreference':
-              $generator = new ReferencesGenerator($entity, $fieldType, $fieldName);
+              $generator = new EntityReferenceGenerator($entity, $fieldType, $fieldName);
               break;
             case 'taxonomy_term_reference':
               $generator = new TaxonomyTermReferenceGenerator($entity, $fieldType, $fieldName);
