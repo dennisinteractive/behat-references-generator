@@ -1,5 +1,5 @@
 {
-  "name": "dennisdigital/references_generator",
+  "name": "dennisdigital/references-generator",
   "type": "behat-extension",
   "description": "Generates non-existing referenced entities when creating content",
   "keywords": ["behat", "content", "entities"],
