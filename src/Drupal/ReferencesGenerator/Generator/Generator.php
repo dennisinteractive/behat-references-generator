@@ -2,34 +2,28 @@
 
 namespace Drupal\ReferencesGenerator\Generator;
 
-// @todo Support for D8.
-use Drupal\ReferencesGenerator\Generator\Drupal7\NodeReferenceGenerator;
-use Drupal\ReferencesGenerator\Generator\Drupal7\EntityReferenceGenerator;
-use Drupal\ReferencesGenerator\Generator\Drupal7\TaxonomyTermReferenceGenerator;
-use Drupal\ReferencesGenerator\Generator\Drupal7\FileGenerator;
-
 class Generator {
-  public static function getGenerator($entity, $fieldType, $fieldName) {
-    $generator = NULL;
-    switch ($fieldType) {
-      case 'file':
-      case 'image':
-        $generator = new FileGenerator($entity, $fieldType, $fieldName);
-        break;
-      case 'node_reference':
-        $generator = new NodeReferenceGenerator($entity, $fieldType, $fieldName);
-        break;
-      case 'entityreference':
-        $generator = new EntityReferenceGenerator($entity, $fieldType, $fieldName);
-        break;
-      case 'taxonomy_term_reference':
-        $generator = new TaxonomyTermReferenceGenerator($entity, $fieldType, $fieldName);
-        break;
-      case 'car_reference':
-        //$fieldHandler = 'CarReferenceContext';
-        break;
-    }
 
-    return $generator;
+  public static function getGenerator($entity, $fieldType, $fieldName) {
+    $core = 'Drupal7'; //@todo detect core.
+    $mapping = array(
+      'file' => 'File',
+      'image' => 'File',
+      'node_reference' => 'NodeReference',
+      'entityreference' => 'EntityReference',
+      'taxonomy_term_reference' => 'TaxonomyTermReference',
+      'car_reference' => 'CarReference',
+    );
+
+    if (isset($mapping[$fieldType])) {
+      $type = $mapping[$fieldType];
+      $class_name = sprintf('\Drupal\ReferencesGenerator\Generator\%s\%sGenerator', $core, $type);
+      if (class_exists($class_name)) {
+        return new $class_name($entity, $fieldType, $fieldName);
+      }
+      else {
+        throw new \Exception("Cannot find $class_name class");
+      }
+    }
   }
 }
