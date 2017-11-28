@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ReferencesGenerator\Driver\Fields\Drupal7;
+namespace Drupal\ReferencesGenerator\Generator\Drupal7;
 
 use Drupal\DrupalExtension\Context\DrupalContext;
 use Drupal\Driver\Fields\Drupal7\FileHandler;

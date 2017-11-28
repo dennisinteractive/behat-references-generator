@@ -10,10 +10,10 @@ use Behat\Gherkin\Node\TableNode;
 use Drupal\DrupalExtension\Hook\Scope\EntityScope;
 use Drupal\DrupalExtension\Context\DrupalAwareInterface;
 use Drupal\DrupalUserManagerInterface;
-use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\NodeReferenceGenerator;
-use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\EntityReferenceGenerator;
-use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\TaxonomyTermReferenceGenerator;
-use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\FileGenerator;
+use Drupal\ReferencesGenerator\Generator\Drupal7\NodeReferenceGenerator;
+use Drupal\ReferencesGenerator\Generator\Drupal7\EntityReferenceGenerator;
+use Drupal\ReferencesGenerator\Generator\Drupal7\TaxonomyTermReferenceGenerator;
+use Drupal\ReferencesGenerator\Generator\Drupal7\FileGenerator;
 use Drupal\ReferencesGenerator\Content\DefaultContent;
 
 class ReferencesGeneratorContext implements DrupalAwareInterface {
@@ -24,12 +24,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
    * @var Context
    */
   protected $drupalContext;
-  /**
-   * Raw Drupal context.
-   *
-   * @var Context
-   */
-  //protected $rawDrupalContext;
+
   /**
    * When set to TRUE, referenced content will be automatically created if needed.
    */
