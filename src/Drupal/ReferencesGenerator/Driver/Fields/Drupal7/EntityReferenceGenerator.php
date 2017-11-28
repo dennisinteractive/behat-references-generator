@@ -38,6 +38,7 @@ class EntityReferenceGenerator extends EntityreferenceHandler {
       'title' => $value,
       'type' => reset($type),
     );
+
     return $this->drupalContext->nodeCreate($node);
   }
 }
