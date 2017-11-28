@@ -28,7 +28,8 @@
   "autoload": {
     "psr-0": {
       "Drupal\\ReferencesGenerator": "src/"
-    }
+    },
+    "files": "src/Drupal/Driver/Fields/Drupal7/NodereferenceHandler.php"
   },
   "extra": {
     "branch-alias": {
