@@ -4,11 +4,12 @@ namespace Drupal\ReferencesGenerator\Driver\Fields\Drupal7;
 
 use Drupal\DrupalExtension\Context\DrupalContext;
 use Drupal\Driver\Fields\Drupal7\FileHandler;
+use Drupal\Driver\Fields\Drupal7\AbstractHandler;
 
 /**
  * File field generator for Drupal 7.
  */
-class FileGenerator extends FileHandler {
+class FileGenerator extends AbstractHandler {
   private $drupalContext;
 
   public function __construct(\stdClass $entity, $entity_type, $field_name) {
@@ -17,6 +18,13 @@ class FileGenerator extends FileHandler {
 
   public function setDrupalContext(DrupalContext $drupalContext) {
     $this->drupalContext = $drupalContext;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function expand($values) {
+
   }
 
   public function referenceExists($value) {
@@ -53,7 +61,7 @@ class FileGenerator extends FileHandler {
    *
    * @return mixed
    */
-  public function createReferencedItem($field, $value) {
+  public function create($field, $value) {
     print "Need to implement File generator";
     ob_flush();
   }

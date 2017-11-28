@@ -4,11 +4,12 @@ namespace Drupal\ReferencesGenerator\Driver\Fields\Drupal7;
 use Drupal\Driver\Fields\FieldHandlerInterface;
 use Drupal\DrupalExtension\Context\DrupalContext;
 use Drupal\Driver\Fields\Drupal7\TaxonomyTermReferenceHandler;
+use Drupal\Driver\Fields\Drupal7\AbstractHandler;
 
 /**
  * Taxonomy term reference field generator for Drupal 7.
  */
-class TaxonomyTermReferenceGenerator extends TaxonomyTermReferenceHandler {
+class TaxonomyTermReferenceGenerator extends AbstractHandler {
 
   private $drupalContext;
 
@@ -18,6 +19,26 @@ class TaxonomyTermReferenceGenerator extends TaxonomyTermReferenceHandler {
 
   public function setDrupalContext(DrupalContext $drupalContext) {
     $this->drupalContext = $drupalContext;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function expand($values) {
+
+  }
+
+  /**
+   * Attempt to determine the vocabulary for which the field is configured.
+   *
+   * @return mixed
+   *   Returns a string containing the vocabulary in which the term must be
+   *   found or NULL if unable to determine.
+   */
+  protected function getVocab() {
+    if (!empty($this->fieldInfo['settings']['allowed_values'][0]['vocabulary'])) {
+      return $this->fieldInfo['settings']['allowed_values'][0]['vocabulary'];
+    }
   }
 
   /**
@@ -41,7 +62,7 @@ class TaxonomyTermReferenceGenerator extends TaxonomyTermReferenceHandler {
    *
    * @return mixed
    */
-  public function createReferencedItem($field, $value) {
+  public function create($field, $value) {
     $fieldName = $field['field_name'];
     if ($field['type'] !== 'taxonomy_term_reference') {
       throw new \Exception(sprintf("Invalid content type %s for field %s", $field['type'], $fieldName));
