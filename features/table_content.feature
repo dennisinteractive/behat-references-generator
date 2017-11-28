@@ -33,13 +33,15 @@ Feature: Table
     Given "article" content:
       | title |
       | Art1  |
+      | Art2  |
 
     Given I am viewing a "test" content:
       | title                  | Testing content |
       | body                   | TEST BODY       |
-      | field_related_articles | Art1            |
+      | field_related_articles | Art1, Art2      |
 
     Given I am on "/"
     And I should see "Testing content"
     And I should see "TEST BODY"
     Then I should see the link "Art1"
+    Then I should see the link "Art2"

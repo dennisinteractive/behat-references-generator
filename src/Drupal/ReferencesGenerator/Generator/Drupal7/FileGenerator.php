@@ -3,13 +3,13 @@
 namespace Drupal\ReferencesGenerator\Generator\Drupal7;
 
 use Drupal\DrupalExtension\Context\DrupalContext;
-use Drupal\Driver\Fields\Drupal7\FileHandler;
 use Drupal\Driver\Fields\Drupal7\AbstractHandler;
+use Drupal\ReferencesGenerator\Generator\GeneratorInterface;
 
 /**
  * File field generator for Drupal 7.
  */
-class FileGenerator extends AbstractHandler {
+class FileGenerator extends AbstractHandler implements GeneratorInterface {
   private $drupalContext;
 
   public function __construct(\stdClass $entity, $entity_type, $field_name) {

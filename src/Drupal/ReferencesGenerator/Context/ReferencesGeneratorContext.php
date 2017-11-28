@@ -10,10 +10,7 @@ use Behat\Gherkin\Node\TableNode;
 use Drupal\DrupalExtension\Hook\Scope\EntityScope;
 use Drupal\DrupalExtension\Context\DrupalAwareInterface;
 use Drupal\DrupalUserManagerInterface;
-use Drupal\ReferencesGenerator\Generator\Drupal7\NodeReferenceGenerator;
-use Drupal\ReferencesGenerator\Generator\Drupal7\EntityReferenceGenerator;
-use Drupal\ReferencesGenerator\Generator\Drupal7\TaxonomyTermReferenceGenerator;
-use Drupal\ReferencesGenerator\Generator\Drupal7\FileGenerator;
+use Drupal\ReferencesGenerator\Generator\Generator;
 use Drupal\ReferencesGenerator\Content\DefaultContent;
 
 class ReferencesGeneratorContext implements DrupalAwareInterface {
@@ -92,7 +89,6 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
 
     // Get all the contexts we need.
     $this->drupalContext = $environment->getContext('Drupal\DrupalExtension\Context\DrupalContext');
-    $this->rawDrupalContext = $environment->getContext('Drupal\DrupalExtension\Context\RawDrupalContext');
 
     // Ensure drupal is bootstrapped by getting the driver.
     $this->drupalContext->getDriver('drupal');
@@ -151,7 +147,6 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
       }
 
       $tmpEntity = clone $entity;
-      //$this->rawDrupalContext->parseEntityFields($entity->entityType, $tmpEntity);
       $this->drupalContext->parseEntityFields($entity->entityType, $tmpEntity);
 
       // Create referenced entities.
@@ -215,27 +210,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
    * @param $field
    */
   private function getGenerator($entity, $fieldType, $fieldName) {
-    $generator = NULL;
-    switch ($fieldType) {
-      case 'file':
-      case 'image':
-        $generator = new FileGenerator($entity, $fieldType, $fieldName);
-        break;
-      case 'node_reference':
-        $generator = new NodeReferenceGenerator($entity, $fieldType, $fieldName);
-        break;
-      case 'entityreference':
-        $generator = new EntityReferenceGenerator($entity, $fieldType, $fieldName);
-        break;
-      case 'taxonomy_term_reference':
-        $generator = new TaxonomyTermReferenceGenerator($entity, $fieldType, $fieldName);
-        break;
-      case 'car_reference':
-        //$fieldHandler = 'CarReferenceContext';
-        break;
-    }
-
-    return $generator;
+    return Generator::getGenerator($entity, $fieldType, $fieldName);
   }
 
   /**

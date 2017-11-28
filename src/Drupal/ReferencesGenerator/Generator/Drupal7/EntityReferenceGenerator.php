@@ -2,14 +2,14 @@
 
 namespace Drupal\ReferencesGenerator\Generator\Drupal7;
 
-use Drupal\Driver\Fields\FieldHandlerInterface;
 use Drupal\DrupalExtension\Context\DrupalContext;
 use Drupal\Driver\Fields\Drupal7\AbstractHandler;
+use Drupal\ReferencesGenerator\Generator\GeneratorInterface;
 
 /**
  * Entity reference field generator for Drupal 7.
  */
-class EntityReferenceGenerator extends AbstractHandler {
+class EntityReferenceGenerator extends AbstractHandler implements GeneratorInterface {
   private $drupalContext;
 
   public function __construct(\stdClass $entity, $entity_type, $field_name) {
