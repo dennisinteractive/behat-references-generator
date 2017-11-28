@@ -11,8 +11,8 @@ trait ImageGeneratorContext {
    * @Given I have an image
    */
   public function defaultImage() {
-    $default = new DefaultContent();
-    $defaultImage = $this->defaultContent = $default->image;
+    $default = new DefaultContent('image');
+    $defaultImage = $default->mapping();
     $nodesTable = $this->getTableNode($defaultImage);
 
     return $this->iCreateAFile($nodesTable);
@@ -23,8 +23,8 @@ trait ImageGeneratorContext {
    * @Given I create a file
    */
   public function iCreateAFile(TableNode $nodesTable) {
-    $default = new DefaultContent();
-    $defaultImage = $this->defaultContent = $default->image;
+    $default = new DefaultContent('image');
+    $defaultImage = $default->mapping();
     $defaultImage['text'] = 'BDD TEST';
 
     // Create images from the first row of table data.

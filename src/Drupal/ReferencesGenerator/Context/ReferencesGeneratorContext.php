@@ -14,6 +14,7 @@ use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\NodeReferenceGenerator;
 use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\EntityReferenceGenerator;
 use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\TaxonomyTermReferenceGenerator;
 use Drupal\ReferencesGenerator\Driver\Fields\Drupal7\FileGenerator;
+use Drupal\ReferencesGenerator\Content\DefaultContent;
 
 class ReferencesGeneratorContext implements DrupalAwareInterface {
 
@@ -168,7 +169,14 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
       //$bundleName = $entity->type;
       //$defaults = $this->getDefaultNode($entity->entityType, $bundleName);
       // echo 'Default content for ' . $entity->entityType . PHP_EOL; ob_flush();
-      $defaults = $this->getDefaultEntityValues($entity);
+      $default = new DefaultContent($entity->entityType);
+      $bundleName = '';
+      if (isset($entity->type)) {
+        $bundleName = $entity->type;
+      }
+      $defaults = $default->mapping($bundleName);
+
+//      $defaults = $this->getDefaultEntityValues($entity);
       // print_r($defaults);ob_flush();
       //if (!is_array($defaults)) return;//@todo remove
       foreach ($defaults as $fieldName => $value) {
@@ -277,80 +285,6 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
       // print_r($entity);
       //ob_flush();
     }
-  }
-
-  /**
-   * Returns default content.
-   *
-   * @param $entity
-   *
-   * @return array
-   */
-  private function getDefaultEntityValues($entity) {
-    switch ($entity->entityType) {
-      case 'node':
-        return $this->getDefaultNode($entity->type);
-        break;
-      case 'term':
-        return $this->getDefaultTerm();
-//        $defaultTerm = new DefaultTaxononyTerm();
-//        $vocabName = taxonomy_vocabulary_load($entity->vid);
-//        return $defaultTerm->getDefaultContent($vocabName);
-        break;
-    }
-  }
-
-  /**
-   * Provides the default field values for nodes.
-   *
-   * @todo use yml files
-   */
-  private function getDefaultNode($bundleName) {
-    switch ($bundleName) {
-      case 'author':
-        return array(
-          'title' => 'BDD Default author',
-          'body' => 'BDD Author Body',
-          'field_author_first_name' => 'BDD author name',
-          'field_author_last_name' => 'BDD author surname',
-          'status' => 1,
-        );
-        break;
-      case 'article':
-      case 'review':
-      case 'gallery_adv':
-      default:
-        $content = array(
-          'title' => sprintf('BDD Default %s content test', $bundleName),
-          'body' => 'BDD Body',
-          'field_sponsored' => '0',
-          'field_short_teaser' => 'BDD Short teaser',
-          'field_article_type' => 'BDD Article type',
-          'field_main_purpose' => 'BDD content purpose',
-          'field_category_primary' => 'BDD Category',
-          'field_author' => 'BDD Author1, BDD Author2',
-          'field_gallery_files' => 'gal_image_1.jpg, gal_image_2.jpg',
-          'field_tags' => 'BDD Tag1, BDD Tag2, BDD Tag3',
-          'field_primary_image' => 'bddtest.jpg',
-          'alias' => sprintf('bdd-default-%s-content-test', $bundleName),
-          'status' => 1,
-        );
-        $content['field_short_title'] = $content['title'];
-        return $content;
-    }
-  }
-
-  /**
-   * Provides the default field values for terms.
-   *
-   * @todo use yml files
-   */
-  private function getDefaultTerm() {
-    return array(
-      'name' => 'BDD Term',
-      'alias' => 'bdd-term',
-      //'path' => array('alias' => 'bdd-term', 'pathauto' => 0),
-    );
   }
 
   /**
