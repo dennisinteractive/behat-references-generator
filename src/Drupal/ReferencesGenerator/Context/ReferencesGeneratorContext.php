@@ -113,6 +113,18 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   }
 
   /**
+   * Force memcache flush.
+   * This is a trick to fix a bug with memcache extension.
+   *
+   * @afterNodeCreate
+   */
+  public function memcacheFlush(EntityScope $scope) {
+    foreach (['cache_path_alias', 'cache_path_source'] as $bin) {
+      cache_get('' , $bin );
+    }
+  }
+
+  /**
    * Assign the entity type to the scope.
    *
    * @beforeTermCreate
