@@ -3,6 +3,8 @@
 namespace Drupal\ReferencesGenerator\Generator\Drupal7;
 
 use Drupal\ReferencesGenerator\Generator\EntityGenerator;
+//use Drupal\ReferencesGenerator\Generator\FileGenerator;
+use Drupal\ReferencesGenerator\Content\DefaultContent;
 
 /**
  * File field generator for Drupal 7.
@@ -47,8 +49,14 @@ class FileGenerator extends EntityGenerator {
    * @return mixed
    */
   public function create($field, $value) {
-    print "Need to implement File generator";
-    ob_flush();
+    switch ($field['type']) {
+      case 'image':
+        $default = new DefaultContent('image');
+        $defaultImage = $default->mapping();
+        $defaultImage['filename'] = $value;
+        FileGenerator::createImage($defaultImage);
+        break;
+    }
   }
 
 }

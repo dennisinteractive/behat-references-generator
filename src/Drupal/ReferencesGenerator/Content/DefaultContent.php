@@ -98,7 +98,7 @@ class DefaultContent {
               'field_main_purpose' => 'BDD content purpose',
               'field_category_primary' => 'BDD Category',
               'field_author' => 'BDD Author1, BDD Author2',
-              'field_gallery_files' => 'gal_image_1.jpg, gal_image_2.jpg',
+              //'field_gallery_files' => 'gal_image_1.jpg, gal_image_2.jpg',
               'field_tags' => 'BDD Tag1, BDD Tag2, BDD Tag3',
               'field_primary_image' => 'bddtest.jpg',
               'alias' => sprintf('bdd-default-%s-content-test', $bundleName),

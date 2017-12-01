@@ -49,6 +49,7 @@ class EntityGenerator extends AbstractHandler implements GeneratorInterface {
    */
   public static function getGenerator($entity, $fieldType, $fieldName) {
     $core = 'Drupal7'; //@todo detect Drupal core version.
+
     $mapping = array(
       'file' => 'File',
       'image' => 'File',

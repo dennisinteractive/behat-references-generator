@@ -33,6 +33,7 @@ Feature: Table
       | body                   | TEST BODY       |
       | field_other_articles   | Art1, Art2      |
       | field_related_articles | Art3, Art4      |
+      | field_primary_image    | image3.jpg      |
 
     And I should see "Testing content"
     And I should see "TEST BODY"
