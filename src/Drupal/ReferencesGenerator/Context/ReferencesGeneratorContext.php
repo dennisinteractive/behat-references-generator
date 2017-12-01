@@ -22,6 +22,11 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   protected $drupalContext;
 
   /**
+   * Stores files created to be deleted after testing.
+   */
+  private $files;
+
+  /**
    * When set to TRUE, referenced content will be automatically created if needed.
    */
   protected $automaticallyCreateReferencedItems = TRUE;
@@ -52,11 +57,6 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   private $drupal;
 
   /**
-   * Stores files created to be deleted after testing.
-   */
-  private $files;
-
-  /**
    * @inheritDoc
    */
   public function setDrupalParameters(array $parameters) {
@@ -74,13 +74,9 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   public function getUserManager() {
   }
 
-  /**
-   * @BeforeScenario
-   *
-   * @param BeforeScenarioScope $scope
-   */
-  public function beforeScenario(BeforeScenarioScope $scope) {
-  }
+  //-----------------------------------------------------//
+  //                   Event hooks                       //
+  //-----------------------------------------------------//
 
   /**
    * @BeforeScenario
@@ -99,11 +95,18 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   }
 
   /**
-   * @AfterScenario
+   * Deletes images created.
    *
-   * @param AfterScenarioScope $scope
+   * @AfterScenario
    */
-  public function afterScenario(AfterScenarioScope $scope) {
+  public function deleteImages(AfterScenarioScope $scope) {
+    if (empty($this->files)) {
+      return;
+    }
+
+    foreach ($this->files as $file) {
+      file_delete($file, TRUE);
+    }
   }
 
   /**
@@ -114,19 +117,6 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   public function assignEntityTypeNode(EntityScope $scope) {
     $entity = $scope->getEntity();
     $entity->entityType = 'node';
-  }
-
-  /**
-   * Force memcache flush.
-   * This is a trick to fix a bug with memcache extension.
-   *
-   * @afterNodeCreate
-   * @afterTermCreate
-   */
-  public function memcacheFlush(EntityScope $scope) {
-    foreach (['cache_path_alias', 'cache_path_source'] as $bin) {
-      cache_get('', $bin);
-    }
   }
 
   /**
@@ -220,9 +210,22 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
     }
   }
 
-  /**************************/
-  /*    Step definitions    */
-  /**************************/
+  /**
+   * Force memcache flush.
+   * This is a trick to fix a bug with memcache extension.
+   *
+   * @afterNodeCreate
+   * @afterTermCreate
+   */
+  public function memcacheFlush(EntityScope $scope) {
+    foreach (['cache_path_alias', 'cache_path_source'] as $bin) {
+      cache_get('', $bin);
+    }
+  }
+
+  //-----------------------------------------------------//
+  //                  Step definitions                   //
+  //-----------------------------------------------------//
 
   /**
    * @Given a default :type content:
@@ -281,21 +284,6 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
     if ($this->drupalContext->getSession()->getStatusCode() !== 200) {
       throw new \Exception(sprintf('Could not find image on %s', $path));
     };
-  }
-
-  /**
-   * Deletes images created.
-   *
-   * @AfterScenario
-   */
-  public function deleteImages() {
-    if (empty($this->files)) {
-      return;
-    }
-
-    foreach ($this->files as $file) {
-      file_delete($file, TRUE);
-    }
   }
 
 }

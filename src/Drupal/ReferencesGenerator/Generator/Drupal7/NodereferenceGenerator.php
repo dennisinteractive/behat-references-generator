@@ -2,9 +2,6 @@
 
 namespace Drupal\ReferencesGenerator\Generator\Drupal7;
 
-//use Drupal\DrupalExtension\Context\DrupalContext;
-//use Drupal\Driver\Fields\Drupal7\AbstractHandler;
-//use Drupal\ReferencesGenerator\Generator\GeneratorInterface;
 use Drupal\ReferencesGenerator\Generator\EntityGenerator;
 
 /**

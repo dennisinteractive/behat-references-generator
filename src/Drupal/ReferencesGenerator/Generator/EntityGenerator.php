@@ -4,7 +4,6 @@ namespace Drupal\ReferencesGenerator\Generator;
 
 use Drupal\DrupalExtension\Context\DrupalContext;
 use Drupal\Driver\Fields\Drupal7\AbstractHandler;
-use Drupal\ReferencesGenerator\Generator\GeneratorInterface;
 
 class EntityGenerator extends AbstractHandler implements GeneratorInterface {
 
@@ -49,7 +48,7 @@ class EntityGenerator extends AbstractHandler implements GeneratorInterface {
    * @throws \Exception
    */
   public static function getGenerator($entity, $fieldType, $fieldName) {
-    $core = 'Drupal7'; //@todo detect core.
+    $core = 'Drupal7'; //@todo detect Drupal core version.
     $mapping = array(
       'file' => 'File',
       'image' => 'File',

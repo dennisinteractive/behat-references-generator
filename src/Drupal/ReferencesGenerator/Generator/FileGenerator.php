@@ -33,21 +33,22 @@ class FileGenerator  {
     $file = file_copy($dfile, $public_uri);
     $fid = $file->fid;
 
-    $mediafiles = entity_load('file', array($fid));
+    $entity = entity_load('file', array($fid));
 
     // Change fields.
-    $mediafiles[$fid]->filename = $image['filename'];
-    $mediafiles[$fid]->field_file_credits[LANGUAGE_NONE][0]['value'] = $image['credits'];
-    $mediafiles[$fid]->field_file_credits[LANGUAGE_NONE][0]['safe_value'] = $image['credits'];
-    $mediafiles[$fid]->field_file_description[LANGUAGE_NONE][0]['format'] = 'plain_text';
-    $mediafiles[$fid]->field_file_description[LANGUAGE_NONE][0]['value'] = $image['description'];
-    $mediafiles[$fid]->field_file_description[LANGUAGE_NONE][0]['safe_value'] = $image['description'];
-    $mediafiles[$fid]->field_file_alt_text[LANGUAGE_NONE][0]['value'] = $image['alt_text'];
-    $mediafiles[$fid]->field_file_alt_text[LANGUAGE_NONE][0]['safe_value'] = $image['alt_text'];
+    $entity[$fid]->filename = $image['filename'];
+    $entity[$fid]->field_file_credits[LANGUAGE_NONE][0]['value'] = $image['credits'];
+    $entity[$fid]->field_file_credits[LANGUAGE_NONE][0]['safe_value'] = $image['credits'];
+    $entity[$fid]->field_file_description[LANGUAGE_NONE][0]['format'] = 'plain_text';
+    $entity[$fid]->field_file_description[LANGUAGE_NONE][0]['value'] = $image['description'];
+    $entity[$fid]->field_file_description[LANGUAGE_NONE][0]['safe_value'] = $image['description'];
+    $entity[$fid]->field_file_alt_text[LANGUAGE_NONE][0]['value'] = $image['alt_text'];
+    $entity[$fid]->field_file_alt_text[LANGUAGE_NONE][0]['safe_value'] = $image['alt_text'];
 
     // Save the attributes.
-    entity_save('file', $mediafiles[$fid]);
+    $info = entity_get_info('file');
+    $info['save callback']($entity[$fid]);
 
-    return $mediafiles[$fid];
+    return $entity[$fid];
   }
 }
