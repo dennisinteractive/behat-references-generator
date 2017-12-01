@@ -2,31 +2,19 @@
 
 namespace Drupal\ReferencesGenerator\Generator\Drupal7;
 
-use Drupal\DrupalExtension\Context\DrupalContext;
-use Drupal\Driver\Fields\Drupal7\AbstractHandler;
-use Drupal\ReferencesGenerator\Generator\GeneratorInterface;
+//use Drupal\DrupalExtension\Context\DrupalContext;
+//use Drupal\Driver\Fields\Drupal7\AbstractHandler;
+//use Drupal\ReferencesGenerator\Generator\GeneratorInterface;
+use Drupal\ReferencesGenerator\Generator\EntityGenerator;
 
 /**
  * Entity reference field generator for Drupal 7.
  */
-class EntityReferenceGenerator extends AbstractHandler implements GeneratorInterface {
-  private $drupalContext;
-
-  public function __construct(\stdClass $entity, $entity_type, $field_name) {
-    parent::__construct($entity, $entity_type, $field_name);
-  }
-
-  public function setDrupalContext(DrupalContext $drupalContext) {
-    $this->drupalContext = $drupalContext;
-  }
+class EntityReferenceGenerator extends EntityGenerator {
 
   /**
    * {@inheritdoc}
    */
-  public function expand($values) {
-
-  }
-
   public function referenceExists($value) {
     $entity_type = $this->fieldInfo['settings']['target_type'];
     $entity_info = entity_get_info($entity_type);

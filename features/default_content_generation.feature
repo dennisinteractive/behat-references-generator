@@ -8,6 +8,13 @@ Feature: Table
     Given I have an image
     Then the file "bddtest.jpg" should be available
 
+    Given I have an image:
+      | filename   | text          |
+      | image1.jpg | New image     |
+      | image2.jpg | Another image |
+    Then the file "image1.jpg" should be available
+    Then the file "image2.jpg" should be available
+
   @horizontal_table @reference_generator
   Scenario: Create content using table and non-existing references
     Given a default "test" content:

@@ -10,15 +10,14 @@ use Behat\Gherkin\Node\TableNode;
 use Drupal\DrupalExtension\Hook\Scope\EntityScope;
 use Drupal\DrupalExtension\Context\DrupalAwareInterface;
 use Drupal\DrupalUserManagerInterface;
-use Drupal\ReferencesGenerator\Generator\Generator;
 use Drupal\ReferencesGenerator\Content\DefaultContent;
+use Drupal\ReferencesGenerator\Generator\EntityGenerator;
+use Drupal\ReferencesGenerator\Generator\FileGenerator;
 
 class ReferencesGeneratorContext implements DrupalAwareInterface {
 
   /**
    * Drupal context.
-   *
-   * @var Context
    */
   protected $drupalContext;
 
@@ -51,6 +50,11 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
    * @var DrupalDriverManager
    */
   private $drupal;
+
+  /**
+   * Stores files created to be deleted after testing.
+   */
+  private $files;
 
   /**
    * @inheritDoc
@@ -87,7 +91,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
     // Get the environment.
     $environment = $scope->getEnvironment();
 
-    // Get all the contexts we need.
+    // @todo find a way to get rid of this.
     $this->drupalContext = $environment->getContext('Drupal\DrupalExtension\Context\DrupalContext');
 
     // Ensure drupal is bootstrapped by getting the driver.
@@ -117,10 +121,11 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
    * This is a trick to fix a bug with memcache extension.
    *
    * @afterNodeCreate
+   * @afterTermCreate
    */
   public function memcacheFlush(EntityScope $scope) {
     foreach (['cache_path_alias', 'cache_path_source'] as $bin) {
-      cache_get('' , $bin );
+      cache_get('', $bin);
     }
   }
 
@@ -176,8 +181,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
         }
 
         foreach ($fieldValues as $key => $fieldValue) {
-          //if ($generator = $this->getGenerator($entity, $fieldType, $fieldName)) {
-          if ($generator = $this->getGenerator($entity, $fieldType, $fieldName)) {
+          if ($generator = EntityGenerator::getGenerator($entity, $fieldType, $fieldName)) {
             $generator->setDrupalContext($this->drupalContext);
             if (!$generator->referenceExists($fieldValue)) {
               // @todo create() should use $scope->getContext()->createNode() instead of this->drupalcontext
@@ -216,38 +220,14 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
     }
   }
 
-  /**
-   * Gets the generator class for the reference type.
-   *
-   * @param $field
-   */
-  private function getGenerator($entity, $fieldType, $fieldName) {
-    return Generator::getGenerator($entity, $fieldType, $fieldName);
-  }
-
-  /**
-   * Generates a table node from array.
-   *
-   * @param $table
-   */
-  public function getTableNode($table) {
-    // Reformat array.
-    $table = array_merge(
-      array(
-        array_keys($table)
-      ),
-      array(
-        array_values($table)
-      ));
-
-    return new TableNode($table);
-  }
+  /**************************/
+  /*    Step definitions    */
+  /**************************/
 
   /**
    * @Given a default :type content:
    */
-  public function aDefaultContent($type, TableNode $table)
-  {
+  public function aDefaultContent($type, TableNode $table) {
     if ($this->automaticallyCreateReferencedItems) {
       $this->useDefaultContent = TRUE;
     }
@@ -270,95 +250,26 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   public function defaultImage() {
     $default = new DefaultContent('image');
     $defaultImage = $default->mapping();
-    $nodesTable = $this->getTableNode($defaultImage);
-
-    return $this->iCreateAFile($nodesTable);
-
+    $image = FileGenerator::createImage($defaultImage);
+    $this->files[] = $image;
   }
 
   /**
-   * @Given I create a file
+   * Creates an image, allowing fields to be overriden using a table.
+   *
+   * @Given I have an image:
    */
-  public function iCreateAFile(TableNode $nodesTable) {
+  public function customImage(TableNode $overridesTable) {
     $default = new DefaultContent('image');
     $defaultImage = $default->mapping();
-    $defaultImage['text'] = 'BDD TEST';
 
-    // Create images from the first row of table data.
-    $table_items = $nodesTable->getHash()[0];
-
-    // Change all the keys to lowercase.
-    $table_items = (array_change_key_case($table_items, CASE_LOWER));
-
-    // Allow text to be overriden.
-    if (isset($table_items['text'])) {
-      $defaultImage['text'] = $table_items['text'];
+    foreach ($overridesTable as $overrides) {
+      foreach ($overrides as $item => $value) {
+        $defaultImage[$item] = $value;
+      }
+      $image = FileGenerator::createImage($defaultImage);
+      $this->files[] = $image;
     }
-
-    // Allow Credits to be overriden.
-    if (isset($table_items['credits'])) {
-      $defaultImage['credits'] = $table_items['credits'];
-    }
-
-    // Allow Description to be overriden.
-    if (isset($table_items['description'])) {
-      $defaultImage['description'] = $table_items['description'];
-    }
-
-    // Allow Alt text to be overriden.
-    if (isset($table_items['file_alt_text'])) {
-      $defaultImage['alt_text'] = $table_items['file_alt_text'];
-    }
-
-    // Allow filename to be overriden.
-    if (isset($table_items['filename'])) {
-      $defaultImage['filename'] = $table_items['filename'];
-    }
-    $local_filename = '/tmp/' . $defaultImage['filename'];
-
-    // Create a blank image and add some text
-    $im = imagecreatetruecolor(200, 200);
-    $text_color = imagecolorallocate($im, 0, 0, 255);
-    imagestring($im, 5, 60, 90, $defaultImage['text'], $text_color);
-
-    $color = imagecolorallocate($im, rand(0, 255), rand(0, 255), rand(0, 255));
-    imagefill($im, 0, 0, $color);
-
-    // Save the image as 'simpletext.jpg'
-    imagejpeg($im, $local_filename);
-
-    // Free up memory
-    imagedestroy($im);
-
-    // Create a file object.
-    $dfile = (object) array(
-      'uri' => $local_filename,
-      'filemime' => file_get_mimetype($local_filename),
-      'status' => 1,
-    );
-
-    // Copy the file.
-    $public_uri = 'public://' . $defaultImage['filename'];
-    $file = file_copy($dfile, $public_uri);
-    $fid = $file->fid;
-    $this->cleanFids[] = $fid;
-
-    $mediafiles = entity_load('file', array($fid));
-
-    // Change fields.
-    $mediafiles[$fid]->filename = $defaultImage['filename'];
-    $mediafiles[$fid]->field_file_credits[LANGUAGE_NONE][0]['value'] = $defaultImage['credits'];
-    $mediafiles[$fid]->field_file_credits[LANGUAGE_NONE][0]['safe_value'] = $defaultImage['credits'];
-    $mediafiles[$fid]->field_file_description[LANGUAGE_NONE][0]['format'] = 'plain_text';
-    $mediafiles[$fid]->field_file_description[LANGUAGE_NONE][0]['value'] = $defaultImage['description'];
-    $mediafiles[$fid]->field_file_description[LANGUAGE_NONE][0]['safe_value'] = $defaultImage['description'];
-    $mediafiles[$fid]->field_file_alt_text[LANGUAGE_NONE][0]['value'] = $defaultImage['alt_text'];
-    $mediafiles[$fid]->field_file_alt_text[LANGUAGE_NONE][0]['safe_value'] = $defaultImage['alt_text'];
-
-    // Save the attributes.
-    entity_save('file', $mediafiles[$fid]);
-
-    return ($mediafiles[$fid]);
   }
 
   /**
@@ -370,6 +281,21 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
     if ($this->drupalContext->getSession()->getStatusCode() !== 200) {
       throw new \Exception(sprintf('Could not find image on %s', $path));
     };
+  }
+
+  /**
+   * Deletes images created.
+   *
+   * @AfterScenario
+   */
+  public function deleteImages() {
+    if (empty($this->files)) {
+      return;
+    }
+
+    foreach ($this->files as $file) {
+      file_delete($file, TRUE);
+    }
   }
 
 }

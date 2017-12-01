@@ -2,31 +2,19 @@
 
 namespace Drupal\ReferencesGenerator\Generator\Drupal7;
 
-use Drupal\DrupalExtension\Context\DrupalContext;
-use Drupal\Driver\Fields\Drupal7\AbstractHandler;
-use Drupal\ReferencesGenerator\Generator\GeneratorInterface;
+//use Drupal\DrupalExtension\Context\DrupalContext;
+//use Drupal\Driver\Fields\Drupal7\AbstractHandler;
+//use Drupal\ReferencesGenerator\Generator\GeneratorInterface;
+use Drupal\ReferencesGenerator\Generator\EntityGenerator;
 
 /**
  * File field generator for Drupal 7.
  */
-class FileGenerator extends AbstractHandler implements GeneratorInterface {
-  private $drupalContext;
-
-  public function __construct(\stdClass $entity, $entity_type, $field_name) {
-    parent::__construct($entity, $entity_type, $field_name);
-  }
-
-  public function setDrupalContext(DrupalContext $drupalContext) {
-    $this->drupalContext = $drupalContext;
-  }
+class FileGenerator extends EntityGenerator {
 
   /**
    * {@inheritdoc}
    */
-  public function expand($values) {
-
-  }
-
   public function referenceExists($value) {
     $return = array();
 
@@ -66,14 +54,4 @@ class FileGenerator extends AbstractHandler implements GeneratorInterface {
     ob_flush();
   }
 
-  /**
-   * @Given I have an image
-   */
-  public function defaultImage() {
-    $defaults = $this->getDefaultImageArray();
-    $nodesTable = $this->getTableNode($defaults);
-
-    return $this->iCreateAFile($nodesTable);
-
-  }
 }
