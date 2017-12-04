@@ -3,8 +3,8 @@
 namespace Drupal\ReferencesGenerator\Generator\Drupal7;
 
 use Drupal\ReferencesGenerator\Generator\EntityGenerator;
-//use Drupal\ReferencesGenerator\Generator\FileGenerator;
 use Drupal\ReferencesGenerator\Content\DefaultContent;
+use Drupal\ReferencesGenerator\Generator\ImageGenerator;
 
 /**
  * File field generator for Drupal 7.
@@ -54,7 +54,7 @@ class FileGenerator extends EntityGenerator {
         $default = new DefaultContent('image');
         $defaultImage = $default->mapping();
         $defaultImage['filename'] = $value;
-        FileGenerator::createImage($defaultImage);
+        ImageGenerator::createImage($defaultImage);
         break;
     }
   }

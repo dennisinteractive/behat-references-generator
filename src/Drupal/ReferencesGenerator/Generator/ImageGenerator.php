@@ -2,7 +2,7 @@
 
 namespace Drupal\ReferencesGenerator\Generator;
 
-class FileGenerator  {
+class ImageGenerator  {
 
   public static function createImage($image) {
     $local_filename = '/tmp/' . $image['filename'];

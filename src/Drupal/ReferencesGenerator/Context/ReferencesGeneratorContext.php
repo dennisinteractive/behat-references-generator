@@ -12,7 +12,7 @@ use Drupal\DrupalExtension\Context\DrupalAwareInterface;
 use Drupal\DrupalUserManagerInterface;
 use Drupal\ReferencesGenerator\Content\DefaultContent;
 use Drupal\ReferencesGenerator\Generator\EntityGenerator;
-use Drupal\ReferencesGenerator\Generator\FileGenerator;
+use Drupal\ReferencesGenerator\Generator\ImageGenerator;
 
 class ReferencesGeneratorContext implements DrupalAwareInterface {
 
@@ -253,7 +253,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   public function defaultImage() {
     $default = new DefaultContent('image');
     $defaultImage = $default->mapping();
-    $image = FileGenerator::createImage($defaultImage);
+    $image = ImageGenerator::createImage($defaultImage);
     $this->files[] = $image;
   }
 
@@ -270,7 +270,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
       foreach ($overrides as $item => $value) {
         $defaultImage[$item] = $value;
       }
-      $image = FileGenerator::createImage($defaultImage);
+      $image = ImageGenerator::createImage($defaultImage);
       $this->files[] = $image;
     }
   }
