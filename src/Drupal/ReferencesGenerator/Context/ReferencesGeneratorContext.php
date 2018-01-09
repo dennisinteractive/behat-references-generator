@@ -130,6 +130,43 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   }
 
   /**
+   * Transforms fields with human readable names into their respective
+   * machine names.
+   * We loop all the values and find matches against the mapping table.
+   * Ideally we should be able to replace only the first line of the table, that
+   * contains the field names. The problem is that we don't have a way to detect
+   * if the table is vertical or horizontal. This could lead to actual values
+   * being changed if they match a field name from the mapping.
+   * @todo Detect if the table is vertical or horizontal.
+   *
+   * @Transform table:*
+   */
+  public function humanFieldNames(TableNode $table) {
+
+    $aliases = array(
+      'Title' => 'title',
+      'Body' => 'body',
+      'Related articles' => 'field_related_articles',
+      'Primary Image' => 'field_primary_image',
+      'Gallery Files' => 'field_gallery_files',
+      'Other Articles' => 'field_other_articles',
+    );
+    $table = $table->getTable();
+    foreach ($table as $rowkey => $row) {
+
+      foreach ($row as $colkey => $value) {
+        $value = $table[$rowkey][$colkey];
+        if (isset($aliases[$value])) {
+          $table[$rowkey][$colkey] = $aliases[$value];
+        }
+      }
+    }
+    //var_dump($table);ob_flush();
+
+    return new TableNode($table);
+  }
+
+  /**
    * Fills in default fields for known entities provided by getDefaultNode()
    * Creates referenced content if needed.
    *

@@ -6,42 +6,44 @@ Feature: Table
 
   Scenario: Create content using table
     Given "article" content:
-      | title           | body      |
-      | Testing content | TEST BODY |
+      | Title                   | Body      |
+      | Testing article content | TEST BODY |
 
     Given I am on "/"
-    And I should see "Testing content"
+    And I should see "Testing article content"
     And I should see "TEST BODY"
 
   @horizontal_table @reference_generator
   Scenario: Create content using table and existing references
     Given "article" content:
-      | title |
+      | Title |
       | Art1  |
 
     Given "test" content:
-      | title           | body      | field_related_articles |
-      | Testing content | TEST BODY | Art1                   |
+      | Title                | Body      | Related articles |
+      | Testing test content | TEST BODY | Art1             |
 
     Given I am on "/"
-    And I should see "Testing content"
+    When I click "Testing test content"
     And I should see "TEST BODY"
+    And I should see "Related articles"
     Then I should see the link "Art1"
 
   @vertical_table @reference_generator
   Scenario: Create content using table and existing references
     Given "article" content:
-      | title |
+      | Title |
       | Art1  |
       | Art2  |
 
     Given I am viewing a "test" content:
-      | title                  | Testing content |
-      | body                   | TEST BODY       |
-      | field_related_articles | Art1, Art2      |
+      | Title            | Testing test content |
+      | Body             | TEST BODY            |
+      | Related articles | Art1, Art2           |
 
     Given I am on "/"
-    And I should see "Testing content"
+    When I click "Testing test content"
     And I should see "TEST BODY"
+    And I should see "Related articles"
     Then I should see the link "Art1"
     Then I should see the link "Art2"

@@ -18,8 +18,8 @@ Feature: Table
   @horizontal_table @reference_generator
   Scenario: Create content using table and non-existing references
     Given a default "test" content:
-      | title           | body      | field_related_articles |
-      | Testing content | TEST BODY | Art1                   |
+      | Title           | Body      | Related articles |
+      | Testing content | TEST BODY | Art1             |
 
     Given I am on "/"
     And I should see "Testing content"
@@ -29,12 +29,12 @@ Feature: Table
   @vertical_table @reference_generator @default_content
   Scenario: Create content using table and non-existing references
     Given I am viewing a default "test" content:
-      | title                  | Testing content                    |
-      | body                   | TEST BODY                          |
-      | field_other_articles   | Art1, Art2                         |
-      | field_related_articles | Art3, Art4                         |
-      | field_primary_image    | image3.jpg                         |
-      | field_gallery_files    | gi1.jpg, gi2.jpg, gi3.jpg, gi4.jpg |
+      | Title            | Testing content                    |
+      | Body             | TEST BODY                          |
+      | Other Articles   | Art1, Art2                         |
+      | Related articles | Art3, Art4                         |
+      | Primary Image    | image3.jpg                         |
+      | Gallery Files    | gi1.jpg, gi2.jpg, gi3.jpg, gi4.jpg |
 
     And I should see "Testing content"
     And I should see "TEST BODY"
