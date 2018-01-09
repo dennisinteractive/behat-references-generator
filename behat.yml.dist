@@ -2,4 +2,8 @@ default:
   suites:
     default:
       contexts:
-        - Drupal\ReferencesGenerator\Context\ReferencesGeneratorContext
+        - Drupal\ReferencesGenerator\Context\ReferencesGeneratorContext:
+          - field_mapping:
+            - Title: title
+            - Body: body
+            - See Related: field_see_related

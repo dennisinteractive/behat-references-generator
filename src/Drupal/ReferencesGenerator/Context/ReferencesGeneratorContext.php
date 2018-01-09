@@ -32,6 +32,36 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   protected $automaticallyCreateReferencedItems = TRUE;
 
   /**
+   * Default field mapping for human readable field names.
+   *
+   * @todo move this to DefaultContent class.
+   *
+   */
+  protected $fieldMapping  = array(
+      'Title' => 'title',
+      'Body' => 'body',
+      'Related articles' => 'field_related_articles',
+      'Primary Image' => 'field_primary_image',
+      'Gallery Files' => 'field_gallery_files',
+      'Other Articles' => 'field_other_articles',
+    );
+
+  /**
+   * @inheritdoc
+   */
+  public function __construct($parameters)
+  {
+    // @todo move this into a method of DefaultContent class.
+    if (isset($parameters['field_mapping'])) {
+      foreach ($parameters['field_mapping'] as $key => $item) {
+        $name = key($item);
+        $machineName = $item[$name];
+        $this->fieldMapping[$name] = $machineName;
+      }
+    }
+  }
+
+  /**
    * @inheritDoc
    */
   public function setDrupal(DrupalDriverManager $drupal) {
