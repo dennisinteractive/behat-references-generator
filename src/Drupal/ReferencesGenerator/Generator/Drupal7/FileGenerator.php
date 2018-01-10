@@ -51,7 +51,7 @@ class FileGenerator extends EntityGenerator {
   public function create($field, $value) {
     switch ($field['type']) {
       case 'image':
-        $default = new DefaultContent('image');
+        $default = new DefaultContent('image', $this->defaultContentMapping);
         $defaultImage = $default->mapping();
         $defaultImage['filename'] = $value;
         ImageGenerator::createImage($defaultImage);

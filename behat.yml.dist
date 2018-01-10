@@ -7,3 +7,13 @@ default:
             - Title: title
             - Body: body
             - See Related: field_see_related
+            - Related articles: field_related_articles
+            - Other Articles: field_other_articles
+          - default_content:
+            - node:
+              - page:
+                - Title: Default page title
+                - Body: Default page body
+            - image:
+              - Credits: Default credits
+              - Alt Text: Default alt text

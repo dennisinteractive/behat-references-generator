@@ -13,6 +13,7 @@ use Drupal\DrupalUserManagerInterface;
 use Drupal\ReferencesGenerator\Content\DefaultContent;
 use Drupal\ReferencesGenerator\Generator\EntityGenerator;
 use Drupal\ReferencesGenerator\Generator\ImageGenerator;
+use Drupal\ReferencesGenerator\Content\FieldAliases;
 
 class ReferencesGeneratorContext implements DrupalAwareInterface {
 
@@ -32,33 +33,22 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   protected $automaticallyCreateReferencedItems = TRUE;
 
   /**
-   * Default field mapping for human readable field names.
-   *
-   * @todo move this to DefaultContent class.
-   *
+   * Stores the field mapping.
    */
-  protected $fieldMapping  = array(
-      'Title' => 'title',
-      'Body' => 'body',
-      'Related articles' => 'field_related_articles',
-      'Primary Image' => 'field_primary_image',
-      'Gallery Files' => 'field_gallery_files',
-      'Other Articles' => 'field_other_articles',
-    );
+  protected $fieldMapping;
+
+  /**
+   * Stores the default content mapping.
+   */
+  protected $defaultContentMapping;
 
   /**
    * @inheritdoc
    */
-  public function __construct($parameters)
+  public function __construct($fieldMapping = array(), $defaultContentMapping = array())
   {
-    // @todo move this into a method of DefaultContent class.
-    if (isset($parameters['field_mapping'])) {
-      foreach ($parameters['field_mapping'] as $key => $item) {
-        $name = key($item);
-        $machineName = $item[$name];
-        $this->fieldMapping[$name] = $machineName;
-      }
-    }
+    $this->fieldMapping = reset($fieldMapping);
+    $this->defaultContentMapping = reset($defaultContentMapping);
   }
 
   /**
@@ -173,17 +163,10 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
    */
   public function humanFieldNames(TableNode $table) {
 
-    $aliases = array(
-      'Title' => 'title',
-      'Body' => 'body',
-      'Related articles' => 'field_related_articles',
-      'Primary Image' => 'field_primary_image',
-      'Gallery Files' => 'field_gallery_files',
-      'Other Articles' => 'field_other_articles',
-    );
+    $fieldAliases = New FieldAliases($this->fieldMapping);
+    $aliases = $fieldAliases->getAliases();
     $table = $table->getTable();
     foreach ($table as $rowkey => $row) {
-
       foreach ($row as $colkey => $value) {
         $value = $table[$rowkey][$colkey];
         if (isset($aliases[$value])) {
@@ -211,9 +194,12 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
 
     if (isset($this->useDefaultContent) && $this->useDefaultContent == TRUE) {
       // Fill in default values
-      $default = new DefaultContent($entity->entityType);
+      var_dump($this->defaultContentMapping);exit;
+      $defaultContent = New DefaultContent($entity->entityType, $this->defaultContentMapping);
+      //$default = $defaultContent->getContent();
+
       $bundleName = isset($entity->type) ? $entity->type : '';
-      $defaults = $default->mapping($bundleName);
+      $defaults = $defaultContent->mapping($bundleName);
       foreach ($defaults as $fieldName => $value) {
         if (!isset($entity->{$fieldName})) {
           $entity->{$fieldName} = $defaults[$fieldName];
@@ -318,7 +304,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
    * @Given I have an image
    */
   public function defaultImage() {
-    $default = new DefaultContent('image');
+    $default = new DefaultContent('image', $this->defaultContentMapping);
     $defaultImage = $default->mapping();
     $image = ImageGenerator::createImage($defaultImage);
     $this->files[] = $image;
@@ -330,7 +316,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
    * @Given I have an image:
    */
   public function customImage(TableNode $overridesTable) {
-    $default = new DefaultContent('image');
+    $default = new DefaultContent('image', $this->defaultContentMapping);
     $defaultImage = $default->mapping();
 
     foreach ($overridesTable as $overrides) {

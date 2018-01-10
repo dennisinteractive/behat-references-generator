@@ -11,16 +11,47 @@ namespace Drupal\ReferencesGenerator\Content;
  */
 class DefaultContent {
 
-  protected $type;
+  /**
+   * Stores the field type.
+   *
+   * @var $entityType
+   */
+  protected $entityType;
+
+  /**
+   * Stores the default content mapping.
+   *
+   * @var $defaultContent
+   */
+  protected $defaultContent;
+
+  /**
+   * Stores the default content overrides.
+   *
+   * @var $defaultContentOverrides
+   */
+  protected $defaultContentOverrides;
 
   /**
    * DefaultContent constructor.
    *
-   * @param $type Content type.
+   * @param $entityType Content type.
    */
-  public function __construct($type) {
-    $this->type = $type;
+  public function __construct($entityType, $defaultContentOverrides = array()) {
+    $this->entityType = $entityType;
+    $this->defaultContentOverrides = $defaultContentOverrides;
   }
+//
+//  /**
+//   * Returns the field aliases.
+//   *
+//   * @return mixed
+//   */
+//  public function getContent() {
+//    $this->defaultContent = $this->mapping($this->entityType);
+//    return $this->fieldAliases;
+//  }
+
 //
 //  /**
 //   * Returns default content.
@@ -32,7 +63,7 @@ class DefaultContent {
 //  private function getDefaultEntityValues($entity) {
 //    switch ($entity->entityType) {
 //      case 'node':
-//        return $this->getDefaultNode($entity->type);
+//        return $this->getDefaultNode($entity->entityType);
 //        break;
 //      case 'term':
 //        return $this->getDefaultTerm();
@@ -46,7 +77,7 @@ class DefaultContent {
   /**
    * Gets default values for fields.
    *
-   * @param      $type Content type.
+   * @param      $entityType Content type.
    * @param null $bundleName Bundle name.
    *
    * @return array
@@ -54,7 +85,7 @@ class DefaultContent {
   public function mapping($bundleName = NULL) {
     $defaultContent = array();
 
-    switch ($this->type) {
+    switch ($this->entityType) {
       case 'image':
         $defaultContent = array(
           'filename' => 'bddtest.jpg',
@@ -109,7 +140,27 @@ class DefaultContent {
         break;
 
     }
+var_dump($this->defaultContentOverrides);
+    foreach ($this->defaultContentOverrides as $key => $entiyType) {
+      if ($this->entityType == key($entiyType)) {
+        foreach ($entiyType as $entiyTypeKey => $mapping) {
+          echo 'MAP';
+          var_dump($mapping);
+          foreach ($mapping as $mapKey => $mapValues) {
+            echo 'DEF';
+            var_dump($defaultContent);
+            //@todo need to get the field aliases to translate the human readable mapping from behat.yml
+            // or we change the default content above to work with human readable names as keys and before saving entities, translate to machine names
+            //if (isset($defaultContent[$mapKey))
+          }
+        }
+      }
+    }
+ob_flush();
+var_dump($defaultContent);exit;
 
-    return $defaultContent;
+    $this->defaultContent = $defaultContent;
+
+    return $this->defaultContent;
   }
 }
