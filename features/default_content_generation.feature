@@ -18,6 +18,20 @@ Feature: Table
   @horizontal_table @reference_generator
   Scenario: Create content using table and non-existing references
     Given a default "test" content:
+      | Related articles | Tags |
+      | Art5             | Tag5 |
+
+    Given I am on "/"
+    And I should see "Test page body"
+    Then I should see the link "Art5"
+    When I click "Test page title"
+    Then I should see "Test page title"
+    Then I should see the link "Art5"
+    Then I should see the link "Tag5"
+
+  @horizontal_table @reference_generator
+  Scenario: Create content using table and non-existing references
+    Given a default "test" content:
       | Title           | Body      | Related articles |
       | Testing content | TEST BODY | Art1             |
 

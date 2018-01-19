@@ -53,19 +53,16 @@ class FieldAliases {
   /**
    * Reads the overrides from behat.yml and updates the default mapping.
    *
-   * @param $mapping
+   * @param array $overrides
+   *    The array of overrides.
    */
-  private function override($mapping) {
+  private function override($overrides = array()) {
     $this->fieldAliases = $this->defaultMapping();
-
-    if (!empty($mapping)) {
-      foreach ($mapping as $key => $item) {
-        $name = key($item);
-        $machineName = $item[$name];
-        $this->fieldAliases[$name] = $machineName;
-      }
+    if (!empty($overrides)) {
+      $this->fieldAliases = array_replace_recursive($this->fieldAliases, $overrides);
     }
 
     return $this->fieldAliases;
   }
+
 }

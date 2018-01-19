@@ -193,13 +193,10 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
     }
 
     if (isset($this->useDefaultContent) && $this->useDefaultContent == TRUE) {
-      // Fill in default values
-      var_dump($this->defaultContentMapping);exit;
-      $defaultContent = New DefaultContent($entity->entityType, $this->defaultContentMapping);
-      //$default = $defaultContent->getContent();
-
       $bundleName = isset($entity->type) ? $entity->type : '';
-      $defaults = $defaultContent->mapping($bundleName);
+      $defaultContent = New DefaultContent($entity->entityType, $this->defaultContentMapping);
+      $defaults = $defaultContent->getContent($bundleName);
+
       foreach ($defaults as $fieldName => $value) {
         if (!isset($entity->{$fieldName})) {
           $entity->{$fieldName} = $defaults[$fieldName];
@@ -305,7 +302,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
    */
   public function defaultImage() {
     $default = new DefaultContent('image', $this->defaultContentMapping);
-    $defaultImage = $default->mapping();
+    $defaultImage = $default->getContent();
     $image = ImageGenerator::createImage($defaultImage);
     $this->files[] = $image;
   }
@@ -317,7 +314,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
    */
   public function customImage(TableNode $overridesTable) {
     $default = new DefaultContent('image', $this->defaultContentMapping);
-    $defaultImage = $default->mapping();
+    $defaultImage = $default->getContent();
 
     foreach ($overridesTable as $overrides) {
       foreach ($overrides as $item => $value) {
