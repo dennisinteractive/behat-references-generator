@@ -25,3 +25,6 @@ You need to enable these modules
 ### Running
 - Go into the tests folder
 - Run `./behat --format=pretty`
+
+### Failing tests
+You can find the screenshots of failing tests on the `files/screenshots` folder
