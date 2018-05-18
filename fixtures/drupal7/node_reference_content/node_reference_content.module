@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Node Reference Content feature.
+ */
+
+include_once 'node_reference_content.features.inc';
