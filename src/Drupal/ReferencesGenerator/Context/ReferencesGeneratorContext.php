@@ -162,7 +162,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
    * @Transform table:*
    */
   public function humanFieldNames(TableNode $table) {
-
+print_r($this->fieldMapping);
     $fieldAliases = New FieldAliases($this->fieldMapping);
     $aliases = $fieldAliases->getAliases();
     $table = $table->getTable();
@@ -192,6 +192,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
       return;
     }
 
+    // @todo move default content to a separate function.
     if (isset($this->useDefaultContent) && $this->useDefaultContent == TRUE) {
       $bundleName = isset($entity->type) ? $entity->type : '';
       $defaultContent = New DefaultContent($entity->entityType, $this->defaultContentMapping);
@@ -278,9 +279,20 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   //-----------------------------------------------------//
 
   /**
+   * @Given a default :type content
+   */
+  public function aDefaultContent($nodeType) {
+    if ($this->automaticallyCreateReferencedItems) {
+      $this->useDefaultContent = TRUE;
+    }
+    $table = TableNode::fromList(array('',''));
+    $this->drupalContext->createNodes($nodeType, $table);
+  }
+
+  /**
    * @Given a default :type content:
    */
-  public function aDefaultContent($type, TableNode $table) {
+  public function aDefaultContentWithOverrides($type, TableNode $table) {
     if ($this->automaticallyCreateReferencedItems) {
       $this->useDefaultContent = TRUE;
     }
@@ -290,7 +302,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   /**
    * @Given I am viewing a default :type content:
    */
-  public function viewDefaultContent($type, TableNode $table) {
+  public function viewDefaultContentWithOverrides($type, TableNode $table) {
     if ($this->automaticallyCreateReferencedItems) {
       $this->useDefaultContent = TRUE;
     }
@@ -312,7 +324,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
    *
    * @Given I have an image:
    */
-  public function customImage(TableNode $overridesTable) {
+  public function defaultImageWithOverrides(TableNode $overridesTable) {
     $default = new DefaultContent('image', $this->defaultContentMapping);
     $defaultImage = $default->getContent();
 

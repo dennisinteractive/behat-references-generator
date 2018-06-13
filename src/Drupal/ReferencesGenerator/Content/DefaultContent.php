@@ -71,55 +71,70 @@ class DefaultContent {
    * @return array
    */
   public function defaultContent() {
+    // @todo call an event to read defaults instead of this array
     $defaultContent = array(
       'image' => array(
-        'filename' => 'bddtest.jpg',
-        'credits' => 'By Dennis Publishing',
-        'description' => 'This is an image description',
-        'text' => 'BDD test',
-        'alt_text' => 'This is an alt test',
+        'filename' => 'Default image.jpg',
+        'credits' => 'Default credits',
+        'description' => 'Default description',
+        'text' => 'Default title',
+        'alt_text' => 'Default alt text',
       ),
       'term' => array(
-        'name' => 'BDD Term',
-        'alias' => 'bdd-term',
-        //'path' => array('alias' => 'bdd-term', 'pathauto' => 0),
+        'name' => 'Default Term',
+        //'alias' => 'default-term',
+        'path' => array('alias' => 'default-term', 'pathauto' => 0),
       ),
       'node' => array(
         'author' => array(
-          'title' => 'BDD Default author',
-          'body' => 'BDD Author Body',
-          'field_author_first_name' => 'BDD author name',
-          'field_author_last_name' => 'BDD author surname',
+          'title' => 'Default author title',
+          'body' => 'Default author Body',
+          'field_author_first_name' => 'Default author name',
+          'field_author_last_name' => 'Default author surname',
           'status' => 1,
         ),
         'article' => array(
-          'title' => 'BDD Default %bundle_name content test',
-          'body' => 'BDD Body',
+          'title' => 'Default Article title',
+          'body' => 'Default Article body',
           'field_sponsored' => '0',
-          'field_short_teaser' => 'BDD Short teaser',
-          'field_article_type' => 'BDD Article type',
-          'field_main_purpose' => 'BDD content purpose',
-          'field_category_primary' => 'BDD Category',
-          'field_author' => 'BDD Author1, BDD Author2',
-          'field_tags' => 'BDD Tag1, BDD Tag2, BDD Tag3',
-          'field_primary_image' => 'bddtest.jpg',
-          'alias' => 'bdd-default-%bundle_name-content-test',
+          'field_short_title' => 'Default short title',
+          'field_short_teaser' => 'Default short teaser',
+          'field_article_type' => 'Default article type',
+          'field_main_purpose' => 'Default content purpose',
+          'field_category_primary' => 'Default category',
+          'field_author' => 'Default Author1, Default Author2',
+          'field_tags' => 'Default Tag1, Default Tag2, Default Tag3',
+          'field_primary_image' => 'Default image.jpg',
+          'alias' => 'default-article',
+          'status' => 1,
+        ),
+        'page' => array(
+          'title' => 'Default Page title',
+          'body' => 'Default Page body',
+          'alias' => 'default-page',
+          'status' => 1,
+        ),
+        'test' => array(
+          'title' => 'Default Test title',
+          'body' => 'Default Test body',
+          'alias' => 'default-test',
+          'status' => 1,
+        ),
+        'review' => array(
+          'title' => 'Default Review title',
+          'body' => 'Default Review body',
+          'alias' => 'default-review',
+          'status' => 1,
+        ),
+        'gallery_adv' => array(
+          'title' => 'Default Gallery title',
+          'body' => 'Default Gallery body',
+          'alias' => 'default-gallery',
+          'field_gallery_files' => 'gal_image_1.jpg, gal_image_2.jpg',
           'status' => 1,
         ),
       ),
     );
-
-    // Copy title.
-    $defaultContent['node']['article']['field_short_title'] = $defaultContent['node']['article']['title'];
-
-    // Copy some defaults to other content types.
-    $defaultContent['node']['test'] = $defaultContent['node']['article'];
-    $defaultContent['node']['page'] = $defaultContent['node']['article'];
-    $defaultContent['node']['review'] = $defaultContent['node']['article'];
-    $defaultContent['node']['gallery_adv'] = $defaultContent['node']['article'];
-
-    // Content specific fields.
-    $defaultContent['node']['gallery_adv']['field_gallery_files'] = 'gal_image_1.jpg, gal_image_2.jpg';
 
     return $defaultContent;
   }

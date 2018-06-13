@@ -6,12 +6,12 @@ Feature: Table
 
   Scenario: Create content using table
     Given "article" content:
-      | Title                   | Body      |
-      | Testing article content | TEST BODY |
+      | Title        | Body        |
+      | Custom Title | Custom Body |
 
     Given I am on "/"
-    And I should see "Testing article content"
-    And I should see "TEST BODY"
+    And I should see "Custom Title"
+    And I should see "Custom Body"
 
   @horizontal_table @reference_generator
   Scenario: Create content using table and existing references
@@ -20,12 +20,12 @@ Feature: Table
       | Art1  |
 
     Given "test" content:
-      | Title                | Body      | Related articles |
-      | Testing test content | TEST BODY | Art1             |
+      | Title                | Body        | Related articles |
+      | Testing test content | Custom Body | Art1             |
 
     Given I am on "/"
     When I click "Testing test content"
-    And I should see "TEST BODY"
+    And I should see "Custom Body"
     And I should see "Related articles"
     Then I should see the link "Art1"
 
@@ -38,12 +38,12 @@ Feature: Table
 
     Given I am viewing a "test" content:
       | Title            | Testing test content |
-      | Body             | TEST BODY            |
+      | Body             | Custom Body          |
       | Related articles | Art1, Art2           |
 
     Given I am on "/"
     When I click "Testing test content"
-    And I should see "TEST BODY"
+    And I should see "Custom Body"
     And I should see "Related articles"
     Then I should see the link "Art1"
     Then I should see the link "Art2"

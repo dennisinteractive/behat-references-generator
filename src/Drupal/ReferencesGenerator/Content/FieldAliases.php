@@ -22,6 +22,7 @@ class FieldAliases {
    * @param $type Content type.
    */
   public function __construct($mapping) {
+    print_r($mapping);
     $this->override($mapping);
   }
 
@@ -43,10 +44,11 @@ class FieldAliases {
     return array(
       'Title' => 'title',
       'Body' => 'body',
-      'Related articles' => 'field_related_articles',
-      'Primary Image' => 'field_primary_image',
-      'Gallery Files' => 'field_gallery_files',
-      'Other Articles' => 'field_other_articles',
+      // @todo call an event to read defaults instead of this array
+//      'Related articles' => 'field_related_articles',
+//      'Primary Image' => 'field_primary_image',
+//      'Gallery Files' => 'field_gallery_files',
+//      'Other Articles' => 'field_other_articles',
     );
   }
 

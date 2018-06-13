@@ -9,49 +9,63 @@ Feature: Table
     Then the file "bddtest.jpg" should be available
 
     Given I have an image:
-      | filename   | text          |
+      | filename   | Image Alt     |
       | image1.jpg | New image     |
       | image2.jpg | Another image |
     Then the file "image1.jpg" should be available
     Then the file "image2.jpg" should be available
 
+  @horizontal_table @default_content @aaa
+  Scenario: Create content using table and non-existing references
+    Given a default "article" content
+    Given a default "page" content
+    Given a default "test" content
+#    Given a default "test" content:
+#      | Title           |
+#      | Testing content |
+#    Then I stop
+
   @horizontal_table @reference_generator
   Scenario: Create content using table and non-existing references
     Given a default "test" content:
       | Related articles | Tags |
-      | Art5             | Tag5 |
+      | Custom Article 5 | Tag5 |
 
     Given I am on "/"
     And I should see "Test page body"
-    Then I should see the link "Art5"
+    Then I should see the link "Custom Article 5"
     When I click "Test page title"
     Then I should see "Test page title"
-    Then I should see the link "Art5"
+    Then I should see the link "Custom Article 5"
     Then I should see the link "Tag5"
 
   @horizontal_table @reference_generator
   Scenario: Create content using table and non-existing references
     Given a default "test" content:
-      | Title           | Body      | Related articles |
-      | Testing content | TEST BODY | Art1             |
+      | Title        | Body        | Related articles |
+      | Custom Title | Custom Body | Art1             |
 
     Given I am on "/"
-    And I should see "Testing content"
-    And I should see "TEST BODY"
+    And I should see "Custom Title"
+    And I should see "Custom Body"
     Then I should see the link "Art1"
 
-  @vertical_table @reference_generator @default_content
+  @vertical_table @reference_generator @default_content @aaa
   Scenario: Create content using table and non-existing references
     Given I am viewing a default "test" content:
-      | Title            | Testing content                    |
-      | Body             | TEST BODY                          |
+      | Title            | Custom Title                       |
+      | Body             | Custom Body                        |
       | Other Articles   | Art1, Art2                         |
       | Related articles | Art3, Art4                         |
       | Primary Image    | image3.jpg                         |
       | Gallery Files    | gi1.jpg, gi2.jpg, gi3.jpg, gi4.jpg |
+      | Tags             | tagA, TagB, TagC                   |
 
-    And I should see "Testing content"
-    And I should see "TEST BODY"
+    Then I stop
+
+    And I should see "Custom Title"
+    And I should see "Primary image"
+    And I should see "Custom Body"
 
     Then I should see "Tags:"
     And I should see the link "BDD Tag1"
