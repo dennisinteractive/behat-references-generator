@@ -280,7 +280,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   /**
    * @Given a default :type content
    */
-  public function aDefaultContent($nodeType) {
+  public function DefaultContent($nodeType) {
     if ($this->automaticallyCreateReferencedItems) {
       $this->useDefaultContent = TRUE;
     }
@@ -291,7 +291,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   /**
    * @Given a default :type content:
    */
-  public function aDefaultContentWithOverrides($type, TableNode $table) {
+  public function DefaultContentWithOverrides($type, TableNode $table) {
     if ($this->automaticallyCreateReferencedItems) {
       $this->useDefaultContent = TRUE;
     }
