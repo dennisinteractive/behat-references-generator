@@ -22,7 +22,6 @@ class FieldAliases {
    * @param $type Content type.
    */
   public function __construct($mapping) {
-    print_r($mapping);
     $this->override($mapping);
   }
 
@@ -37,6 +36,7 @@ class FieldAliases {
 
   /**
    * Returns the default Field mapping of Human readable name vs machine name.
+   * @todo call an event to load defaults instead of this array
    *
    * @return array
    */
@@ -44,11 +44,6 @@ class FieldAliases {
     return array(
       'Title' => 'title',
       'Body' => 'body',
-      // @todo call an event to read defaults instead of this array
-//      'Related articles' => 'field_related_articles',
-//      'Primary Image' => 'field_primary_image',
-//      'Gallery Files' => 'field_gallery_files',
-//      'Other Articles' => 'field_other_articles',
     );
   }
 

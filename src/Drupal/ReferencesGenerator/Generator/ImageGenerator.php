@@ -36,6 +36,7 @@ class ImageGenerator  {
     $entity = entity_load('file', array($fid));
 
     // Change fields.
+    // @todo these fields are hard coded, need to use mapping from behat.yml
     $entity[$fid]->filename = $image['filename'];
     $entity[$fid]->field_file_credits[LANGUAGE_NONE][0]['value'] = $image['credits'];
     $entity[$fid]->field_file_credits[LANGUAGE_NONE][0]['safe_value'] = $image['credits'];

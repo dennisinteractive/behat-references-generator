@@ -162,7 +162,6 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
    * @Transform table:*
    */
   public function humanFieldNames(TableNode $table) {
-print_r($this->fieldMapping);
     $fieldAliases = New FieldAliases($this->fieldMapping);
     $aliases = $fieldAliases->getAliases();
     $table = $table->getTable();

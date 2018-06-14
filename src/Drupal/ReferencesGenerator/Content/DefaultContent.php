@@ -64,6 +64,7 @@ class DefaultContent {
   /**
    * Gets default values for fields.
    * We use machine names here.
+   * @todo call an event to load defaults instead of this array
    *
    * @param string $bundleName
    *    The bundle name i.e. node.
@@ -71,7 +72,6 @@ class DefaultContent {
    * @return array
    */
   public function defaultContent() {
-    // @todo call an event to read defaults instead of this array
     $defaultContent = array(
       'image' => array(
         'filename' => 'Default image.jpg',
@@ -82,8 +82,8 @@ class DefaultContent {
       ),
       'term' => array(
         'name' => 'Default Term',
-        //'alias' => 'default-term',
-        'path' => array('alias' => 'default-term', 'pathauto' => 0),
+        'alias' => 'default-term',
+        //'path' => array('alias' => 'default-term', 'pathauto' => 0),
       ),
       'node' => array(
         'author' => array(
@@ -113,6 +113,7 @@ class DefaultContent {
           'body' => 'Default Page body',
           'alias' => 'default-page',
           'status' => 1,
+          'promote' => 1,
         ),
         'test' => array(
           'title' => 'Default Test title',
