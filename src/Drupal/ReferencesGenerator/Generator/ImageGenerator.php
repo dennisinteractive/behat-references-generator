@@ -47,8 +47,14 @@ class ImageGenerator  {
     $entity[$fid]->field_file_alt_text[LANGUAGE_NONE][0]['safe_value'] = $image['alt_text'];
 
     // Save the attributes.
-    $info = entity_get_info('file');
-    $info['save callback']($entity[$fid]);
+//    $info = entity_get_info('file');
+//    $info['save callback']($entity[$fid]);
+    if (function_exists('entity_save')) {
+      entity_save('file', $entity[$fid]);
+    }
+    else {
+      throw new \Exception('Cannot save the entity. Please make sure Entity API is enabled.');
+    }
 
     return $entity[$fid];
   }
