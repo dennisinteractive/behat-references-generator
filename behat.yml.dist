@@ -4,6 +4,27 @@ default:
       contexts:
         - Drupal\ReferencesGenerator\Context\ReferencesGeneratorContext:
           - field_mapping:
-            - Title: title
-            - Body: body
-            - See Related: field_see_related
+              Title: title
+              Body: body
+              See Related: field_see_related
+              Related articles: field_related_articles
+              Other Articles: field_other_articles
+              Tags: field_tags
+              Image: field_image
+              Primary Image: field_primary_image
+              Image title: field_file_image_title_text
+              Image alt: field_file_image_alt_text
+          - default_content:
+              node:
+                article:
+                  title: Article title from yml
+                  body: Article body from yml
+                  field_image: article_image.jpg
+                test:
+                  title: Test title from yml
+                  body: Test body from yml
+                  field_tags: Tag1, Tag2
+              image:
+                field_file_image_title_text: Default image title
+                field_file_image_alt_text: Default image alt text
+

@@ -28,3 +28,16 @@ You need to enable these modules
 
 ### Failing tests
 You can find the screenshots of failing tests on the `files/screenshots` folder
+
+### @todo
+- [ ] make field mapping work
+- [ ] make overrides for image fields work
+- [x] make overrides for content fields work
+- [ ] make yml overrides for image fields work
+- [x] make yml overrides for content fields work
+- [ ] make custom overrides for image fields work
+- [x] make custom overrides for content fields work
+- [ ] make url aliases work on nodes, terms and images
+- [ ] fix php errors when running tests
+- [ ] allow to have more than one alias for the same field name
+- [ ] update readme

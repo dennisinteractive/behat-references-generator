@@ -11,105 +11,149 @@ namespace Drupal\ReferencesGenerator\Content;
  */
 class DefaultContent {
 
-  protected $type;
+  /**
+   * Stores the entity type.
+   *
+   * @var $entityType
+   */
+  protected $entityType;
+
+  /**
+   * Stores the default content mapping.
+   *
+   * @var $defaultContent
+   */
+  protected $defaultContent;
 
   /**
    * DefaultContent constructor.
    *
-   * @param $type Content type.
+   * @param string $entityType
+   *    The Content type i.e. article.
+   * @param array $defaultContentOverrides
+   *    The overrides for the default content.
    */
-  public function __construct($type) {
-    $this->type = $type;
+  public function __construct($entityType, $defaultContentOverrides = array()) {
+    $this->entityType = $entityType;
+    $this->override($defaultContentOverrides);
   }
-//
-//  /**
-//   * Returns default content.
-//   *
-//   * @param $entity
-//   *
-//   * @return array
-//   */
-//  private function getDefaultEntityValues($entity) {
-//    switch ($entity->entityType) {
-//      case 'node':
-//        return $this->getDefaultNode($entity->type);
-//        break;
-//      case 'term':
-//        return $this->getDefaultTerm();
-////        $defaultTerm = new DefaultTaxononyTerm();
-////        $vocabName = taxonomy_vocabulary_load($entity->vid);
-////        return $defaultTerm->getDefaultContent($vocabName);
-//        break;
-//    }
-//  }
+
+  /**
+   * Returns the default content.
+   *
+   * @param string $bundleName
+   *    The bundle name i.e. node.
+   *
+   * @return mixed
+   */
+  public function getContent($bundleName = NULL) {
+    if (isset($bundleName)) {
+      if (isset($this->defaultContent[$this->entityType][$bundleName])) {
+        return $this->defaultContent[$this->entityType][$bundleName];
+      }
+      else {
+        return array();
+      }
+    }
+
+    if (isset($this->defaultContent[$this->entityType])) {
+      return $this->defaultContent[$this->entityType];
+    }
+  }
 
   /**
    * Gets default values for fields.
+   * We use machine names here.
+   * @todo call an event to load defaults instead of this array
    *
-   * @param      $type Content type.
-   * @param null $bundleName Bundle name.
+   * @param string $bundleName
+   *    The bundle name i.e. node.
    *
    * @return array
    */
-  public function mapping($bundleName = NULL) {
-    $defaultContent = array();
-
-    switch ($this->type) {
-      case 'image':
-        $defaultContent = array(
-          'filename' => 'bddtest.jpg',
-          'credits' => 'By Dennis Publishing',
-          'description' => 'This is an image description',
-          'text' => 'BDD test',
-          'alt_text' => 'This is an alt test',
-        );
-        break;
-
-      case 'term':
-        $defaultContent = array(
-          'name' => 'BDD Term',
-          'alias' => 'bdd-term',
-          //'path' => array('alias' => 'bdd-term', 'pathauto' => 0),
-        );
-        break;
-
-      case 'node':
-        switch ($bundleName) {
-          case 'author':
-            $defaultContent = array(
-              'title' => 'BDD Default author',
-              'body' => 'BDD Author Body',
-              'field_author_first_name' => 'BDD author name',
-              'field_author_last_name' => 'BDD author surname',
-              'status' => 1,
-            );
-            break;
-
-          case 'article':
-          case 'review':
-          case 'gallery_adv':
-          default:
-            $defaultContent = array(
-              'title' => sprintf('BDD Default %s content test', $bundleName),
-              'body' => 'BDD Body',
-              'field_sponsored' => '0',
-              'field_short_teaser' => 'BDD Short teaser',
-              'field_article_type' => 'BDD Article type',
-              'field_main_purpose' => 'BDD content purpose',
-              'field_category_primary' => 'BDD Category',
-              'field_author' => 'BDD Author1, BDD Author2',
-              //'field_gallery_files' => 'gal_image_1.jpg, gal_image_2.jpg',
-              'field_tags' => 'BDD Tag1, BDD Tag2, BDD Tag3',
-              'field_primary_image' => 'bddtest.jpg',
-              'alias' => sprintf('bdd-default-%s-content-test', $bundleName),
-              'status' => 1,
-            );
-            $defaultContent['field_short_title'] = $defaultContent['title'];
-        }
-        break;
-
-    }
+  public function defaultContent() {
+    $defaultContent = array(
+      'image' => array(
+        'filename' => 'Default image.jpg',
+        'credits' => 'Default credits',
+        'description' => 'Default description',
+        'text' => 'Default title',
+        'alt_text' => 'Default alt text',
+      ),
+      'term' => array(
+        'name' => 'Default Term',
+        'alias' => 'default-term',
+        //'path' => array('alias' => 'default-term', 'pathauto' => 0),
+      ),
+      'node' => array(
+        'author' => array(
+          'title' => 'Default author title',
+          'body' => 'Default author Body',
+          'field_author_first_name' => 'Default author name',
+          'field_author_last_name' => 'Default author surname',
+          'status' => 1,
+        ),
+        'article' => array(
+          'title' => 'Default Article title',
+          'body' => 'Default Article body',
+          'field_sponsored' => '0',
+          'field_short_title' => 'Default short title',
+          'field_short_teaser' => 'Default short teaser',
+          'field_article_type' => 'Default article type',
+          'field_main_purpose' => 'Default content purpose',
+          'field_category_primary' => 'Default category',
+          'field_author' => 'Default Author1, Default Author2',
+          'field_tags' => 'Default Tag1, Default Tag2, Default Tag3',
+          'field_primary_image' => 'Default image.jpg',
+          'alias' => 'default-article',
+          'status' => 1,
+        ),
+        'page' => array(
+          'title' => 'Default Page title',
+          'body' => 'Default Page body',
+          'alias' => 'default-page',
+          'status' => 1,
+          'promote' => 1,
+        ),
+        'test' => array(
+          'title' => 'Default Test title',
+          'body' => 'Default Test body',
+          'alias' => 'default-test',
+          'status' => 1,
+        ),
+        'review' => array(
+          'title' => 'Default Review title',
+          'body' => 'Default Review body',
+          'alias' => 'default-review',
+          'status' => 1,
+        ),
+        'gallery_adv' => array(
+          'title' => 'Default Gallery title',
+          'body' => 'Default Gallery body',
+          'alias' => 'default-gallery',
+          'field_gallery_files' => 'gal_image_1.jpg, gal_image_2.jpg',
+          'status' => 1,
+        ),
+      ),
+    );
 
     return $defaultContent;
   }
+
+  /**
+   * Reads the overrides from behat.yml and updates the default content.
+   * We use machine names for field overrides on behat.yml.
+   *
+   * @param array $defaultContentOverrides
+   *    The overrides to replace items on default content.
+   */
+  private function override($defaultContentOverrides = array()) {
+    $this->defaultContent = $this->defaultContent();
+    if (!empty($defaultContentOverrides)) {
+      $this->defaultContent = array_replace_recursive($this->defaultContent, $defaultContentOverrides);
+    }
+
+    return $this->defaultContent;
+  }
+
 }
