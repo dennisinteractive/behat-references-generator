@@ -47,4 +47,5 @@ You can find the screenshots of failing tests on the `files/screenshots` folder
 - [ ] allow to have more than one alias for the same field name
 - [ ] support default content for terms
 - [ ] support content generation for terms
+- [ ] upgrade drupal extension and drupal driver
 - [ ] update readme
