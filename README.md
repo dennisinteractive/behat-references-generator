@@ -2,7 +2,7 @@
 Generates non-existing referenced entities when creating content
 
 ### Installation
-`composer require dennisdigital/behat-references-generator`
+1. `composer require dennisdigital/behat-references-generator:dev-master`
 
 You might need to add it to repositories first
 ```
@@ -17,9 +17,14 @@ You might need to add it to repositories first
 .
 ```
 
+2. Edit behat.yml and add the contexts and configuration following the example in [behat.yml.dist]: https://github.com/marcelovani/behat-references-generator/blob/master/behat.yml.dist
+
+
 ### Requirements
 You need to enable these modules
 - Entity API
+
+**For the demo you will need to enable this module:**
 - Node Reference Content (Copy from the fixtures folder into the site's modules folder)
 
 ### Running
@@ -42,4 +47,5 @@ You can find the screenshots of failing tests on the `files/screenshots` folder
 - [ ] allow to have more than one alias for the same field name
 - [ ] support default content for terms
 - [ ] support content generation for terms
+- [ ] upgrade drupal extension and drupal driver
 - [ ] update readme
