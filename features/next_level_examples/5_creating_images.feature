@@ -8,6 +8,6 @@ Feature: Image
   Scenario: Create content using one line
     Given I have an image
 
-    Then the file "bddtest.jpg" should be available
+    Then the file "Default image.jpg" should be available
 
     #And I stop
