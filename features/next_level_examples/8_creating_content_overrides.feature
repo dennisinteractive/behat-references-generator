@@ -1,4 +1,4 @@
-@api @presentation_example_4
+@api @presentation @presentation_example_4
 Feature: Default content
   In order to make content generation easier
   as a user,

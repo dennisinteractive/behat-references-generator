@@ -1,4 +1,4 @@
-@api @presentation_example_1
+@api @presentation @presentation_example_1
 Feature: Image
   In order to make creation of images easier
   as a user,

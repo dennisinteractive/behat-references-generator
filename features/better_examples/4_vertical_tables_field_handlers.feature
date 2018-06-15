@@ -1,4 +1,4 @@
-@api
+@api @presentation
 Feature: FieldHandlers
   In order to prove field handling is working properly
   As a developer
