@@ -15,4 +15,4 @@ Feature: Default content
       | Gallery Files    | gi1.jpg, gi2.jpg, gi3.jpg, gi4.jpg |
       | Tags             | TagA, TagB, TagC                   |
 
-    And I stop
+    #And I stop

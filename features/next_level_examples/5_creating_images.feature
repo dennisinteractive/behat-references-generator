@@ -10,4 +10,4 @@ Feature: Image
 
     Then the file "bddtest.jpg" should be available
 
-    And I stop
+    #And I stop

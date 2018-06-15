@@ -10,4 +10,4 @@ Feature: Default content
       | Related articles | Tags  |
       | Custom Article 5 | Tag 5 |
 
-    And I stop
+    #And I stop

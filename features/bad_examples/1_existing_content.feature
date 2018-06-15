@@ -1,4 +1,4 @@
-@presentation
+@exclude
 Feature: Media by make blocks
   In order to surface relevant media content when on a make page
   As a User

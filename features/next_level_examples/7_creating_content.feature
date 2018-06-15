@@ -8,4 +8,4 @@ Feature: Default content
   Scenario: Create an article and referenced content using one line
     Given a default "article" content
 
-    And I stop
+    #And I stop
