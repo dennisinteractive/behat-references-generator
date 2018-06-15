@@ -2,7 +2,7 @@
 Generates non-existing referenced entities when creating content
 
 ### Installation
-1. `composer require dennisdigital/behat-references-generator`
+1. `composer require dennisdigital/behat-references-generator:dev-master`
 
 You might need to add it to repositories first
 ```
