@@ -10,9 +10,9 @@ use Behat\Gherkin\Node\TableNode;
 use Drupal\DrupalExtension\Hook\Scope\EntityScope;
 use Drupal\DrupalExtension\Context\DrupalAwareInterface;
 use Drupal\DrupalUserManagerInterface;
-use Drupal\ReferencesGenerator\Content\DefaultContent;
-use Drupal\ReferencesGenerator\Generator\EntityGenerator;
-use Drupal\ReferencesGenerator\Generator\ImageGenerator;
+use DennisDigital\Behat\DefaultContent\Content\DefaultContent;
+use DennisDigital\Behat\DefaultContent\Generator\EntityGenerator;
+use DennisDigital\Behat\DefaultContent\Generator\ImageGenerator;
 
 class ReferencesGeneratorContext implements DrupalAwareInterface {
 
@@ -32,16 +32,11 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   protected $automaticallyCreateReferencedItems = TRUE;
 
   /**
-   * Stores the default content mapping.
-   */
-  protected $defaultContentMapping;
-
-  /**
    * @inheritdoc
    */
-  public function __construct($defaultContentMapping = array())
+  public function __construct()
   {
-    $this->defaultContentMapping = $defaultContentMapping['default_content'];
+
   }
 
   /**
@@ -180,7 +175,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
     // @todo move default content to a separate function.
     if (isset($this->useDefaultContent) && $this->useDefaultContent == TRUE) {
       $bundleName = isset($entity->type) ? $entity->type : '';
-      $defaultContent = New DefaultContent($entity->entityType, $this->defaultContentMapping);
+      $defaultContent = New DefaultContent($entity->entityType);
       $defaults = $defaultContent->getContent($bundleName);
 
       foreach ($defaults as $fieldName => $value) {
@@ -188,62 +183,36 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
           $entity->{$fieldName} = $defaults[$fieldName];
         }
       }
+    }
+    $tmpEntity = clone $entity;
+    $this->drupalContext->parseEntityFields($entity->entityType, $tmpEntity);
 
-      $tmpEntity = clone $entity;
-      $this->drupalContext->parseEntityFields($entity->entityType, $tmpEntity);
+    // Create referenced entities.
+    foreach ($tmpEntity as $fieldName => $fieldValues) {
 
-      // Create referenced entities.
-      foreach ($tmpEntity as $fieldName => $fieldValues) {
+      $field = field_read_field($fieldName);
+      if (empty($field)) {
+        // Field doesn't exist.
+        continue;
+      }
+      $fieldType = $field['type'];
 
-        $field = field_read_field($fieldName);
-        if (empty($field)) {
-          // Field doesn't exist.
-          continue;
-        }
-        $fieldType = $field['type'];
+      if (!is_array($fieldValues)) {
+        $fieldValues = array($fieldValues);
+      }
 
-        if (!is_array($fieldValues)) {
-          $fieldValues = array($fieldValues);
-        }
-
-        foreach ($fieldValues as $key => $fieldValue) {
-          if ($generator = EntityGenerator::getGenerator($entity, $fieldType, $fieldName)) {
-            $generator->setDrupalContext($this->drupalContext);
-            if (!$generator->referenceExists($fieldValue)) {
-              // @todo create() should use $scope->getContext()->createNode() instead of this->drupalcontext
-              $generator->create($field, $fieldValue);
-            }
+      foreach ($fieldValues as $key => $fieldValue) {
+        if ($generator = EntityGenerator::getGenerator($entity, $fieldType, $fieldName)) {
+          $generator->setDrupalContext($this->drupalContext);
+          if (!$generator->referenceExists($fieldValue)) {
+            // @todo create() should use $scope->getContext()->createNode() instead of this->drupalcontext
+            $generator->create($field, $fieldValue);
           }
         }
       }
-
-//      // If pathauto is enabled, set the path.
-//      //if (module_exists('pathauto') && isset($entity->alias)) {
-//      if (isset($entity->alias)) {
-//        // @todo there is a bug here, it sets the same path to all terms.
-//        $entity->path = array(
-//          'alias' => $entity->alias,
-//          'pathauto' => 0
-//        );
-//        unset($entity->alias);
-//      }
-
-//      @todo do something about this
-//      // Temporary fix to populate the default value of published date. This should be populated using some hook.
-//      if (!isset($entity->field_published_date)) {
-//        $entity->field_published_date = array(
-//          'und' => array(
-//            '0' => array(
-//              'value' => gmDate('Y-m-d H:i:s'),
-//              'timezone' => 'UTC',
-//              'timezone_db' => 'UTC',
-//              'date_type' => 'datetime',
-//            )
-//          )
-//        );
-//      }
-       // print_r($entity); ob_flush();
     }
+
+    // print_r($entity); ob_flush();
   }
 
   /**
@@ -259,78 +228,5 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
     }
   }
 
-  //-----------------------------------------------------//
-  //                  Step definitions                   //
-  //-----------------------------------------------------//
-
-  /**
-   * @Given a default :type content
-   */
-  public function DefaultContent($nodeType) {
-    if ($this->automaticallyCreateReferencedItems) {
-      $this->useDefaultContent = TRUE;
-    }
-    $table = TableNode::fromList(array('',''));
-    $this->drupalContext->createNodes($nodeType, $table);
-  }
-
-  /**
-   * @Given a default :type content:
-   */
-  public function DefaultContentWithOverrides($type, TableNode $table) {
-    if ($this->automaticallyCreateReferencedItems) {
-      $this->useDefaultContent = TRUE;
-    }
-    $this->drupalContext->createNodes($type, $table);
-  }
-
-  /**
-   * @Given I am viewing a default :type content:
-   */
-  public function viewDefaultContentWithOverrides($type, TableNode $table) {
-    if ($this->automaticallyCreateReferencedItems) {
-      $this->useDefaultContent = TRUE;
-    }
-    $this->drupalContext->assertViewingNode($type, $table);
-  }
-
-  /**
-   * @Given a default image
-   */
-  public function defaultImage() {
-    $default = new DefaultContent('image', $this->defaultContentMapping);
-    $defaultImage = $default->getContent();
-    $image = ImageGenerator::createImage($defaultImage);
-    $this->files[] = $image;
-  }
-
-  /**
-   * Creates an image, allowing fields to be overriden using a table.
-   *
-   * @Given a default image:
-   */
-  public function defaultImageWithOverrides(TableNode $overridesTable) {
-    $default = new DefaultContent('image', $this->defaultContentMapping);
-    $defaultImage = $default->getContent();
-
-    foreach ($overridesTable as $overrides) {
-      foreach ($overrides as $item => $value) {
-        $defaultImage[$item] = $value;
-      }
-      $image = ImageGenerator::createImage($defaultImage);
-      $this->files[] = $image;
-    }
-  }
-
-  /**
-   * @Then the file :image should be available
-   */
-  public function theFileShouldBeAvailable($image) {
-    $path = file_create_url('public://' . $image);
-    $this->drupalContext->getSession()->visit($path);
-    if ($this->drupalContext->getSession()->getStatusCode() !== 200) {
-      throw new \Exception(sprintf('Could not find image on %s', $path));
-    };
-  }
 
 }
