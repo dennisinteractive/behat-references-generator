@@ -6,7 +6,7 @@ Feature: Image
 
   @default_content
   Scenario: Create content using one line
-    Given I have a default image:
+    Given a default image:
       | filename   | Image Alt     |
       | image1.jpg | New image     |
       | image2.jpg | Another image |

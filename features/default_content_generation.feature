@@ -5,10 +5,10 @@ Feature: Table
   I want to use Table tests
 
   Background:
-    Given I have a default image
+    Given a default image
     Then the file "bddtest.jpg" should be available
 
-    Given I have a default image:
+    Given a default image:
       | filename   | Image Alt     |
       | image1.jpg | New image     |
       | image2.jpg | Another image |
