@@ -81,9 +81,11 @@ class DefaultContent {
         'alt_text' => 'Default alt text',
       ),
       'term' => array(
-        'name' => 'Default Term',
-        'alias' => 'default-term',
-        //'path' => array('alias' => 'default-term', 'pathauto' => 0),
+        // @todo this is not working.
+        'tags' => array(
+          'name' => 'Default Term',
+          'alias' => 'default-term',
+        ),
       ),
       'node' => array(
         'author' => array(

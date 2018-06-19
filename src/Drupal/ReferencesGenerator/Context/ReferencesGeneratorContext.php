@@ -130,6 +130,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   public function assignEntityTypeNode(EntityScope $scope) {
     $entity = $scope->getEntity();
     $entity->entityType = 'node';
+    $this->setEntityPath($entity);
   }
 
   /**
@@ -140,6 +141,27 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   public function assignEntityTypeTerm(EntityScope $scope) {
     $entity = $scope->getEntity();
     $entity->entityType = 'term';
+    $this->setEntityPath($entity);
+  }
+
+  /**
+   * Sets the entity path.
+   *
+   * @param $entity
+   */
+  public function setEntityPath($entity) {
+    if (isset($entity->alias)) {
+      // @todo there is a bug here, it sets the same path to all terms.
+      $entity->path = array(
+        'alias' => $entity->alias,
+        'pathauto' => 0
+      );
+      unset($entity->alias);
+    }
+    else {
+      $entity->path['alias'] = '';
+    }
+    //print_r($entity); ob_flush();
   }
 
   /**
@@ -195,16 +217,16 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
         }
       }
 
-      // If pathauto is enabled, set the path.
-      //if (module_exists('pathauto') && isset($entity->alias)) {
-      if (isset($entity->alias)) {
-        // @todo there is a bug here, it sets the same path to all terms.
-        $entity->path = array(
-          'alias' => $entity->alias,
-          'pathauto' => 0
-        );
-        unset($entity->alias);
-      }
+//      // If pathauto is enabled, set the path.
+//      //if (module_exists('pathauto') && isset($entity->alias)) {
+//      if (isset($entity->alias)) {
+//        // @todo there is a bug here, it sets the same path to all terms.
+//        $entity->path = array(
+//          'alias' => $entity->alias,
+//          'pathauto' => 0
+//        );
+//        unset($entity->alias);
+//      }
 
 //      @todo do something about this
 //      // Temporary fix to populate the default value of published date. This should be populated using some hook.
