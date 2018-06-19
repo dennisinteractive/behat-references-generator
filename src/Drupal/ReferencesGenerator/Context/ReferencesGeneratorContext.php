@@ -32,11 +32,6 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   protected $automaticallyCreateReferencedItems = TRUE;
 
   /**
-   * Stores the field mapping.
-   */
-  protected $fieldMapping;
-
-  /**
    * Stores the default content mapping.
    */
   protected $defaultContentMapping;
@@ -44,10 +39,9 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   /**
    * @inheritdoc
    */
-  public function __construct($fieldMapping = array(), $defaultContentMapping = array())
+  public function __construct($defaultContentMapping = array())
   {
-    $this->fieldMapping = reset($fieldMapping);
-    $this->defaultContentMapping = reset($defaultContentMapping);
+    $this->defaultContentMapping = $defaultContentMapping['default_content'];
   }
 
   /**
@@ -226,7 +220,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
 //          )
 //        );
 //      }
-      // print_r($entity); ob_flush();
+       // print_r($entity); ob_flush();
     }
   }
 
