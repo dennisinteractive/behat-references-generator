@@ -54,8 +54,8 @@ Feature: Table
   @horizontal_table @reference_generator
   Scenario: Create content using table and non-existing references
     Given a default "test" content:
-      | Related articles | Tags  |
-      | Custom Article 5 | Tag 5 |
+      | field_related_articles | field_tags |
+      | Custom Article 5       | Tag 5      |
 
     Given I am on "/"
     Then I should see the link "Custom Article 5"
@@ -72,8 +72,8 @@ Feature: Table
   @horizontal_table @reference_generator
   Scenario: Create content using table and non-existing references
     Given a default "test" content:
-      | Title        | Body        | Related articles |
-      | Custom Title | Custom Body | Art 1            |
+      | title        | body        | field_related_articles |
+      | Custom Title | Custom Body | Art 1                  |
 
     Given I am on "/"
     When I click "Custom Title"
@@ -90,13 +90,13 @@ Feature: Table
   @vertical_table @reference_generator @default_content
   Scenario: Create content using table and non-existing references
     Given I am viewing a default "test" content:
-      | Title            | Custom Title                       |
-      | Body             | Custom Body                        |
-      | Other Articles   | Art1, Art2                         |
-      | Related articles | Art3, Art4                         |
-      | Primary Image    | image3.jpg                         |
-      | Gallery Files    | gi1.jpg, gi2.jpg, gi3.jpg, gi4.jpg |
-      | Tags             | TagA, TagB, TagC                   |
+      | title                  | Custom title                       |
+      | body                   | Custom Body                        |
+      | field_other_articles   | Art1, Art2                         |
+      | field_related_articles | Art3, Art4                         |
+      | field_primary_image    | image3.jpg                         |
+      | field_gallery_files    | gi1.jpg, gi2.jpg, gi3.jpg, gi4.jpg |
+      | field_tags             | TagA, TagB, TagC                   |
 
     And I should see "Custom Title"
     And I should see "Primary image"
@@ -111,7 +111,7 @@ Feature: Table
     And I should see "Art1"
     And I should see "Art2"
 
-    Then I should see "Related articles:"
+    Then I should see "Related Articles"
     And I should see "Art3"
     And I should see "Art4"
 
