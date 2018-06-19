@@ -309,7 +309,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   }
 
   /**
-   * @Given I have a default image
+   * @Given a default image
    */
   public function defaultImage() {
     $default = new DefaultContent('image', $this->defaultContentMapping);
@@ -321,7 +321,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   /**
    * Creates an image, allowing fields to be overriden using a table.
    *
-   * @Given I have a default image:
+   * @Given a default image:
    */
   public function defaultImageWithOverrides(TableNode $overridesTable) {
     $default = new DefaultContent('image', $this->defaultContentMapping);
