@@ -6,7 +6,7 @@ Feature: Image
 
   @default_content
   Scenario: Create content using one line
-    Given I have an image
+    Given I have a default image
 
     Then the file "Default image.jpg" should be available
 
