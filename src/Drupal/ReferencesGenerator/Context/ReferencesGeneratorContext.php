@@ -13,7 +13,6 @@ use Drupal\DrupalUserManagerInterface;
 use Drupal\ReferencesGenerator\Content\DefaultContent;
 use Drupal\ReferencesGenerator\Generator\EntityGenerator;
 use Drupal\ReferencesGenerator\Generator\ImageGenerator;
-use Drupal\ReferencesGenerator\Content\FieldAliases;
 
 class ReferencesGeneratorContext implements DrupalAwareInterface {
 
@@ -147,35 +146,6 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   public function assignEntityTypeTerm(EntityScope $scope) {
     $entity = $scope->getEntity();
     $entity->entityType = 'term';
-  }
-
-  /**
-   * Transforms fields with human readable names into their respective
-   * machine names.
-   * We loop all the values and find matches against the mapping table.
-   * Ideally we should be able to replace only the first line of the table, that
-   * contains the field names. The problem is that we don't have a way to detect
-   * if the table is vertical or horizontal. This could lead to actual values
-   * being changed if they match a field name from the mapping.
-   * @todo Detect if the table is vertical or horizontal.
-   *
-   * @Transform table:*
-   */
-  public function humanFieldNames(TableNode $table) {
-    $fieldAliases = New FieldAliases($this->fieldMapping);
-    $aliases = $fieldAliases->getAliases();
-    $table = $table->getTable();
-    foreach ($table as $rowkey => $row) {
-      foreach ($row as $colkey => $value) {
-        $value = $table[$rowkey][$colkey];
-        if (isset($aliases[$value])) {
-          $table[$rowkey][$colkey] = $aliases[$value];
-        }
-      }
-    }
-    //var_dump($table);ob_flush();
-
-    return new TableNode($table);
   }
 
   /**

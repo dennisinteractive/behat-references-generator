@@ -14,16 +14,8 @@
     "phpspec/phpspec": "~2.0"
   },
   "autoload": {
-    "files": [
-      "src/Drupal/Driver/Fields/Drupal7/NodereferenceHandler.php"
-    ],
     "psr-0": {
       "Drupal\\ReferencesGenerator": "src/"
-    }
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "master-dev"
     }
   }
 }
