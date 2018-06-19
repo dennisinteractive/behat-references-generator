@@ -9,7 +9,7 @@ You might need to add it to repositories first
 "repositories": {
     "behat-references-generator": {
       "type": "vcs",
-      "url": "git@github.com:marcelovani/behat-references-generator.git",
+      "url": "git@github.com:dennisinteractive/behat-references-generator.git",
       "no-api": true
     }
 .
@@ -17,7 +17,7 @@ You might need to add it to repositories first
 .
 ```
 
-2. Edit behat.yml and add the contexts and configuration following the example in [behat.yml.dist]: https://github.com/marcelovani/behat-references-generator/blob/master/behat.yml.dist
+2. Edit behat.yml and add the contexts and configuration following the example in [behat.yml.dist]: https://github.com/dennisinteractive/behat-references-generator/blob/master/behat.yml.dist
 
 
 ### Requirements
