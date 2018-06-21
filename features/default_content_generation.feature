@@ -6,7 +6,7 @@ Feature: Table
 
   Background:
     Given a default image
-    Then the file "bddtest.jpg" should be available
+    Then the file "Default image.jpg" should be available
 
     Given a default image:
       | filename   | Image Alt     |
