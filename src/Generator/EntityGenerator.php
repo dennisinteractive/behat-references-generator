@@ -61,7 +61,7 @@ class EntityGenerator extends AbstractHandler implements GeneratorInterface {
 
     if (isset($mapping[$fieldType])) {
       $type = $mapping[$fieldType];
-      $class_name = sprintf('\Drupal\ReferencesGenerator\Generator\%s\%sGenerator', $core, $type);
+      $class_name = sprintf('\DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\%s\%sGenerator', $core, $type);
       if (class_exists($class_name)) {
         return new $class_name($entity, $fieldType, $fieldName);
       }
