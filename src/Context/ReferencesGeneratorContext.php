@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ReferencesGenerator\Context;
+namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Context;
 
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Behat\Hook\Scope\AfterScenarioScope;
@@ -10,9 +10,9 @@ use Behat\Gherkin\Node\TableNode;
 use Drupal\DrupalExtension\Hook\Scope\EntityScope;
 use Drupal\DrupalExtension\Context\DrupalAwareInterface;
 use Drupal\DrupalUserManagerInterface;
-use Drupal\ReferencesGenerator\Content\DefaultContent;
-use Drupal\ReferencesGenerator\Generator\EntityGenerator;
-use Drupal\ReferencesGenerator\Generator\ImageGenerator;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Content\DefaultContent;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\EntityGenerator;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\ImageGenerator;
 
 class ReferencesGeneratorContext implements DrupalAwareInterface {
 

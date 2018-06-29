@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\ReferencesGenerator\Generator\Drupal7;
+namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7;
 
-use Drupal\ReferencesGenerator\Generator\EntityGenerator;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\EntityGenerator;
 
 /**
  * Entity reference field generator for Drupal 7.

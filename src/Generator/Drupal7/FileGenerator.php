@@ -1,10 +1,10 @@
 <?php
 
-namespace Drupal\ReferencesGenerator\Generator\Drupal7;
+namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7;
 
-use Drupal\ReferencesGenerator\Generator\EntityGenerator;
-use Drupal\ReferencesGenerator\Content\DefaultContent;
-use Drupal\ReferencesGenerator\Generator\ImageGenerator;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\EntityGenerator;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Content\DefaultContent;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\ImageGenerator;
 
 /**
  * File field generator for Drupal 7.

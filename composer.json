@@ -18,7 +18,7 @@
       "src/Drupal/Driver/Fields/Drupal7/NodereferenceHandler.php"
     ],
     "psr-0": {
-      "Drupal\\ReferencesGenerator": "src/"
+      "DennisDigital\\Behat\\Drupal\\ReferencesGenerator": "src/"
     }
   }
 }

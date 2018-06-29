@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ReferencesGenerator\Content;
+namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Content;
 
 /**
  * Class DefaultContent

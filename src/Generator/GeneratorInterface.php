@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ReferencesGenerator\Generator;
+namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator;
 
 use Drupal\DrupalExtension\Context\DrupalContext;
 
