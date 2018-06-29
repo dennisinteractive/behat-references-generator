@@ -4,23 +4,14 @@ namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Context;
 
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Behat\Hook\Scope\AfterScenarioScope;
-use Behat\Testwork\Hook\HookDispatcher;
-use Drupal\DrupalDriverManager;
 use Behat\Gherkin\Node\TableNode;
 use Drupal\DrupalExtension\Hook\Scope\EntityScope;
-use Drupal\DrupalExtension\Context\DrupalAwareInterface;
-use Drupal\DrupalUserManagerInterface;
+use Drupal\DrupalExtension\Context\RawDrupalContext;
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Content\DefaultContent;
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\EntityGenerator;
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\ImageGenerator;
 
-class ReferencesGeneratorContext implements DrupalAwareInterface {
-
-  /**
-   * Drupal context.
-   */
-  protected $drupalContext;
-
+class ReferencesGeneratorContext extends RawDrupalContext {
   /**
    * Stores files created to be deleted after testing.
    */
@@ -45,46 +36,17 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
   }
 
   /**
-   * @inheritDoc
+   * Creates content of a given type provided in the form:
+   * | title    | author     | status | created           |
+   * | My title | Joe Editor | 1      | 2014-10-17 8:00am |
+   * | ...      | ...        | ...    | ...               |
    */
-  public function setDrupal(DrupalDriverManager $drupal) {
-    $this->drupal = $drupal;
-  }
-
-  /**
-   * @inheritDoc
-   */
-  public function setDispatcher(HookDispatcher $dispatcher) {
-  }
-
-  /**
-   * @inheritDoc
-   */
-  public function getDrupal() {
-    return $this->drupal;
-  }
-
-  /**
-   * @var DrupalDriverManager
-   */
-  private $drupal;
-
-  /**
-   * @inheritDoc
-   */
-  public function setDrupalParameters(array $parameters) {
-  }
-
-  /**
-   * @inheritdoc
-   */
-  public function setUserManager(DrupalUserManagerInterface $userManager) {
-  }
-
-  /**
-   * @inheritdoc
-   */
-  public function getUserManager() {
+  protected function createNodes($type, TableNode $nodesTable) {
+    foreach ($nodesTable->getHash() as $nodeHash) {
+      $node = (object) $nodeHash;
+      $node->type = $type;
+      $this->nodeCreate($node);
+    }
   }
 
   //-----------------------------------------------------//
@@ -97,14 +59,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
    * @param BeforeScenarioScope $scope
    */
   public function initialize(BeforeScenarioScope $scope) {
-    // Get the environment.
-    $environment = $scope->getEnvironment();
-
-    // @todo find a way to get rid of this.
-    $this->drupalContext = $environment->getContext('Drupal\DrupalExtension\Context\DrupalContext');
-
-    // Ensure drupal is bootstrapped by getting the driver.
-    $this->drupalContext->getDriver('drupal');
+    $this->getDrupal()->getDriver('drupal');
   }
 
   /**
@@ -161,7 +116,6 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
     else {
       $entity->path['alias'] = '';
     }
-    //print_r($entity); ob_flush();
   }
 
   /**
@@ -190,7 +144,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
       }
 
       $tmpEntity = clone $entity;
-      $this->drupalContext->parseEntityFields($entity->entityType, $tmpEntity);
+      $this->parseEntityFields($entity->entityType, $tmpEntity);
 
       // Create referenced entities.
       foreach ($tmpEntity as $fieldName => $fieldValues) {
@@ -208,7 +162,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
 
         foreach ($fieldValues as $key => $fieldValue) {
           if ($generator = EntityGenerator::getGenerator($entity, $fieldType, $fieldName)) {
-            $generator->setDrupalContext($this->drupalContext);
+            $generator->setDrupalContext($this);
             if (!$generator->referenceExists($fieldValue)) {
               // @todo create() should use $scope->getContext()->createNode() instead of this->drupalcontext
               $generator->create($field, $fieldValue);
@@ -271,7 +225,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
       $this->useDefaultContent = TRUE;
     }
     $table = TableNode::fromList(array('',''));
-    $this->drupalContext->createNodes($nodeType, $table);
+    $this->createNodes($nodeType, $table);
   }
 
   /**
@@ -281,7 +235,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
     if ($this->automaticallyCreateReferencedItems) {
       $this->useDefaultContent = TRUE;
     }
-    $this->drupalContext->createNodes($type, $table);
+    $this->createNodes($type, $table);
   }
 
   /**
@@ -291,7 +245,7 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
     if ($this->automaticallyCreateReferencedItems) {
       $this->useDefaultContent = TRUE;
     }
-    $this->drupalContext->assertViewingNode($type, $table);
+    $this->assertViewingNode($type, $table);
   }
 
   /**
@@ -327,8 +281,8 @@ class ReferencesGeneratorContext implements DrupalAwareInterface {
    */
   public function theFileShouldBeAvailable($image) {
     $path = file_create_url('public://' . $image);
-    $this->drupalContext->getSession()->visit($path);
-    if ($this->drupalContext->getSession()->getStatusCode() !== 200) {
+    $this->getSession()->visit($path);
+    if ($this->getSession()->getStatusCode() !== 200) {
       throw new \Exception(sprintf('Could not find image on %s', $path));
     };
   }
