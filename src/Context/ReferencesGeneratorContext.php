@@ -8,7 +8,7 @@ use Behat\Gherkin\Node\TableNode;
 use Drupal\DrupalExtension\Hook\Scope\EntityScope;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Content\DefaultContent;
-use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\EntityGenerator;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\GeneratorManager;
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\ImageGenerator;
 
 class ReferencesGeneratorContext extends RawDrupalContext {
@@ -28,11 +28,48 @@ class ReferencesGeneratorContext extends RawDrupalContext {
   protected $defaultContentMapping;
 
   /**
+   * @var GeneratorManager
+   */
+  protected $generatorManager;
+
+  /**
    * @inheritdoc
    */
-  public function __construct($defaultContentMapping = array())
-  {
-    $this->defaultContentMapping = $defaultContentMapping['default_content'];
+  public function __construct($parameters = array()) {
+    $this->defaultContentMapping = $parameters['default_content'];
+  }
+
+  /**
+   * Get Generator
+   *
+   * @return \DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\GeneratorManager
+   */
+  protected function getGeneratorManager() {
+    if (!isset($this->generatorManager)) {
+      $this->generatorManager = new GeneratorManager($this->getDrupal());
+    }
+    return $this->generatorManager;
+  }
+
+  /**
+   * Get Generator
+   *
+   * @return \DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\GeneratorInterface
+   * @throws \Exception
+   */
+  protected function getGenerator() {
+    return $this->getGeneratorManager->getGenerator($entity, $fieldType, $fieldName);
+  }
+
+  /**
+   * Create an entity.
+   *
+   * @param $type
+   * @param $data
+   * @throws \Exception
+   */
+  protected function createEntity($type, $data) {
+    $this->getGeneratorManager()->getEntity($type, $data)->save();
   }
 
   /**
@@ -161,7 +198,7 @@ class ReferencesGeneratorContext extends RawDrupalContext {
         }
 
         foreach ($fieldValues as $key => $fieldValue) {
-          if ($generator = EntityGenerator::getGenerator($entity, $fieldType, $fieldName)) {
+          if ($generator = $this->getGenerator($entity, $fieldType, $fieldName)) {
             $generator->setDrupalContext($this);
             if (!$generator->referenceExists($fieldValue)) {
               // @todo create() should use $scope->getContext()->createNode() instead of this->drupalcontext
@@ -197,19 +234,6 @@ class ReferencesGeneratorContext extends RawDrupalContext {
 //        );
 //      }
        // print_r($entity); ob_flush();
-    }
-  }
-
-  /**
-   * Force memcache flush.
-   * This is a trick to fix a bug with memcache extension.
-   *
-   * @afterNodeCreate
-   * @afterTermCreate
-   */
-  public function memcacheFlush(EntityScope $scope) {
-    foreach (['cache_path_alias', 'cache_path_source'] as $bin) {
-      cache_get('', $bin);
     }
   }
 
@@ -254,7 +278,7 @@ class ReferencesGeneratorContext extends RawDrupalContext {
   public function defaultImage() {
     $default = new DefaultContent('image', $this->defaultContentMapping);
     $defaultImage = $default->getContent();
-    $image = ImageGenerator::createImage($defaultImage);
+    $image = $this->createEntity('image', $defaultImage);
     $this->files[] = $image;
   }
 
@@ -271,7 +295,7 @@ class ReferencesGeneratorContext extends RawDrupalContext {
       foreach ($overrides as $item => $value) {
         $defaultImage[$item] = $value;
       }
-      $image = ImageGenerator::createImage($defaultImage);
+      $image = $this->createEntity('image', $defaultImage);
       $this->files[] = $image;
     }
   }

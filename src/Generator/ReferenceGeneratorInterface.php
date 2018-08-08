@@ -4,7 +4,7 @@ namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator;
 
 use Drupal\DrupalExtension\Context\DrupalContext;
 
-interface GeneratorInterface {
+interface ReferenceGeneratorInterface {
 
   public function expand($value);
 

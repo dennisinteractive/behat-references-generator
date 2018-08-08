@@ -1,12 +1,12 @@
 <?php
-namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7;
+namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7\Reference;
 
-use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\EntityGenerator;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\AbstractReferenceGenerator;
 
 /**
  * Taxonomy term reference field generator for Drupal 7.
  */
-class TaxonomyTermReferenceGenerator extends EntityGenerator {
+class TaxonomyTerm extends AbstractReferenceGenerator {
 
   /**
    * Attempt to determine the vocabulary for which the field is configured.

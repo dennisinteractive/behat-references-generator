@@ -1,15 +1,15 @@
 <?php
 
-namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7;
+namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7\Reference;
 
-use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\EntityGenerator;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\AbstractReferenceGenerator;
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Content\DefaultContent;
-use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\ImageGenerator;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7\Entity\Image;
 
 /**
  * File field generator for Drupal 7.
  */
-class FileGenerator extends EntityGenerator {
+class File extends AbstractReferenceGenerator {
 
   /**
    * {@inheritdoc}
@@ -54,9 +54,21 @@ class FileGenerator extends EntityGenerator {
         $default = new DefaultContent('image', array()); // @todo pass the default values $this->defaultContentMapping
         $defaultImage = $default->getContent();
         $defaultImage['filename'] = $value;
-        ImageGenerator::createImage($defaultImage);
+        $this->createImage($defaultImage);
         break;
     }
+  }
+
+  /**
+   * Create an image entity.
+   *
+   * @param $image
+   * @return mixed
+   * @throws \Exception
+   */
+  protected function createImage($image) {
+    $file = new Image();
+    return $file->save();
   }
 
 }

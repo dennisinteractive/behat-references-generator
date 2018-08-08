@@ -1,13 +1,13 @@
 <?php
 
-namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7;
+namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7\Reference;
 
-use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\EntityGenerator;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\AbstractReferenceGenerator;
 
 /**
  * Node reference field generator for Drupal 7.
  */
-class NodeReferenceGenerator extends EntityGenerator {
+class Node extends AbstractReferenceGenerator {
 
   /**
    * {@inheritdoc}
