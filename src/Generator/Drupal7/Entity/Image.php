@@ -2,12 +2,13 @@
 
 namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7\Entity;
 
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Entity\AbstractEntity;
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\ImageGenerator;
 
 /**
  * Image creation for Drupal 7.
  */
-class Image {
+class Image extends AbstractEntity {
   /**
    * @var array
    */

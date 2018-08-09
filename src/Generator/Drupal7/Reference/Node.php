@@ -2,7 +2,7 @@
 
 namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7\Reference;
 
-use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\AbstractReferenceGenerator;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Reference\AbstractReferenceGenerator;
 
 /**
  * Node reference field generator for Drupal 7.

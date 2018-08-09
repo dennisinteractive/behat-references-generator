@@ -10,7 +10,7 @@ class ImageGenerator  {
    * @param $image
    * @return string
    */
-  public static function createImage($image) {
+  public function createImage($image) {
     $local_filename = '/tmp/' . $image['filename'];
 
     // Create a blank image and add some text

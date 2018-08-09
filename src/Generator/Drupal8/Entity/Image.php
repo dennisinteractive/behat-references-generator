@@ -2,6 +2,7 @@
 
 namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal8\Entity;
 
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Entity\AbstractEntity;
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\ImageGenerator;
 use Drupal\media\Entity\Media;
 use Drupal\media_entity\Entity\Media as MediaContrib;
@@ -10,21 +11,7 @@ use Drupal\file\Entity\File;
 /**
  * Image creation for Drupal 8.
  */
-class Image {
-  /**
-   * @var array
-   */
-  protected $data;
-
-  /**
-   * Create an image entity.
-   *
-   * @param $data
-   * @throws \Exception
-   */
-  public function __construct($data) {
-    $this->data = $data;
-  }
+class Image extends AbstractEntity {
 
   /**
    * Save the image entity.

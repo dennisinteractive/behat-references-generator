@@ -18,11 +18,6 @@ class ReferencesGeneratorContext extends RawDrupalContext {
   private $files;
 
   /**
-   * When set to TRUE, referenced content will be automatically created if needed.
-   */
-  protected $automaticallyCreateReferencedItems = TRUE;
-
-  /**
    * Stores the default content mapping.
    */
   protected $defaultContentMapping;
@@ -54,11 +49,14 @@ class ReferencesGeneratorContext extends RawDrupalContext {
   /**
    * Get Generator
    *
+   * @param $entity
+   * @param $fieldType
+   * @param $fieldName
    * @return \DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\GeneratorInterface
    * @throws \Exception
    */
-  protected function getGenerator() {
-    return $this->getGeneratorManager->getGenerator($entity, $fieldType, $fieldName);
+  protected function getReferenceGenerator($entity, $fieldType, $fieldName) {
+    return $this->getGeneratorManager()->getReferenceGenerator($entity, $fieldType, $fieldName);
   }
 
   /**
@@ -82,6 +80,7 @@ class ReferencesGeneratorContext extends RawDrupalContext {
     foreach ($nodesTable->getHash() as $nodeHash) {
       $node = (object) $nodeHash;
       $node->type = $type;
+      $node->useDefaultContent = TRUE;
       $this->nodeCreate($node);
     }
   }
@@ -169,40 +168,41 @@ class ReferencesGeneratorContext extends RawDrupalContext {
     }
 
     // @todo move default content to a separate function.
-    if (isset($this->useDefaultContent) && $this->useDefaultContent == TRUE) {
+    if (isset($entity->useDefaultContent) && $entity->useDefaultContent == TRUE) {
       $bundleName = isset($entity->type) ? $entity->type : '';
-      $defaultContent = New DefaultContent($entity->entityType, $this->defaultContentMapping);
+      $defaultContent = new DefaultContent($entity->entityType, $this->defaultContentMapping);
       $defaults = $defaultContent->getContent($bundleName);
 
-      foreach ($defaults as $fieldName => $value) {
-        if (!isset($entity->{$fieldName})) {
-          $entity->{$fieldName} = $defaults[$fieldName];
+      foreach ($defaults as $field_name => $value) {
+        if (!isset($entity->{$field_name})) {
+          $entity->{$field_name} = $defaults[$field_name];
         }
       }
 
-      $tmpEntity = clone $entity;
-      $this->parseEntityFields($entity->entityType, $tmpEntity);
+      $tmp_entity = clone $entity;
+      $this->parseEntityFields($entity->entityType, $tmp_entity);
 
       // Create referenced entities.
-      foreach ($tmpEntity as $fieldName => $fieldValues) {
-
-        $field = field_read_field($fieldName);
-        if (empty($field)) {
-          // Field doesn't exist.
+      foreach ($tmp_entity as $field_name => $field_values) {
+        if (empty($field_name)) {
           continue;
         }
-        $fieldType = $field['type'];
+        $field = $this->getGeneratorManager()->getField($entity->entityType, $field_name);
+        $field_type = $field->getType();
 
-        if (!is_array($fieldValues)) {
-          $fieldValues = array($fieldValues);
+        if (empty($field_type)) {
+          continue;
         }
 
-        foreach ($fieldValues as $key => $fieldValue) {
-          if ($generator = $this->getGenerator($entity, $fieldType, $fieldName)) {
+        if (!is_array($field_values)) {
+          $field_values = array($field_values);
+        }
+
+        foreach ($field_values as $key => $field_value) {
+          if ($generator = $this->getReferenceGenerator($entity, $field_type, $field_name)) {
             $generator->setDrupalContext($this);
-            if (!$generator->referenceExists($fieldValue)) {
-              // @todo create() should use $scope->getContext()->createNode() instead of this->drupalcontext
-              $generator->create($field, $fieldValue);
+            if (!$generator->referenceExists($field_value)) {
+              $generator->create($field, $field_value);
             }
           }
         }
@@ -245,9 +245,6 @@ class ReferencesGeneratorContext extends RawDrupalContext {
    * @Given a default :type content
    */
   public function DefaultContent($nodeType) {
-    if ($this->automaticallyCreateReferencedItems) {
-      $this->useDefaultContent = TRUE;
-    }
     $table = TableNode::fromList(array('',''));
     $this->createNodes($nodeType, $table);
   }
@@ -256,9 +253,6 @@ class ReferencesGeneratorContext extends RawDrupalContext {
    * @Given a default :type content:
    */
   public function DefaultContentWithOverrides($type, TableNode $table) {
-    if ($this->automaticallyCreateReferencedItems) {
-      $this->useDefaultContent = TRUE;
-    }
     $this->createNodes($type, $table);
   }
 
@@ -266,9 +260,6 @@ class ReferencesGeneratorContext extends RawDrupalContext {
    * @Given I am viewing a default :type content:
    */
   public function viewDefaultContentWithOverrides($type, TableNode $table) {
-    if ($this->automaticallyCreateReferencedItems) {
-      $this->useDefaultContent = TRUE;
-    }
     $this->assertViewingNode($type, $table);
   }
 
@@ -295,7 +286,7 @@ class ReferencesGeneratorContext extends RawDrupalContext {
       foreach ($overrides as $item => $value) {
         $defaultImage[$item] = $value;
       }
-      $image = $this->createEntity('image', $defaultImage);
+      $image = ImageGenerator::createImage($defaultImage);
       $this->files[] = $image;
     }
   }

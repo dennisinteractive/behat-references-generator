@@ -28,8 +28,7 @@ class GeneratorManager {
    * @throws \Exception
    */
   public function getReferenceGenerator($entity, $fieldType, $fieldName) {
-    $core = 'Drupal' . $this->drupal->getDriver()->getDrupalVersion();
-
+    $core = $this->drupal->getDriver()->getDrupalVersion();
     $mapping = array(
       'file' => 'File',
       'image' => 'File',
@@ -41,7 +40,7 @@ class GeneratorManager {
 
     if (isset($mapping[$fieldType])) {
       $type = $mapping[$fieldType];
-      $class_name = sprintf('\DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\%s\Reference\%s', $core, $type);
+      $class_name = sprintf('\DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal%s\Reference\%s', $core, $type);
       if (class_exists($class_name)) {
         return new $class_name($entity, $fieldType, $fieldName);
       }
@@ -60,14 +59,14 @@ class GeneratorManager {
    * @throws \Exception
    */
   public function getEntity($type, $data) {
-    $core = 'Drupal' . $this->drupal->getDriver()->getDrupalVersion();
+    $core = $this->drupal->getDriver()->getDrupalVersion();
 
     $mapping = array(
       'image' => 'Image',
     );
 
     if (isset($mapping[$type])) {
-      $class_name = sprintf('\DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\%s\Entity\%s', $core, $mapping[$type]);
+      $class_name = sprintf('\DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal%s\Entity\%s', $core, $mapping[$type]);
       if (class_exists($class_name)) {
         return new $class_name($data);
       }
@@ -77,4 +76,24 @@ class GeneratorManager {
     }
     throw new \Exception("Cannot find entity generator class for " . $type);
   }
+
+  /**
+   * Gets the field.
+   *
+   * @param $entity_type
+   * @param $field_name
+   * @return mixed
+   * @throws \Exception
+   */
+  public function getField($entity_type, $field_name) {
+    $core = $this->drupal->getDriver()->getDrupalVersion();
+    $class_name = sprintf('\DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal%s\Field\Field', $core);
+    if (class_exists($class_name)) {
+      return new $class_name($entity_type, $field_name);
+    }
+    else {
+      throw new \Exception("Cannot find $class_name class");
+    }
+  }
+
 }
