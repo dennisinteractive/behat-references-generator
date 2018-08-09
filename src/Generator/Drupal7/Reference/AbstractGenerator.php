@@ -1,11 +1,12 @@
 <?php
 
-namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Reference;
+namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7\Reference;
 
 use Drupal\Driver\Fields\Drupal7\AbstractHandler;
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Context\ReferencesGeneratorContext;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Reference\GeneratorInterface;
 
-abstract class AbstractReferenceGenerator extends AbstractHandler implements ReferenceGeneratorInterface {
+abstract class AbstractGenerator extends AbstractHandler implements GeneratorInterface {
   /**
    * @var ReferencesGeneratorContext
    */

@@ -2,14 +2,13 @@
 
 namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7\Reference;
 
-use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Reference\AbstractReferenceGenerator;
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Content\DefaultContent;
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7\Entity\Image;
 
 /**
  * File field generator for Drupal 7.
  */
-class File extends AbstractReferenceGenerator {
+class File extends AbstractGenerator {
 
   /**
    * {@inheritdoc}

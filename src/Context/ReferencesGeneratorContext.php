@@ -52,11 +52,11 @@ class ReferencesGeneratorContext extends RawDrupalContext {
    * @param $entity
    * @param $fieldType
    * @param $fieldName
-   * @return \DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\GeneratorInterface
+   * @return \DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Reference\GeneratorInterface
    * @throws \Exception
    */
-  protected function getReferenceGenerator($entity, $fieldType, $fieldName) {
-    return $this->getGeneratorManager()->getReferenceGenerator($entity, $fieldType, $fieldName);
+  protected function getReferenceGenerator($entity, $field_type, $field_name) {
+    return $this->getGeneratorManager()->getReferenceGenerator($entity, $field_type, $field_name);
   }
 
   /**
@@ -187,6 +187,7 @@ class ReferencesGeneratorContext extends RawDrupalContext {
         if (empty($field_name)) {
           continue;
         }
+
         $field = $this->getGeneratorManager()->getField($entity->entityType, $field_name);
         $field_type = $field->getType();
 
@@ -200,9 +201,9 @@ class ReferencesGeneratorContext extends RawDrupalContext {
 
         foreach ($field_values as $key => $field_value) {
           if ($generator = $this->getReferenceGenerator($entity, $field_type, $field_name)) {
-            $generator->setDrupalContext($this);
+            $generator->setReferencesContext($this);
             if (!$generator->referenceExists($field_value)) {
-              $generator->create($field, $field_value);
+              $generator->create($field_value);
             }
           }
         }
@@ -233,7 +234,6 @@ class ReferencesGeneratorContext extends RawDrupalContext {
 //          )
 //        );
 //      }
-       // print_r($entity); ob_flush();
     }
   }
 

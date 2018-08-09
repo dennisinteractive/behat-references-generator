@@ -2,13 +2,10 @@
 
 namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7\Reference;
 
-use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Reference\AbstractReferenceGenerator;
-
 /**
  * Entity reference field generator for Drupal 7.
  */
-class Entity extends AbstractReferenceGenerator {
-
+class Entity extends AbstractGenerator {
   /**
    * {@inheritdoc}
    */
@@ -48,6 +45,6 @@ class Entity extends AbstractReferenceGenerator {
       'type' => reset($type),
     );
 
-    return $this->drupalContext->nodeCreate($node);
+    return $this->referencesGeneratorContext->nodeCreate($node);
   }
 }

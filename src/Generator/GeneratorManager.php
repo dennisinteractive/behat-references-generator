@@ -27,22 +27,23 @@ class GeneratorManager {
    * @return GeneratorInterface
    * @throws \Exception
    */
-  public function getReferenceGenerator($entity, $fieldType, $fieldName) {
+  public function getReferenceGenerator($entity, $field_type, $field_name) {
     $core = $this->drupal->getDriver()->getDrupalVersion();
     $mapping = array(
       'file' => 'File',
       'image' => 'File',
       'node_reference' => 'Node',
       'entityreference' => 'Entity',
+      'entity_reference' => 'Entity',
       'taxonomy_term_reference' => 'TaxonomyTerm',
       'car_reference' => 'Car',
     );
 
-    if (isset($mapping[$fieldType])) {
-      $type = $mapping[$fieldType];
+    if (isset($mapping[$field_type])) {
+      $type = $mapping[$field_type];
       $class_name = sprintf('\DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal%s\Reference\%s', $core, $type);
       if (class_exists($class_name)) {
-        return new $class_name($entity, $fieldType, $fieldName);
+        return new $class_name($entity, $entity->entityType, $field_name);
       }
       else {
         throw new \Exception("Cannot find $class_name class");

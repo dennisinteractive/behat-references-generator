@@ -2,12 +2,10 @@
 
 namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7\Reference;
 
-use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Reference\AbstractReferenceGenerator;
-
 /**
  * Node reference field generator for Drupal 7.
  */
-class Node extends AbstractReferenceGenerator {
+class Node extends AbstractGenerator {
 
   /**
    * {@inheritdoc}
@@ -42,6 +40,6 @@ class Node extends AbstractReferenceGenerator {
       'type' => reset($type),
     );
 
-    return $this->drupalContext->nodeCreate($node);
+    return $this->referencesGeneratorContext->nodeCreate($node);
   }
 }

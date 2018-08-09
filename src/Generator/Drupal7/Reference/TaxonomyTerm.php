@@ -1,12 +1,10 @@
 <?php
 namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7\Reference;
 
-use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Reference\AbstractReferenceGenerator;
-
 /**
  * Taxonomy term reference field generator for Drupal 7.
  */
-class TaxonomyTerm extends AbstractReferenceGenerator {
+class TaxonomyTerm extends AbstractGenerator {
 
   /**
    * Attempt to determine the vocabulary for which the field is configured.
@@ -54,7 +52,7 @@ class TaxonomyTerm extends AbstractReferenceGenerator {
       $term->name = $value;
       $term->path = array('pathauto' => 1);
       $term->vid = $vocabulary->vid;
-      $term = $this->drupalContext->termCreate($term);
+      $term = $this->referencesGeneratorContext->termCreate($term);
       return $term->tid;
     }
     else {

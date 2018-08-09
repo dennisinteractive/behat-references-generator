@@ -10,7 +10,6 @@ class Field extends AbstractField {
    */
   public function getType() {
     $field = field_read_field($this->fieldName);
-    $fieldType = $field['type'];
-
+    return $field['type'];
   }
 }
