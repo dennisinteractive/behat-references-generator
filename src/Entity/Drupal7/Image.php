@@ -1,6 +1,6 @@
 <?php
 
-namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7\Entity;
+namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\Drupal7;
 
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Entity\AbstractEntity;
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\ImageGenerator;

@@ -52,11 +52,11 @@ class ReferencesGeneratorContext extends RawDrupalContext {
    * @param $entity
    * @param $fieldType
    * @param $fieldName
-   * @return \DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Reference\GeneratorInterface
+   * @return \DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\GeneratorInterface
    * @throws \Exception
    */
-  protected function getReferenceGenerator($entity, $field_type, $field_name) {
-    return $this->getGeneratorManager()->getReferenceGenerator($entity, $field_type, $field_name);
+  protected function getReferenceGenerator($entity, $field_name) {
+    return $this->getGeneratorManager()->getReferenceGenerator($entity, $field_name);
   }
 
   /**
@@ -98,19 +98,28 @@ class ReferencesGeneratorContext extends RawDrupalContext {
     $this->getDrupal()->getDriver('drupal');
   }
 
+//  /**
+//   * Deletes images created.
+//   *
+//   * @AfterScenario
+//   */
+//  public function deleteImages(AfterScenarioScope $scope) {
+//    if (empty($this->files)) {
+//      return;
+//    }
+//
+//    foreach ($this->files as $file) {
+//      file_delete($file, TRUE);
+//    }
+//  }
+
   /**
-   * Deletes images created.
+   * Delete references after scenario.
    *
    * @AfterScenario
    */
-  public function deleteImages(AfterScenarioScope $scope) {
-    if (empty($this->files)) {
-      return;
-    }
-
-    foreach ($this->files as $file) {
-      file_delete($file, TRUE);
-    }
+  public function removeReferences(AfterScenarioScope $scope) {
+    $this->getGeneratorManager()->cleanUp();
   }
 
   /**
@@ -187,21 +196,20 @@ class ReferencesGeneratorContext extends RawDrupalContext {
         if (empty($field_name)) {
           continue;
         }
-
-        $field = $this->getGeneratorManager()->getField($entity->entityType, $field_name);
-        $field_type = $field->getType();
-
-        if (empty($field_type)) {
-          continue;
-        }
+//
+//        $field = $this->getGeneratorManager()->getField($entity->entityType, $field_name);
+//        $field_type = $field->getType();
+//
+//        if (empty($field_type)) {
+//          continue;
+//        }
 
         if (!is_array($field_values)) {
           $field_values = array($field_values);
         }
 
         foreach ($field_values as $key => $field_value) {
-          if ($generator = $this->getReferenceGenerator($entity, $field_type, $field_name)) {
-            $generator->setReferencesContext($this);
+          if ($generator = $this->getReferenceGenerator($entity, $field_name)) {
             if (!$generator->referenceExists($field_value)) {
               $generator->create($field_value);
             }

@@ -1,13 +1,24 @@
 <?php
 
-namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal8\Reference;
+namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal8;
 
 use Drupal\taxonomy\Entity\Vocabulary;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\AbstractGenerator;
 
 /**
  * Entity reference field generator for Drupal 8.
  */
-class Entity extends AbstractGenerator {
+class EntityReference extends AbstractGenerator {
+  /**
+   * @var array
+   */
+  protected $nodes = [];
+
+  /**
+   * @var array
+   */
+  protected $terms = [];
+
   /**
    * {@inheritdoc}
    */
@@ -16,7 +27,6 @@ class Entity extends AbstractGenerator {
     $label_key = $this->getLabelKey();
     $target_bundles = $this->getTargetBundles();
     $target_bundle_key = $this->getTargetBundleKey();
-
     $query = \Drupal::entityQuery($entity_type_id)->condition($label_key, $value);
     $query->accessCheck(FALSE);
     if ($target_bundles && $target_bundle_key) {
@@ -48,13 +58,15 @@ class Entity extends AbstractGenerator {
 
     switch ($entity_type_id) {
       case 'node':
-        return $this->referencesGeneratorContext->nodeCreate($entity);
-        break;
+        $node = $this->getDrupal()->getDriver()->createNode($entity);
+        $this->nodes = $node;
+        return $node;
       case 'taxonomy_term':
         $vocab = Vocabulary::load($target_bundle);
         $entity->vocabulary_machine_name = $vocab->get('name');
-        return $this->referencesGeneratorContext->termCreate($entity);
-        break;
+        $term = $this->getDrupal()->getDriver()->createTerm($entity);
+        $this->terms[] = $term;
+        return $term;
     }
   }
 
@@ -63,7 +75,7 @@ class Entity extends AbstractGenerator {
    * @return string
    */
   protected function getEntityTypeId() {
-    return $this->fieldInfo->getSetting('target_type');
+    return $this->getFieldHandler()->getFieldInfo()->getSetting('target_type');
   }
 
   /**
@@ -122,9 +134,21 @@ class Entity extends AbstractGenerator {
    *   Array of bundle names, or NULL if not able to determine bundles.
    */
   protected function getTargetBundles() {
-    $settings = $this->fieldConfig->getSettings();
+    $settings = $this->getFieldHandler()->getFieldConfig()->getSettings();
     if (!empty($settings['handler_settings']['target_bundles'])) {
       return $settings['handler_settings']['target_bundles'];
+    }
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function cleanup() {
+    foreach ($this->nodes as $node) {
+      $this->getDrupal()->getDriver()->nodeDelete($entity);
+    }
+    foreach ($this->terms as $term) {
+      $this->getDrupal()->getDriver()->termDelete($term);
     }
   }
 }
