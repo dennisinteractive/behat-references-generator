@@ -21,12 +21,17 @@ interface GeneratorInterface {
   public function create($values);
 
   /**
-   * Cleanup generated references.
-   */
-  public function cleanup();
-
-  /**
    * @return DennisDigital\Behat\Drupal\ReferencesGenerator\Fields\FieldHandlerInterface;
    */
   public function getFieldHandler();
+
+  /**
+   * @return \DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\GeneratorManager
+   */
+  public function getGeneratorManager();
+
+  /**
+   * @return \DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\EntityManager
+   */
+  public function getEntityManager();
 }

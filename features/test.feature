@@ -5,11 +5,10 @@ Feature: Table
   I want to use Table tests
 
   Scenario: Create content using one line
-    Given a default "article" content
-    Then I am on "/"
-    When I click "Article title from yml"
-
-    Then I should see "Article title from yml"
-
-    And I should see the link "Tag1"
-    And I should see the link "Tag2"
+    Given a default image media
+    Given I am viewing default "article" content:
+      | title                  | Custom title                       |
+      | field_teaser_image     | image3.jpg                         |
+      | field_tags             | TagA, TagB, TagC                   |
+    Then I should see "Custom title"
+    And I should see "TagA"

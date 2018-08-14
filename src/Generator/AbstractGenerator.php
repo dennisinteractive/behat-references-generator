@@ -40,6 +40,20 @@ abstract class AbstractGenerator implements GeneratorInterface {
   }
 
   /**
+   * @inheritdoc
+   */
+  public function getGeneratorManager() {
+    return $this->generatorManager;
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function getEntityManager() {
+    return $this->getGeneratorManager()->getEntityManager();
+  }
+
+  /**
    * @return DrupalDriverManager
    */
   public function getDrupal() {

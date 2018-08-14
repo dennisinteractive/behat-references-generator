@@ -1,6 +1,6 @@
 <?php
 
-namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Entity;
+namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Entity;
 
 /**
  * Entity Interface.
@@ -12,4 +12,11 @@ Interface EntityInterface {
    * @return mixed
    */
   public function save();
+
+  /**
+   * Delete the entity.
+   *
+   * @return mixed
+   */
+  public function delete();
 }

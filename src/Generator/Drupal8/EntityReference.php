@@ -10,16 +10,6 @@ use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\AbstractGenerator;
  */
 class EntityReference extends AbstractGenerator {
   /**
-   * @var array
-   */
-  protected $nodes = [];
-
-  /**
-   * @var array
-   */
-  protected $terms = [];
-
-  /**
    * {@inheritdoc}
    */
   public function referenceExists($value) {
@@ -58,15 +48,12 @@ class EntityReference extends AbstractGenerator {
 
     switch ($entity_type_id) {
       case 'node':
-        $node = $this->getDrupal()->getDriver()->createNode($entity);
-        $this->nodes = $node;
-        return $node;
+        $this->getEntityManager()->createEntity('node', $target_bundle, $entity);
+        break;
       case 'taxonomy_term':
         $vocab = Vocabulary::load($target_bundle);
         $entity->vocabulary_machine_name = $vocab->get('name');
-        $term = $this->getDrupal()->getDriver()->createTerm($entity);
-        $this->terms[] = $term;
-        return $term;
+        $this->getEntityManager()->createEntity('taxonomy_term', $entity->vocabulary_machine_name, $entity);
     }
   }
 
@@ -137,18 +124,6 @@ class EntityReference extends AbstractGenerator {
     $settings = $this->getFieldHandler()->getFieldConfig()->getSettings();
     if (!empty($settings['handler_settings']['target_bundles'])) {
       return $settings['handler_settings']['target_bundles'];
-    }
-  }
-
-  /**
-   * @inheritdoc
-   */
-  public function cleanup() {
-    foreach ($this->nodes as $node) {
-      $this->getDrupal()->getDriver()->nodeDelete($entity);
-    }
-    foreach ($this->terms as $term) {
-      $this->getDrupal()->getDriver()->termDelete($term);
     }
   }
 }

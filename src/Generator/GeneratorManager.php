@@ -2,6 +2,8 @@
 
 namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator;
 
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Content\DefaultContent;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\EntityManager;
 use Drupal\DrupalDriverManager;
 
 class GeneratorManager {
@@ -16,10 +18,22 @@ class GeneratorManager {
   protected $generators = [];
 
   /**
-   * {@inheritdoc}
+   * @var \DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\EntityManager
    */
-  public function __construct(DrupalDriverManager $drupal) {
+  protected $entityManager;
+
+  /**
+   * @var \DennisDigital\Behat\Drupal\ReferencesGenerator\Content\DefaultContent
+   */
+  protected $defaultContent;
+
+  /**
+   * @inheritdoc
+   */
+  public function __construct(DrupalDriverManager $drupal, DefaultContent $default_content) {
     $this->drupal = $drupal;
+    $this->entityManager = new EntityManager($this);
+    $this->defaultContent = $default_content;
   }
 
   /**
@@ -27,6 +41,13 @@ class GeneratorManager {
    */
   public function getDrupal() {
     return $this->drupal;
+  }
+
+  /**
+   * @return \DennisDigital\Behat\Drupal\ReferencesGenerator\Content\DefaultContent
+   */
+  public function getDefaultContent() {
+    return $this->defaultContent;
   }
 
   /**
@@ -49,7 +70,7 @@ class GeneratorManager {
       return FALSE;
     }
 
-    $core = $this->drupal->getDriver()->getDrupalVersion();
+    $core = $this->getDrupal()->getDriver()->getDrupalVersion();
     $mapping = array(
       'file' => 'FileReference',
       'image' => 'FileReference',
@@ -75,30 +96,12 @@ class GeneratorManager {
   }
 
   /**
-   * Gets the entity class.
+   * Gets the entity manager.
    *
-   * @param $type
-   * @param $data
-   * @return mixed
-   * @throws \Exception
+   * @return \DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\EntityManager
    */
-  public function getEntity($type, $data) {
-    $core = $this->drupal->getDriver()->getDrupalVersion();
-
-    $mapping = array(
-      'image' => 'Image',
-    );
-
-    if (isset($mapping[$type])) {
-      $class_name = sprintf('\DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\Drupal%s\%s', $core, $mapping[$type]);
-      if (class_exists($class_name)) {
-        return new $class_name($data);
-      }
-      else {
-        throw new \Exception("Cannot find $class_name class");
-      }
-    }
-    throw new \Exception("Cannot find entity generator class for " . $type);
+  public function getEntityManager() {
+    return $this->entityManager;
   }
 
   /**
@@ -116,7 +119,7 @@ class GeneratorManager {
       return FALSE;
     }
 
-    $core = $this->drupal->getDriver()->getDrupalVersion();
+    $core = $this->getDrupal()->getDriver()->getDrupalVersion();
     $class_name = sprintf('\DennisDigital\Behat\Drupal\ReferencesGenerator\Fields\Drupal%s\FieldHandler', $core);
     if (class_exists($class_name)) {
       return new $class_name($entity, $entity_type, $field_name);
@@ -130,8 +133,6 @@ class GeneratorManager {
    * Cleanup generators.
    */
   public function cleanup() {
-    foreach ($this->generators as $generator) {
-      $generator->cleanup();
-    }
+    $this->getEntityManager()->cleanup();
   }
 }

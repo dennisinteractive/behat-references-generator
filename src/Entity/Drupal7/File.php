@@ -2,13 +2,13 @@
 
 namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\Drupal7;
 
-use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Entity\AbstractEntity;
-use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\ImageGenerator;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\AbstractEntity;
+use DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\ImageGenerator;
 
 /**
- * Image creation for Drupal 7.
+ * File creation for Drupal 7.
  */
-class Image extends AbstractEntity {
+class File extends AbstractEntity {
   /**
    * @var array
    */
@@ -29,7 +29,7 @@ class Image extends AbstractEntity {
    */
   public function save() {
     $image = $this->data;
-    $local_filename = ImageGenerator::createImage($image);
+    $local_filename = ImageGenerator::createImage($this->data->filename);
     // Create a file object.
     $dfile = (object) array(
       'uri' => $local_filename,

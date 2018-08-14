@@ -10,14 +10,6 @@ namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Content;
  * @package Drupal\ReferencesGenerator\Content
  */
 class DefaultContent {
-
-  /**
-   * Stores the entity type.
-   *
-   * @var $entityType
-   */
-  protected $entityType;
-
   /**
    * Stores the default content mapping.
    *
@@ -28,14 +20,11 @@ class DefaultContent {
   /**
    * DefaultContent constructor.
    *
-   * @param string $entityType
-   *    The Content type i.e. article.
    * @param array $defaultContentOverrides
    *    The overrides for the default content.
    */
-  public function __construct($entityType, $defaultContent = array()) {
-    $this->entityType = $entityType;
-    $this->defaultContent = $defaultContent;
+  public function __construct($default_content = array()) {
+    $this->defaultContent = $default_content;
   }
 
   /**
@@ -46,18 +35,18 @@ class DefaultContent {
    *
    * @return mixed
    */
-  public function getContent($bundleName = NULL) {
-    if (isset($bundleName)) {
-      if (isset($this->defaultContent[$this->entityType][$bundleName])) {
-        return $this->defaultContent[$this->entityType][$bundleName];
+  public function getContent($entity_type, $bundle_name = NULL) {
+    if (isset($bundle_name)) {
+      if (isset($this->defaultContent[$entity_type][$bundle_name])) {
+        return $this->defaultContent[$entity_type][$bundle_name];
       }
       else {
         return array();
       }
     }
 
-    if (isset($this->defaultContent[$this->entityType])) {
-      return $this->defaultContent[$this->entityType];
+    if (isset($this->defaultContent[$entity_type])) {
+      return $this->defaultContent[$entity_type];
     }
   }
 
