@@ -7,7 +7,6 @@ use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\AbstractGenerator;
  * Taxonomy term reference field generator for Drupal 7.
  */
 class TaxonomyTermReference extends AbstractGenerator {
-
   /**
    * Attempt to determine the vocabulary for which the field is configured.
    *
@@ -16,13 +15,14 @@ class TaxonomyTermReference extends AbstractGenerator {
    *   found or NULL if unable to determine.
    */
   protected function getVocab() {
-    if (!empty($this->fieldInfo['settings']['allowed_values'][0]['vocabulary'])) {
-      return $this->fieldInfo['settings']['allowed_values'][0]['vocabulary'];
+    $field_info = $this->getFieldHandler()->getFieldInfo();
+    if (!empty($field_info['settings']['allowed_values'][0]['vocabulary'])) {
+      return $field_info['settings']['allowed_values'][0]['vocabulary'];
     }
   }
 
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public function referenceExists($name) {
     $return = array();
@@ -34,13 +34,8 @@ class TaxonomyTermReference extends AbstractGenerator {
     return $return;
   }
 
-    /**
-   * Creates missing references.
-   *
-   * @param $field
-   * @param $value
-   *
-   * @return mixed
+  /**
+   * @inheritdoc
    */
   public function create($field, $value) {
     $fieldName = $field['field_name'];
@@ -54,7 +49,7 @@ class TaxonomyTermReference extends AbstractGenerator {
       $term->name = $value;
       $term->path = array('pathauto' => 1);
       $term->vid = $vocabulary->vid;
-      $term = $this->referencesGeneratorContext->termCreate($term);
+      $term = $this->getEntityManager()->createEntity('taxonomy_term', $vocabulary->vocabulary_machine_name, $term);
       return $term->tid;
     }
     else {

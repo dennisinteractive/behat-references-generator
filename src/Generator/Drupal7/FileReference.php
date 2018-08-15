@@ -10,9 +10,8 @@ use DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\Drupal7\Image;
  * File field generator for Drupal 7.
  */
 class FileReference extends AbstractGenerator {
-
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public function referenceExists($value) {
     $return = array();
@@ -41,34 +40,13 @@ class FileReference extends AbstractGenerator {
   }
 
   /**
-   * Creates missing references.
-   *
-   * @param $field
-   * @param $value
-   *
-   * @return mixed
+   * @inheritdoc
    */
   public function create($field, $value) {
     switch ($field['type']) {
       case 'image':
-        $default = new DefaultContent('image', array()); // @todo pass the default values $this->defaultContentMapping
-        $defaultImage = $default->getContent();
-        $defaultImage['filename'] = $value;
-        $this->createImage($defaultImage);
+        $this->getEntityManager()->createEntity('file', 'image', []);
         break;
     }
   }
-
-  /**
-   * Create an image entity.
-   *
-   * @param $image
-   * @return mixed
-   * @throws \Exception
-   */
-  protected function createImage($image) {
-    $file = new Image();
-    return $file->save();
-  }
-
 }

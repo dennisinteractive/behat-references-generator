@@ -14,7 +14,7 @@ abstract class AbstractGenerator implements GeneratorInterface {
   private $generatorManager;
 
   /**
-   * @var DennisDigital\Behat\Drupal\ReferencesGenerator\Fields\FieldHandlerInterface;
+   * @var \DennisDigital\Behat\Drupal\ReferencesGenerator\Fields\FieldHandlerInterface
    */
   private $fieldHandler;
 

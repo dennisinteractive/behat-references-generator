@@ -10,7 +10,7 @@ use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\AbstractGenerator;
 class NodeReference extends AbstractGenerator {
 
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public function referenceExists($value) {
     $entity_type = 'node';
@@ -28,12 +28,7 @@ class NodeReference extends AbstractGenerator {
   }
 
   /**
-   * Creates missing references.
-   *
-   * @param $field
-   * @param $value
-   *
-   * @return mixed
+   * @inheritdoc
    */
   public function create($field, $value) {
     $type = array_filter($field['settings']['referenceable_types']);
@@ -42,6 +37,6 @@ class NodeReference extends AbstractGenerator {
       'type' => reset($type),
     );
 
-    return $this->referencesGeneratorContext->nodeCreate($node);
+    return $this->getEntityManager()->createEntity('node', $node->type, $node);
   }
 }

@@ -21,7 +21,7 @@ interface GeneratorInterface {
   public function create($values);
 
   /**
-   * @return DennisDigital\Behat\Drupal\ReferencesGenerator\Fields\FieldHandlerInterface;
+   * @return \DennisDigital\Behat\Drupal\ReferencesGenerator\Fields\FieldHandlerInterface;
    */
   public function getFieldHandler();
 

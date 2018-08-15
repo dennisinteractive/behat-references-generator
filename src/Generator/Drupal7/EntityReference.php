@@ -9,7 +9,7 @@ use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\AbstractGenerator;
  */
 class EntityReference extends AbstractGenerator {
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public function referenceExists($value) {
     $entity_type = $this->fieldInfo['settings']['target_type'];
@@ -33,20 +33,16 @@ class EntityReference extends AbstractGenerator {
   }
 
   /**
-   * Creates missing references.
-   *
-   * @param $field
-   * @param $value
-   *
-   * @return mixed
+   * @inheritdoc
    */
   public function create($field, $value) {
+    // @todo support any entity allowed in field.
     $type = array_filter($field['settings']['handler_settings']['target_bundles']);
     $node = (object) array(
       'title' => $value,
       'type' => reset($type),
     );
 
-    return $this->referencesGeneratorContext->nodeCreate($node);
+    $this->getEntityManager()->createEntity('node', $node->type, $node);
   }
 }
