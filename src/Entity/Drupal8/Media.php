@@ -21,27 +21,15 @@ class Media extends AbstractEntity {
    * Save the image entity.
    */
   public function save() {
-    $local_filename = ImageGenerator::createImage($this->data->filename);
-
-    // Create the file.
-    $file = File::create([
-      'uri' => $local_filename,
-      'uid' => 1,
+    // Create the file with media name.
+    $file = $this->getEntityManager()->createEntity('file', 'image', [
+      'filename' => $this->data->name,
     ]);
-    $file->save();
-
-    // Copy the file to public folder.
-    $public_uri = 'public://' . $this->data->filename;
-    $file = file_move($file, $public_uri);
-    $fid = $file->fid;
 
     // Create media image entity
-    $image_data = [
-      'bundle' => 'image',
-      'name' => $this->data->filename,
-      'field_media_file' => [
-        'target_id' => $file->id(),
-      ],
+    $image_data = (array) $this->data;
+    $image_data['field_image'] = [
+      'target_id' => $file->id(),
     ];
     // Support Core and Contrib media.
     if (class_exists('Drupal\media\Entity\Media')) {

@@ -18,10 +18,33 @@ class DefaultContent {
   protected $defaultContent;
 
   /**
+   * Default properties required when creating an entity.
+   *
+   * @var array
+   */
+  protected $defaultProperties = [
+    'node' => [
+      'title' => 'Behat Test Node',
+      'status' => '1',
+    ],
+    'taxonomy_term' => [
+      'name' => 'Behat Test Term',
+      'status' => '1',
+    ],
+    'media' => [
+      'name' => 'behat_test_media_image.jpg',
+      'status' => '1',
+    ],
+    'file' => [
+      'filename' => 'behat_test_file_image.jpg',
+      'status' => '1',
+    ],
+  ];
+
+  /**
    * DefaultContent constructor.
    *
-   * @param array $defaultContentOverrides
-   *    The overrides for the default content.
+   * @param array $default_content
    */
   public function __construct($default_content = array()) {
     $this->defaultContent = $default_content;
@@ -30,24 +53,18 @@ class DefaultContent {
   /**
    * Returns the default content.
    *
-   * @param string $bundleName
-   *    The bundle name i.e. node.
+   * @param $entity_type
+   * @param $bundle_name
    *
-   * @return mixed
+   * @return array
    */
-  public function getContent($entity_type, $bundle_name = NULL) {
-    if (isset($bundle_name)) {
-      if (isset($this->defaultContent[$entity_type][$bundle_name])) {
-        return $this->defaultContent[$entity_type][$bundle_name];
-      }
-      else {
-        return array();
-      }
+  public function getContent($entity_type, $bundle_name) {
+    $default_properties = isset($this->defaultProperties[$entity_type]) ? $this->defaultProperties[$entity_type] : [];
+    if (isset($this->defaultContent[$entity_type][$bundle_name])) {
+      $default_content = $this->defaultContent[$entity_type][$bundle_name];
+      return array_merge($default_properties, $default_content);
     }
-
-    if (isset($this->defaultContent[$entity_type])) {
-      return $this->defaultContent[$entity_type];
-    }
+    return $default_properties;
   }
 
 }

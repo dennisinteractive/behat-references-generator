@@ -45,7 +45,7 @@ abstract class AbstractEntity implements EntityInterface {
     $data = empty($data) ? [] : $data;
     $this->data = (object) array_merge($this->getDefaultContent(), (array) $data);
     $this->data->entityType = $this->type;
-    $this->data->type = $this->bundle;
+    $this->data->bundle = $this->bundle;
 
     // Parse fields into entity structure.
     $this->parseEntityFields();

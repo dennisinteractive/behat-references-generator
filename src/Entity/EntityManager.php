@@ -50,6 +50,7 @@ class EntityManager {
 
     $mapping = array(
       'media' => 'Media',
+      'file' => 'File',
       'node' => 'Node',
       'taxonomy_term' => 'TaxonomyTerm',
     );

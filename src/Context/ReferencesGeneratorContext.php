@@ -42,19 +42,6 @@ class ReferencesGeneratorContext extends RawDrupalContext {
   }
 
   /**
-   * Get Generator
-   *
-   * @param $entity
-   * @param $fieldType
-   * @param $fieldName
-   * @return \DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\GeneratorInterface
-   * @throws \Exception
-   */
-  protected function getReferenceGenerator($entity, $field_name) {
-    return $this->getGeneratorManager()->getReferenceGenerator($entity, $field_name);
-  }
-
-  /**
    * Create an entity.
    *
    * @param $type
@@ -114,47 +101,6 @@ class ReferencesGeneratorContext extends RawDrupalContext {
    */
   public function removeReferences(AfterScenarioScope $scope) {
     $this->getGeneratorManager()->cleanUp();
-  }
-
-  /**
-   * Assign the entity type to the scope.
-   *
-   * @beforeNodeCreate
-   */
-  public function assignEntityTypeNode(EntityScope $scope) {
-    $entity = $scope->getEntity();
-    $entity->entityType = 'node';
-    $this->setEntityPath($entity);
-  }
-
-  /**
-   * Assign the entity type to the scope.
-   *
-   * @beforeTermCreate
-   */
-  public function assignEntityTypeTerm(EntityScope $scope) {
-    $entity = $scope->getEntity();
-    $entity->entityType = 'term';
-    $this->setEntityPath($entity);
-  }
-
-  /**
-   * Sets the entity path.
-   *
-   * @param $entity
-   */
-  public function setEntityPath($entity) {
-    if (isset($entity->alias)) {
-      // @todo there is a bug here, it sets the same path to all terms.
-      $entity->path = array(
-        'alias' => $entity->alias,
-        'pathauto' => 0
-      );
-      unset($entity->alias);
-    }
-    else {
-      $entity->path['alias'] = '';
-    }
   }
 
   //-----------------------------------------------------//

@@ -47,13 +47,13 @@ class EntityReference extends AbstractGenerator {
     );
 
     switch ($entity_type_id) {
-      case 'node':
-        $this->getEntityManager()->createEntity('node', $target_bundle, $entity);
-        break;
       case 'taxonomy_term':
         $vocab = Vocabulary::load($target_bundle);
         $entity->vocabulary_machine_name = $vocab->get('name');
         $this->getEntityManager()->createEntity('taxonomy_term', $entity->vocabulary_machine_name, $entity);
+        break;
+      default:
+        $this->getEntityManager()->createEntity($entity_type_id, $target_bundle, $entity);
     }
   }
 

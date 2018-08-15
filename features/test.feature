@@ -8,7 +8,10 @@ Feature: Table
     Given a default image media
     Given I am viewing default "article" content:
       | title                  | Custom title                       |
-      | field_teaser_image     | image3.jpg                         |
+      | field_teaser_media     | image3.jpg                         |
+      | field_teaser_text      | My summary                         |
       | field_tags             | TagA, TagB, TagC                   |
+      | field_channel          | News                               |
     Then I should see "Custom title"
-    And I should see "TagA"
+    And I am on "news"
+    Then the response should contain "image3.jpg"
