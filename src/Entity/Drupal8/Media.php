@@ -51,6 +51,8 @@ class Media extends AbstractEntity {
       $this->entity = MediaContrib::create($image_data);
     }
 
+    $this->entity->save();
+
     return $this->entity;
   }
 
