@@ -131,6 +131,7 @@ class ReferencesGeneratorContext extends RawDrupalContext {
    * | ...       | ...            |
    *
    * @Given I am viewing default :type( content):
+   * @Given I am viewing a default :type( content):
    */
   public function viewingDefaultNode($type, TableNode $fields) {
     $node = (object) array(
@@ -147,17 +148,34 @@ class ReferencesGeneratorContext extends RawDrupalContext {
   }
 
   /**
-   * @Given a default image media
+   * @Given a default media image
    */
   public function defaultMediaImage() {
     $image = $this->createEntity('media', 'image');
   }
 
   /**
-   * @Given a default image file
+   * @Given a default image
    */
   public function defaultImageFile() {
     $image = $this->createEntity('file', 'image');
   }
 
+  /**
+   * @Given a default image:
+   */
+  public function defaultImageFileContent(TableNode $fields) {
+    $image = $this->createEntity('file', 'image', $fields->getRowsHash());
+  }
+
+  /**
+   * @Then the file :image should be available
+   */
+  public function theFileShouldBeAvailable($image) {
+    $path = file_create_url('public://' . $image);
+    $this->getSession()->visit($path);
+    if ($this->getSession()->getStatusCode() !== 200) {
+      throw new \Exception(sprintf('Could not find image on %s', $path));
+    };
+  }
 }

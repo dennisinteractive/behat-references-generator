@@ -5,7 +5,7 @@ Feature: Table
   I want to use Table tests
 
   Scenario: Create content using one line
-    Given a default image media
+    Given a default media image
     Given I am viewing default "article" content:
       | title                  | Custom title                       |
       | field_teaser_media     | image3.jpg                         |
@@ -15,3 +15,4 @@ Feature: Table
     Then I should see "Custom title"
     And I am on "news"
     Then the response should contain "image3.jpg"
+    Then the file "image3.jpg" should be available
