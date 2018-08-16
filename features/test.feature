@@ -1,4 +1,4 @@
-@test @api
+@test @api @behat_references_generator
 Feature: Table
   In order to use tables to create content
   as a user,
