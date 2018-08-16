@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Behat References Generator feature.
+ */
+
+include_once 'behat_references_generator.features.inc';
