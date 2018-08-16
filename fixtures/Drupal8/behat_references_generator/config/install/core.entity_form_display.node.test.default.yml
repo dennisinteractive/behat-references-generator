@@ -3,16 +3,16 @@ status: true
 dependencies:
   config:
     - field.field.node.test.body
-    - field.field.node.test.field_image
-    - field.field.node.test.field_related_articles
     - field.field.node.test.field_tags
-    - image.style.thumbnail
+    - field.field.node.test.field_test_image
+    - field.field.node.test.field_test_related_articles
     - node.type.test
   module:
-    - image
     - path
     - scheduler
     - text
+_core:
+  default_config_hash: bou_N8ogWsnGqxsynNWhONI6KJAYrxG-bOVjKrJWVn4
 id: node.test.default
 targetEntityType: node
 bundle: test
@@ -33,16 +33,8 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_image:
-    weight: 1
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-    region: content
-  field_related_articles:
-    weight: 3
+  field_tags:
+    weight: 4
     settings:
       match_operator: CONTAINS
       size: 60
@@ -50,8 +42,17 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  field_tags:
-    weight: 4
+  field_test_image:
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_test_related_articles:
+    weight: 3
     settings:
       match_operator: CONTAINS
       size: 60

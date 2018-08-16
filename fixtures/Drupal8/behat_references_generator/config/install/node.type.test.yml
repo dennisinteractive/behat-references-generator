@@ -20,6 +20,8 @@ third_party_settings:
     unpublish_enable: false
     unpublish_required: false
     unpublish_revision: false
+_core:
+  default_config_hash: q_AaTDGuheM8jraK8qzbdgUSJGIx5Uq81yDLKIbY4So
 name: Test
 type: test
 description: 'Used to test Behat References Generator'

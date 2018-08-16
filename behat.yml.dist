@@ -22,8 +22,8 @@ default:
                     title: Test title from yml
                     body: Test body from yml
                     field_tags: Tag1, Tag2
-                    field_related_content: Art1, Art2
-                    field_image: article_image.jpg
+                    field_test_related_content: Art1, Art2
+                    field_test_image: article_image.jpg
                 image:
                   field_file_image_title_text: Default image title
                   field_file_image_alt_text: Default image alt text
