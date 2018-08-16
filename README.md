@@ -21,18 +21,15 @@ You might need to add it to repositories first
 
 
 ### Requirements
-You need to enable these modules
-- Entity API
+-Drupal 7
+  - Entity API
 
-**For the demo you will need to enable this module:**
-- Node Reference Content (Copy from the fixtures folder into the site's modules folder)
+**For the demo you will need to copy behat_references_generator module found in 
+the fixtures folder to the modules folder and enable it.***
 
 ### Running
 - Go into the tests folder
 - Run `./behat --format=pretty`
-
-### Failing tests
-You can find the screenshots of failing tests on the `files/screenshots` folder
 
 ### @todo
 - [x] make field mapping work

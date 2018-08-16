@@ -1,4 +1,4 @@
-@api @table
+@api @table @behat_references_generator
 Feature: Table
   In order to use tables to create content
   as a user,
@@ -6,7 +6,7 @@ Feature: Table
 
   Background:
     Given a default image
-    Then the file "Default image.jpg" should be available
+    Then the file "behat_test_file_image.jpg" should be available
 
     Given a default image:
       | filename   | Image Alt     |
@@ -17,26 +17,16 @@ Feature: Table
 
   @horizontal_table @default_content
   Scenario: Create content using one line
-    Given a default "article" content
+    Given a default "test" content
     Then I am on "/"
-    When I click "Article title from yml"
-
-    Then I should see "Article title from yml"
-    Then I should see "Article body from yml"
+    When I click "Test title from yml"
+    Then I should see "Test title from yml"
+    Then I should see "Test body from yml"
 
     Then I should see "Tags:"
     And I should see the link "Default Tag1"
     And I should see the link "Default Tag2"
     And I should see the link "Default Tag3"
-
-  @horizontal_table @default_content
-  Scenario: Create content using one line
-    Given a default "page" content
-    Then I am on "/"
-    When I click "Default Page title"
-
-    Then I should see "Default Page title"
-    Then I should see "Default Page body"
 
   @horizontal_table @default_content
   Scenario: Create content using one line
