@@ -17,26 +17,16 @@ Feature: Table
 
   @horizontal_table @default_content
   Scenario: Create content using one line
-    Given a default "article" content
+    Given a default "test" content
     Then I am on "/"
-    When I click "Article title from yml"
-
-    Then I should see "Article title from yml"
-    Then I should see "Article body from yml"
+    When I click "Test title from yml"
+    Then I should see "Test title from yml"
+    Then I should see "Test body from yml"
 
     Then I should see "Tags:"
     And I should see the link "Default Tag1"
     And I should see the link "Default Tag2"
     And I should see the link "Default Tag3"
-
-  @horizontal_table @default_content
-  Scenario: Create content using one line
-    Given a default "page" content
-    Then I am on "/"
-    When I click "Default Page title"
-
-    Then I should see "Default Page title"
-    Then I should see "Default Page body"
 
   @horizontal_table @default_content
   Scenario: Create content using one line
