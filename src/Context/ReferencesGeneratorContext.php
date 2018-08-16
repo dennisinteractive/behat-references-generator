@@ -164,8 +164,10 @@ class ReferencesGeneratorContext extends RawDrupalContext {
   /**
    * @Given a default image:
    */
-  public function defaultImageFileContent(TableNode $fields) {
-    $image = $this->createEntity('file', 'image', $fields->getRowsHash());
+  public function defaultImageFileContent(TableNode $overrides_table) {
+    foreach ($overrides_table as $data) {
+      $this->createEntity('file', 'image', $data);
+    }
   }
 
   /**
