@@ -3,13 +3,13 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_test_related_articles
-    - node.type.page
+    - node.type.article
     - node.type.test
 id: node.test.field_test_related_articles
 field_name: field_test_related_articles
 entity_type: node
 bundle: test
-label: 'Related Articles'
+label: 'Test Related Articles'
 description: ''
 required: false
 translatable: false
@@ -19,7 +19,7 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      page: page
+      article: article
     sort:
       field: _none
     auto_create: false

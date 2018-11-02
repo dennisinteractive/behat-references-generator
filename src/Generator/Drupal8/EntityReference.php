@@ -58,14 +58,6 @@ class EntityReference extends AbstractGenerator {
   }
 
   /**
-   * Get entity type ID.
-   * @return string
-   */
-  protected function getEntityTypeId() {
-    return $this->getFieldHandler()->getFieldInfo()->getSetting('target_type');
-  }
-
-  /**
    * Get label key.
    *
    * @return string
@@ -86,44 +78,4 @@ class EntityReference extends AbstractGenerator {
     return $label_key;
   }
 
-  /**
-   * Get target bundle key.
-   *
-   * @return null|string
-   */
-  protected function getTargetBundleKey() {
-    $entity_definition = \Drupal::entityManager()->getDefinition($this->getEntityTypeId());
-    // Determine target bundle restrictions.
-    $target_bundle_key = NULL;
-    if ($target_bundles = $this->getTargetBundles()) {
-      $target_bundle_key = $entity_definition->getKey('bundle');
-    }
-    return $target_bundle_key;
-  }
-
-  /**
-   * Get target bundle.
-   *
-   * @return string
-   */
-  protected function getTargetBundle() {
-    $target_bundle = NULL;
-    if ($target_bundles = $this->getTargetBundles()) {
-      $target_bundle = reset($target_bundles);
-    }
-    return $target_bundle;
-  }
-
-  /**
-   * Retrieves bundles for which the field is configured to reference.
-   *
-   * @return mixed
-   *   Array of bundle names, or NULL if not able to determine bundles.
-   */
-  protected function getTargetBundles() {
-    $settings = $this->getFieldHandler()->getFieldConfig()->getSettings();
-    if (!empty($settings['handler_settings']['target_bundles'])) {
-      return $settings['handler_settings']['target_bundles'];
-    }
-  }
 }

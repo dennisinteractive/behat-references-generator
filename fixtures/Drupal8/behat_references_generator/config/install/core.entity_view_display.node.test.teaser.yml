@@ -4,16 +4,10 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.test.body
-    - field.field.node.test.field_tags
-    - field.field.node.test.field_test_image
-    - field.field.node.test.field_test_related_articles
     - node.type.test
   module:
-    - empty_fields
     - text
     - user
-_core:
-  default_config_hash: fR-anODLi1A0KVrd4zZmHk8e-ETXwFt-816Z7s7e068
 id: node.test.teaser
 targetEntityType: node
 bundle: test
@@ -22,29 +16,14 @@ content:
   body:
     label: hidden
     type: text_summary_or_trimmed
-    weight: 1
+    weight: 101
     settings:
       trim_length: 600
     third_party_settings: {  }
     region: content
-  field_test_image:
-    type: entity_reference_entity_view
-    weight: 0
-    region: content
-    label: hidden
-    settings:
-      view_mode: thumbnail
-      link: false
-    third_party_settings:
-      empty_fields:
-        handler: ''
   links:
-    weight: 2
-    region: content
+    weight: 100
     settings: {  }
     third_party_settings: {  }
-hidden:
-  field_tags: true
-  field_test_related_articles: true
-  langcode: true
-  shariff_field: true
+    region: content
+hidden: {  }

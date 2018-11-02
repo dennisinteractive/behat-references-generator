@@ -15,7 +15,7 @@ Feature: Table
     Then the file "image1.jpg" should be available
     Then the file "image2.jpg" should be available
 
-  @horizontal_table @default_content
+  @horizontal_table @default_content @marc
   Scenario: Create content using one line
     Given a default "test" content
     Then I am on "/"

@@ -6,8 +6,6 @@ dependencies:
     - node.type.test
   module:
     - text
-_core:
-  default_config_hash: lSDgmCfzlEl0z4kk34foQJerG8OEgRk74PNTcZmh3_g
 id: node.test.body
 field_name: body
 entity_type: node

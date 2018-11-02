@@ -34,4 +34,33 @@ interface GeneratorInterface {
    * @return \DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\EntityManager
    */
   public function getEntityManager();
+
+  /**
+   * Get entity type ID.
+   * @return string
+   */
+  public function getEntityTypeId();
+
+  /**
+   * Get target bundle.
+   *
+   * @return string
+   */
+  public function getTargetBundle();
+
+  /**
+   * Retrieves bundles for which the field is configured to reference.
+   *
+   * @return mixed
+   *   Array of bundle names, or NULL if not able to determine bundles.
+   */
+  public function getTargetBundles();
+
+  /**
+   * Get target bundle key.
+   *
+   * @return null|string
+   */
+  public function getTargetBundleKey();
+
 }
