@@ -2,12 +2,10 @@
 
 namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal8;
 
-use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\AbstractGenerator;
-
 /**
  * File reference field generator for Drupal 8.
  */
-class FileReference extends AbstractGenerator {
+class FileReference extends EntityReference {
   /**
    * {@inheritdoc}
    */
