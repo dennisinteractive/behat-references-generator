@@ -1,5 +1,5 @@
 @api @table @behat_references_generator
-Feature: Table
+Feature: Default References Generator
   In order to use tables to create content
   as a user,
   I want to use Table tests
@@ -85,7 +85,7 @@ Feature: Table
     And I should see the link "TagB"
     And I should see the link "TagC"
 
-    Then I should see "Test Related Other"
+    Then I should see "Test Other Articles"
     And I should see "Art1"
     And I should see "Art2"
 
