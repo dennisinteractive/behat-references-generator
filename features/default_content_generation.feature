@@ -4,17 +4,6 @@ Feature: Table
   as a user,
   I want to use Table tests
 
-  Background:
-    Given a default image
-    Then the file "behat_test_file_image.jpg" should be available
-
-    Given a default image:
-      | filename   | Image Alt     |
-      | image1.jpg | New image     |
-      | image2.jpg | Another image |
-    Then the file "image1.jpg" should be available
-    Then the file "image2.jpg" should be available
-
   @horizontal_table @default_content @marc
   Scenario: Create content using one line
     Given a default "test" content
