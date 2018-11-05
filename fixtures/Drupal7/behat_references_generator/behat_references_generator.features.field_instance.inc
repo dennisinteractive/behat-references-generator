@@ -104,8 +104,8 @@ function behat_references_generator_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-test-field_other_articles'.
-  $field_instances['node-test-field_other_articles'] = array(
+  // Exported field_instance: 'node-test-field_test_other_articles'.
+  $field_instances['node-test-field_test_other_articles'] = array(
     'bundle' => 'test',
     'default_value' => NULL,
     'deleted' => 0,
@@ -129,7 +129,7 @@ function behat_references_generator_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_other_articles',
+    'field_name' => 'field_test_other_articles',
     'label' => 'Other articles',
     'required' => 0,
     'settings' => array(
@@ -148,8 +148,8 @@ function behat_references_generator_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-test-field_primary_image'.
-  $field_instances['node-test-field_primary_image'] = array(
+  // Exported field_instance: 'node-test-field_test_image'.
+  $field_instances['node-test-field_test_image'] = array(
     'bundle' => 'test',
     'deleted' => 0,
     'description' => '',
@@ -176,8 +176,8 @@ function behat_references_generator_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_primary_image',
-    'label' => 'Primary Image',
+    'field_name' => 'field_test_image',
+    'label' => 'Image',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -202,8 +202,8 @@ function behat_references_generator_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-test-field_related_articles'.
-  $field_instances['node-test-field_related_articles'] = array(
+  // Exported field_instance: 'node-test-field_test_related_articles'.
+  $field_instances['node-test-field_test_related_articles'] = array(
     'bundle' => 'test',
     'default_value' => NULL,
     'deleted' => 0,
@@ -224,7 +224,7 @@ function behat_references_generator_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_related_articles',
+    'field_name' => 'field_test_related_articles',
     'label' => 'Related Articles',
     'required' => 0,
     'settings' => array(
@@ -243,49 +243,8 @@ function behat_references_generator_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-test-field_related_artiles'.
-  $field_instances['node-test-field_related_artiles'] = array(
-    'bundle' => 'test',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'node_reference',
-        'settings' => array(),
-        'type' => 'node_reference_default',
-        'weight' => 4,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 5,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_related_artiles',
-    'label' => 'Related Artiles',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'node_reference',
-      'settings' => array(
-        'autocomplete_match' => 'contains',
-        'autocomplete_path' => 'node_reference/autocomplete',
-        'size' => 60,
-      ),
-      'type' => 'node_reference_autocomplete',
-      'weight' => 3,
-    ),
-  );
-
-  // Exported field_instance: 'node-test-field_tags'.
-  $field_instances['node-test-field_tags'] = array(
+  // Exported field_instance: 'node-test-field_test_tags'.
+  $field_instances['node-test-field_test_tags'] = array(
     'bundle' => 'test',
     'default_value' => NULL,
     'deleted' => 0,
@@ -306,7 +265,7 @@ function behat_references_generator_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_tags',
+    'field_name' => 'field_test_tags',
     'label' => 'Tags',
     'required' => 0,
     'settings' => array(
@@ -329,7 +288,7 @@ function behat_references_generator_field_default_field_instances() {
   t('Body');
   t('Gallery files');
   t('Other articles');
-  t('Primary Image');
+  t('Image');
   t('Related Articles');
   t('Related Artiles');
   t('Tags');

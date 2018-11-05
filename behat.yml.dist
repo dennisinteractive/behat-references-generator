@@ -6,12 +6,10 @@ default:
             parameters:
               field_mapping:
                 Title: title
-                See Related: field_see_related
-                Related articles: field_related_articles
-                Other Articles: field_other_articles
-                Tags: field_tags
-                Image: field_image
-                Primary Image: field_primary_image
+                Related articles: field_test_related_articles
+                Other Articles: field_test_other_articles
+                Tags: field_test_tags
+                Image: field_test_image
                 Image title: field_file_image_title_text
                 Image alt: field_file_image_alt_text
               default_content:
@@ -21,8 +19,8 @@ default:
                   test:
                     title: Test title from yml
                     body: Test body from yml
-                    field_tags: Tag1, Tag2
-                    field_test_related_content: Art1, Art2
+                    field_test_tags: Tag1, Tag2
+                    field_test_related_articles: Art1, Art2
                     field_test_image: article_image.jpg
                 image:
                   field_file_image_title_text: Default image title

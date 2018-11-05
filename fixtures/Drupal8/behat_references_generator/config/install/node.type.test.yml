@@ -10,7 +10,7 @@ third_party_settings:
     parent: 'main:'
 name: Test
 type: test
-description: ''
+description: 'Content type used to run Behat References Generator tests'
 help: ''
 new_revision: true
 preview_mode: 1

@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.test.body
-    - field.field.node.test.field_tags
+    - field.field.node.test.field_test_tags
     - field.field.node.test.field_test_image
     - field.field.node.test.field_test_related_articles
     - node.type.test
@@ -23,7 +23,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
-  field_tags:
+  field_test_tags:
     weight: 104
     label: above
     settings:

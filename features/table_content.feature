@@ -20,16 +20,16 @@ Feature: Table
       | Art1  |
 
     Given "test" content:
-      | title                | body        | field_related_articles |
-      | Testing test content | Custom Body | Art1                   |
+      | title                | body        | field_test_related_articles |
+      | Testing test content | Custom Body | Art1                        |
 
     Given I am on "/"
     When I click "Testing test content"
     And I should see "Custom Body"
-    And I should see "Related Articles"
+    And I should see "Test Related Articles"
     Then I should see the link "Art1"
 
-  @vertical_table @reference_generator
+  @vertical_table @reference_generator @marc
   Scenario: Create content using table and existing references
     Given "article" content:
       | title |
@@ -37,13 +37,13 @@ Feature: Table
       | Art2  |
 
     Given I am viewing a "test" content:
-      | title                  | Testing test content |
-      | body                   | Custom Body          |
-      | field_related_articles | Art1, Art2           |
+      | title                       | Testing test content |
+      | body                        | Custom Body          |
+      | field_test_related_articles | Art3, Art4           |
 
     Given I am on "/"
     When I click "Testing test content"
     And I should see "Custom Body"
-    And I should see "Related Articles"
-    Then I should see the link "Art1"
-    Then I should see the link "Art2"
+    And I should see "Test Related Articles"
+    Then I should see the link "Art3"
+    Then I should see the link "Art4"

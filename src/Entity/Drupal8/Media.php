@@ -28,7 +28,7 @@ class Media extends AbstractEntity {
 
     // Create media image entity
     $image_data = (array) $this->data;
-    $image_data['field_image'] = [
+    $image_data['field_test_image'] = [
       'target_id' => $file->id(),
     ];
     // Support Core and Contrib media.

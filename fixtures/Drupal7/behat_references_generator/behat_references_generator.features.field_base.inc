@@ -53,13 +53,13 @@ function behat_references_generator_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_image'.
-  $field_bases['field_image'] = array(
+  // Exported field_base: 'field_test_image'.
+  $field_bases['field_test_image'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_image',
+    'field_name' => 'field_test_image',
     'indexes' => array(
       'fid' => array(
         0 => 'fid',
@@ -75,13 +75,13 @@ function behat_references_generator_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_other_articles'.
-  $field_bases['field_other_articles'] = array(
+  // Exported field_base: 'field_test_other_articles'.
+  $field_bases['field_test_other_articles'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_other_articles',
+    'field_name' => 'field_test_other_articles',
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -105,13 +105,13 @@ function behat_references_generator_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_primary_image'.
-  $field_bases['field_primary_image'] = array(
+  // Exported field_base: 'field_test_image'.
+  $field_bases['field_test_image'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_primary_image',
+    'field_name' => 'field_test_image',
     'indexes' => array(
       'fid' => array(
         0 => 'fid',
@@ -127,13 +127,13 @@ function behat_references_generator_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_related_articles'.
-  $field_bases['field_related_articles'] = array(
+  // Exported field_base: 'field_test_related_articles'.
+  $field_bases['field_test_related_articles'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_related_articles',
+    'field_name' => 'field_test_related_articles',
     'indexes' => array(
       'nid' => array(
         0 => 'nid',
@@ -157,43 +157,13 @@ function behat_references_generator_field_default_field_bases() {
     'type' => 'node_reference',
   );
 
-  // Exported field_base: 'field_related_artiles'.
-  $field_bases['field_related_artiles'] = array(
+  // Exported field_base: 'field_test_tags'.
+  $field_bases['field_test_tags'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_related_artiles',
-    'indexes' => array(
-      'nid' => array(
-        0 => 'nid',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'node_reference',
-    'settings' => array(
-      'referenceable_types' => array(
-        'article' => 'article',
-        'page' => 'page',
-        'test' => 0,
-      ),
-      'view' => array(
-        'args' => array(),
-        'display_name' => '',
-        'view_name' => '',
-      ),
-    ),
-    'translatable' => 0,
-    'type' => 'node_reference',
-  );
-
-  // Exported field_base: 'field_tags'.
-  $field_bases['field_tags'] = array(
-    'active' => 1,
-    'cardinality' => -1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_tags',
+    'field_name' => 'field_test_tags',
     'indexes' => array(
       'tid' => array(
         0 => 'tid',

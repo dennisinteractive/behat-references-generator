@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.test.body
-    - field.field.node.test.field_tags
+    - field.field.node.test.field_test_tags
     - field.field.node.test.field_test_image
     - field.field.node.test.field_test_related_articles
     - image.style.thumbnail
@@ -32,7 +32,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_tags:
+  field_test_tags:
     weight: 124
     settings:
       match_operator: CONTAINS
