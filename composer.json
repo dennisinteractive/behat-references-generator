@@ -6,7 +6,7 @@
   "homepage": "https://github.com/dennisinteractive/behat-drupal-entity-reference-generator",
   "license": "MIT",
   "require": {
-    "drupal/drupal-extension": "~3.0",
+    "drupal/drupal-extension": "~3.3",
     "drupal/drupal-driver": "~1.0",
     "behat/mink": "^1.7"
   },
@@ -17,8 +17,8 @@
     "files": [
       "src/Drupal/Driver/Fields/Drupal7/NodereferenceHandler.php"
     ],
-    "psr-0": {
-      "Drupal\\ReferencesGenerator": "src/"
+    "psr-4": {
+      "DennisDigital\\Behat\\Drupal\\ReferencesGenerator\\": "src"
     }
   }
 }
