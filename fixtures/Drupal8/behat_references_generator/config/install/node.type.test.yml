@@ -8,9 +8,11 @@ third_party_settings:
     available_menus:
       - main
     parent: 'main:'
+_core:
+  default_config_hash: r2I_Qnoa0bDXGcQwgSXll1tNIv37awEcVLbrRan5KuM
 name: Test
 type: test
-description: 'Content type used to run Behat References Generator tests'
+description: ''
 help: ''
 new_revision: true
 preview_mode: 1

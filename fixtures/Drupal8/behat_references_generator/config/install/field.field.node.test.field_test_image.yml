@@ -6,6 +6,8 @@ dependencies:
     - node.type.test
   module:
     - image
+_core:
+  default_config_hash: '-usaGpFNctOV1eVWAWxahAhkqkZ9NCoqMfqprmmHHjY'
 id: node.test.field_test_image
 field_name: field_test_image
 entity_type: node

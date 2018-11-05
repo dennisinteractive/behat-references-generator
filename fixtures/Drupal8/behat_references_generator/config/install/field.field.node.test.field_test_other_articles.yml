@@ -2,16 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_test_related_articles
+    - field.storage.node.field_test_other_articles
     - node.type.article
     - node.type.test
-_core:
-  default_config_hash: G2GnoZMUygRXwmNRop1lFnATQWSIA_h3Dh2NCVP0j_8
-id: node.test.field_test_related_articles
-field_name: field_test_related_articles
+id: node.test.field_test_other_articles
+field_name: field_test_other_articles
 entity_type: node
 bundle: test
-label: 'Test Related Articles'
+label: 'Test Other articles'
 description: ''
 required: false
 translatable: false

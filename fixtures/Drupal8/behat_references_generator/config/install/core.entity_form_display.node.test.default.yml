@@ -3,15 +3,18 @@ status: true
 dependencies:
   config:
     - field.field.node.test.body
-    - field.field.node.test.field_test_tags
     - field.field.node.test.field_test_image
+    - field.field.node.test.field_test_other_articles
     - field.field.node.test.field_test_related_articles
+    - field.field.node.test.field_test_tags
     - image.style.thumbnail
     - node.type.test
   module:
     - image
     - path
     - text
+_core:
+  default_config_hash: 05pkBF6IKKsygQhMSA89or-2vtbGI1FGKYo0VDaj7Xk
 id: node.test.default
 targetEntityType: node
 bundle: test
@@ -32,15 +35,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_test_tags:
-    weight: 124
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   field_test_image:
     weight: 122
     settings:
@@ -49,8 +43,26 @@ content:
     third_party_settings: {  }
     type: image_image
     region: content
+  field_test_other_articles:
+    weight: 125
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_test_related_articles:
     weight: 123
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_test_tags:
+    weight: 124
     settings:
       match_operator: CONTAINS
       size: 60

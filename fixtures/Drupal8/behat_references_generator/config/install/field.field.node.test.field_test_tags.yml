@@ -5,11 +5,13 @@ dependencies:
     - field.storage.node.field_test_tags
     - node.type.test
     - taxonomy.vocabulary.tags
+_core:
+  default_config_hash: tfF7g7edZCqDYVa4SLAEL7h3-Xe-zxoz357ED7ok81g
 id: node.test.field_test_tags
 field_name: field_test_tags
 entity_type: node
 bundle: test
-label: Tags
+label: 'Test Tags'
 description: ''
 required: false
 translatable: true

@@ -3,10 +3,8 @@ status: true
 dependencies:
   module:
     - node
-_core:
-  default_config_hash: STWu1r0qF53gVk7A7t4SNCNutjeAOWkmMLsj6WNmvo0
-id: node.field_test_related_articles
-field_name: field_test_related_articles
+id: node.field_test_other_articles
+field_name: field_test_other_articles
 entity_type: node
 type: entity_reference
 settings:

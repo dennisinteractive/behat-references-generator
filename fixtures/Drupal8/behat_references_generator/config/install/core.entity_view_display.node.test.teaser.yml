@@ -4,10 +4,15 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.test.body
+    - field.field.node.test.field_test_image
+    - field.field.node.test.field_test_related_articles
+    - field.field.node.test.field_test_tags
     - node.type.test
   module:
     - text
     - user
+_core:
+  default_config_hash: OfMYy3Q7Bopcvj8mwqECsje-C2KDdPIFxpJJHoJGVdM
 id: node.test.teaser
 targetEntityType: node
 bundle: test
@@ -26,4 +31,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
-hidden: {  }
+hidden:
+  field_test_image: true
+  field_test_related_articles: true
+  field_test_tags: true
