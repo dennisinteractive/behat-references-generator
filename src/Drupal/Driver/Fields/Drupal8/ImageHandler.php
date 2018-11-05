@@ -11,31 +11,25 @@ class ImageHandler extends AbstractHandler {
    * {@inheritdoc}
    */
   public function expand($values) {
-    echo ';baadfasdfsdfsdfds';
-    echo __FUNCTION__.PHP_EOL;exit;
-    print_r($values);
-    $data = file_get_contents($values[0]);
-    if (FALSE === $data) {
-      throw new \Exception("Error reading file");
+    $return = array();
+    $entity_type_id = $this->fieldInfo->getSetting('target_type');
+    $entity_definition = \Drupal::entityManager()->getDefinition($entity_type_id);
+
+    // Determine label field key.
+    $label_key = $entity_definition->getKey('label');
+
+    foreach ($values as $value) {
+      $query = \Drupal::entityQuery($entity_type_id)->condition($label_key, $value);
+      $query->accessCheck(FALSE);
+
+      if ($entities = $query->execute()) {
+        $return[] = array_shift($entities);
+      }
+      else {
+        throw new \Exception(sprintf("No entity '%s' of type '%s' exists.", $value, $entity_type_id));
+      }
     }
 
-    /* @var \Drupal\file\FileInterface $file */
-    $file = file_save_data(
-      $data,
-      'public://' . uniqid() . '.jpg');
-
-    if (FALSE === $file) {
-      throw new \Exception("Error saving file");
-    }
-
-    $file->save();
-
-    $return = array(
-      'target_id' => $file->id(),
-      'alt' => 'Behat test image',
-      'title' => 'Behat test image',
-    );
     return $return;
   }
-
 }
