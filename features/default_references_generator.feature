@@ -73,7 +73,6 @@ Feature: Default References Generator
       | field_test_other_articles   | Art1, Art2                         |
       | field_test_related_articles | Art3, Art4                         |
       | field_test_image            | image3.jpg                         |
-      | field_gallery_files         | gi1.jpg, gi2.jpg, gi3.jpg, gi4.jpg |
       | field_test_tags             | TagA, TagB, TagC                   |
 
     And I should see "Custom Title"
@@ -94,7 +93,3 @@ Feature: Default References Generator
     And I should see "Art4"
 
     Then the file "image3.jpg" should be available
-    And the file "gi1.jpg" should be available
-    And the file "gi2.jpg" should be available
-    And the file "gi3.jpg" should be available
-    And the file "gi4.jpg" should be available
