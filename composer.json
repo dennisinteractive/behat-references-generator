@@ -15,7 +15,8 @@
   },
   "autoload": {
     "files": [
-      "src/Drupal/Driver/Fields/Drupal7/NodereferenceHandler.php"
+      "src/Drupal/Driver/Fields/Drupal7/NodereferenceHandler.php",
+      "src/Drupal/Driver/Fields/Drupal8/ImageHandler.php"
     ],
     "psr-4": {
       "DennisDigital\\Behat\\Drupal\\ReferencesGenerator\\": "src"
