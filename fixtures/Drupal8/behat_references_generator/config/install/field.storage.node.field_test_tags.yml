@@ -1,0 +1,22 @@
+uuid: acf1f650-930d-4ea1-9e96-8cb254b09ee1
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+_core:
+  default_config_hash: WpOE_bs8Bs_HY2ns7n2r__de-xno0-Bxk39p5-MsHAs
+id: node.field_test_tags
+field_name: field_test_tags
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
