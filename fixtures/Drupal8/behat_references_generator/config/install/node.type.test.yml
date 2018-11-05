@@ -12,7 +12,7 @@ _core:
   default_config_hash: r2I_Qnoa0bDXGcQwgSXll1tNIv37awEcVLbrRan5KuM
 name: Test
 type: test
-description: ''
+description: 'Provides a content type used to run tests'
 help: ''
 new_revision: true
 preview_mode: 1
