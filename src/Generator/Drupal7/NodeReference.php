@@ -30,11 +30,12 @@ class NodeReference extends AbstractGenerator {
   /**
    * @inheritdoc
    */
-  public function create($field, $value) {
-    $type = array_filter($field['settings']['referenceable_types']);
+  public function create($value) {
+    $entity_type_id = $this->getEntityTypeId();
+    //$type = array_filter($field['settings']['referenceable_types']);
     $node = (object) array(
       'title' => $value,
-      'type' => reset($type),
+      'type' => $entity_type_id,
     );
 
     return $this->getEntityManager()->createEntity('node', $node->type, $node);

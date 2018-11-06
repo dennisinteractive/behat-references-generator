@@ -37,7 +37,8 @@ class TaxonomyTermReference extends AbstractGenerator {
   /**
    * @inheritdoc
    */
-  public function create($field, $value) {
+  public function create($value) {
+    $entity_type_id = $this->getEntityTypeId();
     $fieldName = $field['field_name'];
     if ($field['type'] !== 'taxonomy_term_reference') {
       throw new \Exception(sprintf("Invalid content type %s for field %s", $field['type'], $fieldName));

@@ -5,7 +5,7 @@ namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Behat\Hook\Scope\AfterScenarioScope;
 use Behat\Gherkin\Node\TableNode;
-use Drupal\DrupalExtension\Hook\Scope\EntityScope;
+//use Drupal\DrupalExtension\Hook\Scope\EntityScope;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Content\DefaultContent;
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\GeneratorManager;
@@ -53,18 +53,48 @@ class ReferencesGeneratorContext extends RawDrupalContext {
   }
 
   /**
+   * Creates terms of a given type provided in the form:
+   * | name      |
+   * | Term Name |
+   * | ...       |
+   */
+  protected function createTerms($vocab, TableNode $table) {
+    foreach ($table->getHash() as $hash) {
+      $term = (object) $hash;
+      $term->vocabulary_machine_name = $vocab;
+      $term->useDefaultContent = TRUE;
+      $this->termCreate($term);
+    }
+  }
+
+  /**
    * Creates content of a given type provided in the form:
    * | title    | author     | status | created           |
    * | My title | Joe Editor | 1      | 2014-10-17 8:00am |
    * | ...      | ...        | ...    | ...               |
    */
-  protected function createNodes($type, TableNode $nodesTable) {
-    foreach ($nodesTable->getHash() as $nodeHash) {
-      $node = (object) $nodeHash;
+  protected function createNodes($type, TableNode $table) {
+    foreach ($table->getHash() as $hash) {
+      $node = (object) $hash;
       $node->type = $type;
       $node->useDefaultContent = TRUE;
       $this->nodeCreate($node);
     }
+  }
+
+  /**
+   * Create a term.
+   *
+   * @return object
+   *   The created term.
+   */
+  public function termCreate($term) {
+    $this->dispatchHooks('BeforeTermCreateScope', $term);
+    $saved = $this->createEntity('taxonomy_term', $term->vocabulary_machine_name, $term);
+    $this->dispatchHooks('AfterTermCreateScope', $saved);
+    $this->terms[] = $saved;
+
+    return $saved;
   }
 
   /**
@@ -78,6 +108,7 @@ class ReferencesGeneratorContext extends RawDrupalContext {
     $saved = $this->createEntity('node', $node->type, $node);
     $this->dispatchHooks('AfterNodeCreateScope', $saved);
     $this->nodes[] = $saved;
+
     return $saved;
   }
 
@@ -108,6 +139,22 @@ class ReferencesGeneratorContext extends RawDrupalContext {
   //-----------------------------------------------------//
 
   /**
+   * @Given a default :vocab term
+   */
+  public function aDefaultTerm($vocab)
+  {
+    $table = TableNode::fromList(array('',''));
+    $this->createTerms($vocab, $table);
+  }
+
+  /**
+   * @Given a default :vocab term:
+   */
+  public function defaultTermWithOverrides($vocab, TableNode $table) {
+    $this->createTerms($vocab, $table);
+  }
+
+  /**
    * @Given a default :type content
    */
   public function defaultContent($nodeType) {
@@ -123,6 +170,29 @@ class ReferencesGeneratorContext extends RawDrupalContext {
   }
 
   /**
+   * Creates term of the given vocabulary, provided in the form:
+   * | title     | My term        |
+   * | Field One | My field value |
+   * | status    | 1              |
+   * | ...       | ...            |
+   *
+   * @Given I am viewing a default :vocabulary (term):
+   */
+  public function viewingDefaultTerm($vocabulary, TableNode $fields) {
+    $term = (object) array(
+      'vocabulary_machine_name' => $vocabulary,
+    );
+    foreach ($fields->getRowsHash() as $field => $value) {
+      $term->{$field} = $value;
+    }
+
+    $saved = $this->termCreate($term);
+
+    // Set internal browser on the term.
+    $this->getSession()->visit($this->locatePath('/taxonomy/term/' . $saved->tid));
+  }
+
+  /**
    * Creates content of the given type, provided in the form:
    * | title     | My node        |
    * | Field One | My field value |
@@ -130,8 +200,7 @@ class ReferencesGeneratorContext extends RawDrupalContext {
    * | status    | 1              |
    * | ...       | ...            |
    *
-   * @Given I am viewing default :type( content):
-   * @Given I am viewing a default :type( content):
+   * @Given I am viewing default :type (content):
    */
   public function viewingDefaultNode($type, TableNode $fields) {
     $node = (object) array(

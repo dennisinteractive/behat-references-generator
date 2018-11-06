@@ -2,7 +2,7 @@
 
 namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator;
 
-use DennisDigital\Behat\Drupal\ReferencesGenerator\Context\ReferencesGeneratorContext;
+//use DennisDigital\Behat\Drupal\ReferencesGenerator\Context\ReferencesGeneratorContext;
 
 interface GeneratorInterface {
   /**

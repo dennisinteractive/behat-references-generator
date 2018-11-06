@@ -35,12 +35,13 @@ class EntityReference extends AbstractGenerator {
   /**
    * @inheritdoc
    */
-  public function create($field, $value) {
+  public function create($value) {
+    $entity_type_id = $this->getEntityTypeId();
     // @todo support any entity allowed in field.
-    $type = array_filter($field['settings']['handler_settings']['target_bundles']);
+    //$entity_type_id = array_filter($field['settings']['handler_settings']['target_bundles']);
     $node = (object) array(
       'title' => $value,
-      'type' => reset($type),
+      'type' => $entity_type_id,
     );
 
     $this->getEntityManager()->createEntity('node', $node->type, $node);

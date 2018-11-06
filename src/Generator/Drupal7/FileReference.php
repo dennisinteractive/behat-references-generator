@@ -43,7 +43,9 @@ class FileReference extends AbstractGenerator {
    * @inheritdoc
    */
   public function create($field, $value) {
-    switch ($field['type']) {
+    $entity_type_id = $this->getEntityTypeId();
+    //switch ($field['type']) {
+    switch ($entity_type_id) {
       case 'image':
         $this->getEntityManager()->createEntity('file', 'image', []);
         break;

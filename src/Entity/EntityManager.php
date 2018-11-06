@@ -54,7 +54,6 @@ class EntityManager {
       'node' => 'Node',
       'taxonomy_term' => 'TaxonomyTerm',
     );
-
     if (isset($mapping[$type])) {
       $class_name = sprintf('\DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\Drupal%s\%s', $core, $mapping[$type]);
       $default_class_name = sprintf('\DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\%s', $mapping[$type]);
