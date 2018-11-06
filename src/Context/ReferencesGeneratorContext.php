@@ -62,7 +62,9 @@ class ReferencesGeneratorContext extends RawDrupalContext {
     foreach ($table->getHash() as $hash) {
       $term = (object) $hash;
       $term->vocabulary_machine_name = $vocab;
+      $term->vid = $vocab;
       $term->useDefaultContent = TRUE;
+var_dump($term);
       $this->termCreate($term);
     }
   }
@@ -78,6 +80,7 @@ class ReferencesGeneratorContext extends RawDrupalContext {
       $node = (object) $hash;
       $node->type = $type;
       $node->useDefaultContent = TRUE;
+var_dump($node);
       $this->nodeCreate($node);
     }
   }
@@ -95,6 +98,14 @@ class ReferencesGeneratorContext extends RawDrupalContext {
     $this->terms[] = $saved;
 
     return $saved;
+  }
+
+  /**
+   * @Then I wait :secs seconds
+   */
+  public function iWaitSeconds($secs)
+  {
+    sleep($secs);
   }
 
   /**
@@ -181,6 +192,7 @@ class ReferencesGeneratorContext extends RawDrupalContext {
   public function viewingDefaultTerm($vocabulary, TableNode $fields) {
     $term = (object) array(
       'vocabulary_machine_name' => $vocabulary,
+      'vid' => $vocabulary,
     );
     foreach ($fields->getRowsHash() as $field => $value) {
       $term->{$field} = $value;
