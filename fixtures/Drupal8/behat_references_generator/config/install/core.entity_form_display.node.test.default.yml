@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.test.body
+    - field.field.node.test.field_test_body
     - field.field.node.test.field_test_image
     - field.field.node.test.field_test_other_articles
     - field.field.node.test.field_test_related_articles
@@ -20,7 +20,7 @@ targetEntityType: node
 bundle: test
 mode: default
 content:
-  body:
+  field_test_body:
     type: text_textarea_with_summary
     weight: 121
     settings:

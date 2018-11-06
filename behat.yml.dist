@@ -18,7 +18,7 @@ default:
                     title: Article title from yml
                   test:
                     title: Test title from yml
-                    body: Test body from yml
+                    field_test_body: Test body from yml
                     field_test_tags: Tag1, Tag2
                     field_test_related_articles: Art1, Art2
                     field_test_image: article_image.jpg

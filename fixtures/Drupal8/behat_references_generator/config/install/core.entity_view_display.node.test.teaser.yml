@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.test.body
+    - field.field.node.test.field_test_body
     - field.field.node.test.field_test_image
     - field.field.node.test.field_test_related_articles
     - field.field.node.test.field_test_tags
@@ -18,7 +18,7 @@ targetEntityType: node
 bundle: test
 mode: teaser
 content:
-  body:
+  field_test_body:
     label: hidden
     type: text_summary_or_trimmed
     weight: 101

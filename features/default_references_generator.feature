@@ -50,7 +50,7 @@ Feature: Default References Generator
   Scenario: Create content using table and non-existing references
     Given I am viewing a default "test" content:
       | title                       | Custom title     |
-      | body                        | Custom Body      |
+      | field_test_body             | Custom Body      |
       | field_test_other_articles   | Art1, Art2       |
       | field_test_related_articles | Art3, Art4       |
       | field_test_image            | image3.jpg       |
