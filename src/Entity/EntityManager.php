@@ -37,15 +37,19 @@ class EntityManager {
     return $this->getGeneratorManager()->getDrupal();
   }
 
-  public function short_backtrace($limit = 0) {
+  function short_backtrace($limit = 0) {
     $r = [];
     $t = debug_backtrace();
     $t = array_slice($t, 1, $limit);
     for ($i = 0; $i <= $limit; $i++) {
       if (isset($t[$i]['file'])) {
+        $f = '';
+        if (isset($t[$i]['function'])) {
+          $f = ' called ' . $t[$i]['function'] . '()';
+        }
         $r[] = [
-          'function ' => $t[$i]['file'] . ':' . $t[$i]['line'] . ' function ' . $t[$i]['function'] . '()',
-          'args ' => $t[$i]['args'],
+          'Line' => $t[$i]['file'] . ':' . $t[$i]['line'] . $f,
+          'With args' => $t[$i]['args'],
         ];
       }
     }
@@ -70,11 +74,8 @@ class EntityManager {
       'node' => 'Node',
       'taxonomy_term' => 'TaxonomyTerm',
     );
-//    var_dump($type);
-//    var_dump($data);
-  //if ($type == 'taxonomy_vocabulary') {
-    var_dump($this->short_backtrace(4));
-//  }
+    ////var_dump($this->short_backtrace(10));
+
     if (isset($mapping[$type])) {
       $class_name = sprintf('\DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\Drupal%s\%s', $core, $mapping[$type]);
       $default_class_name = sprintf('\DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\%s', $mapping[$type]);
@@ -88,6 +89,7 @@ class EntityManager {
         throw new \Exception("Cannot find $default_class_name class");
       }
     }
+
     throw new \Exception("Cannot find entity generator class for " . $type . ' ' . $bundle);
   }
 
@@ -99,8 +101,15 @@ class EntityManager {
    * @throws \Exception
    */
   public function createEntity($type, $bundle, $data) {
+
+//    if ($type == 'taxonomy_vocabulary') {
+//      echo 'This is only here because of a bug that needs to be investigated';
+//      return;
+//    }
+
     $entity = $this->getEntity($type, $bundle, $data);
-    var_dump($data);
+    //var_dump(__FUNCTION__);
+var_dump($data);
     $saved = $entity->save();
     $this->entities[] = $entity;
     return $saved;

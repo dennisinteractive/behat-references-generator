@@ -14,6 +14,7 @@ Feature: Default References Generator
 
   @default_content @test_tag
   Scenario: Create content using one line
+    #@todo pathauto is not working here
     # Term created with behat.yml overrides
     Given a default "test_tags" term
     Given I am on "tag-yml"

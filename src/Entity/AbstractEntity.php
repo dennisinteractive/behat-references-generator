@@ -37,6 +37,8 @@ abstract class AbstractEntity implements EntityInterface {
    * @param \DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\EntityManager $generatorManager
    */
   public function __construct($type, $bundle, $data, EntityManager $entityManager) {
+    //var_dump($type);
+    //var_dump($bundle);
     $this->type = $type;
     $this->bundle = $bundle;
     $this->entityManager = $entityManager;
@@ -50,6 +52,7 @@ abstract class AbstractEntity implements EntityInterface {
     // Parse fields into entity structure.
     $this->parseEntityFields();
 
+    //var_dump($this->data);
     // Generate references.
     $this->generateReferences();
   }
@@ -58,7 +61,6 @@ abstract class AbstractEntity implements EntityInterface {
    * Generate references.
    */
   protected function generateReferences() {
-var_dump($this->data);
     foreach ($this->data as $field_name => $field_values) {
       if (empty($field_name)) {
         continue;
@@ -71,11 +73,33 @@ var_dump($this->data);
       foreach ($field_values as $key => $field_value) {
         if ($generator = $this->getReferenceGenerator($this->data, $field_name)) {
           if (!$generator->referenceExists($field_value)) {
+            //var_dump(get_class($generator));
             $generator->create($field_value);
           }
         }
       }
     }
+  }
+
+
+  function short_backtrace($limit = 0) {
+    $r = [];
+    $t = debug_backtrace();
+    $t = array_slice($t, 1, $limit);
+    for ($i = 0; $i <= $limit; $i++) {
+      if (isset($t[$i]['file'])) {
+        $f = '';
+        if (isset($t[$i]['function'])) {
+          $f = ' called ' . $t[$i]['function'] . '()';
+        }
+        $r[] = [
+          'Line' => $t[$i]['file'] . ':' . $t[$i]['line'] . $f,
+          'With args' => $t[$i]['args'],
+        ];
+      }
+    }
+
+    return $r;
   }
 
   /**

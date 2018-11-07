@@ -46,17 +46,20 @@ class EntityReference extends AbstractGenerator {
       $this->getTargetBundleKey() => $target_bundle,
     );
 
-    switch ($entity_type_id) {
-      case 'taxonomy_term':
-        $vocab = Vocabulary::load($target_bundle);
-        $entity->vocabulary_machine_name = $vocab->id();
-        var_dump($entity);
-        $this->getEntityManager()->createEntity($entity_type_id, $entity->vocabulary_machine_name, $entity);
-        break;
-
-      default:
-        $this->getEntityManager()->createEntity($entity_type_id, $target_bundle, $entity);
+    //@todo investigate a better way of doing this.
+    if ($entity_type_id == 'taxonomy_term') {
+      $entity->vocabulary_machine_name = $target_bundle;
     }
+    if ($entity_type_id == 'node_type') {
+      $entity->vocabulary_machine_name = $target_bundle;
+    }
+
+    //@todo This is only here because of a bug that needs to be investigated.
+    if ($entity_type_id == 'taxonomy_vocabulary') {
+      return;
+    }
+
+    $this->getEntityManager()->createEntity($entity_type_id, $target_bundle, $entity);
   }
 
   /**
