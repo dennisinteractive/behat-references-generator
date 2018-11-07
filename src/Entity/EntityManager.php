@@ -76,7 +76,7 @@ class EntityManager {
 //    var_dump($type);
 //    var_dump($data);
   //if ($type == 'taxonomy_vocabulary') {
-    var_dump($this->short_backtrace(0));
+    //var_dump($this->short_backtrace(0));
 //  }
     if (isset($mapping[$type])) {
       $class_name = sprintf('\DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\Drupal%s\%s', $core, $mapping[$type]);

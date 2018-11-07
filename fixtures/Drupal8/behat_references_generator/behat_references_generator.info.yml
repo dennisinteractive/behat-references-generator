@@ -3,3 +3,5 @@ type: module
 description: 'Provides a content type to be used to run tests.'
 package: Testing
 core: 8.x
+dependencies:
+  - pathauto:pathauto

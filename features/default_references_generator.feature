@@ -14,7 +14,7 @@ Feature: Default References Generator
     When I click "Test title from yml"
 
     Then I should see "Test Image"
-    And I should see an "img[src*='article_image.jpg']" element
+    And I should see an "img[src*='Image_from_yml.jpg']" element
 
     #@todo Then I should see "Test Media"
     #@todo And I should see an "img[src*='media_image.jpg']" element
@@ -23,18 +23,20 @@ Feature: Default References Generator
     Then I should see "Test body from yml"
 
     Then I should see "Test Related Articles"
-    And I should see the link "Art1"
-    And I should see the link "Art2"
+    And I should see the link "Art 1 from yml"
+    And I should see the link "Art 2 from yml"
 
     Then I should see "Test Tags"
-    And I should see the link "Tag1"
-    And I should see the link "Tag2"
+    And I should see the link "Tag 1 from yml"
+
+    When I click "Tag 2 from yml"
+    Then I should be on "test-tag-2-yml"
 
   @horizontal_table @reference_generator
   Scenario: Create content using tables and non-existing references, overriding title
     Given a default "test" content:
       | title               | field_test_related_articles | field_test_tags       |
-      | Test title override | New article                 | Tag1, New Tag         |
+      | Test title override | New article                 | Tag1, Tag2            |
 
     Given I am on "/"
     Then I should see the link "New article"
@@ -49,8 +51,10 @@ Feature: Default References Generator
     Then I should see the link "New article"
 
     Then I should see "Test Tags"
-    Then I should see the link "Tag1"
-    Then I should see the link "New Tag"
+    And I should see the link "Tag1"
+
+    When I click "Tag2"
+    Then I should be on "tag2"
 
   @vertical_table @reference_generator @default_content
   Scenario: Create content using table and non-existing references

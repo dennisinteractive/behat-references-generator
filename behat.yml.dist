@@ -15,17 +15,17 @@ default:
               default_content:
                 node:
                   article:
-                    title: Article title from yml
+                    title: "Article title from yml"
                   test:
-                    title: Test title from yml
-                    field_test_body: Test body from yml
-                    field_test_tags: Tag1, Tag2
-                    field_test_related_articles: Art1, Art2
-                    field_test_image: article_image.jpg
-                    #@todo field_test_media: media_image.jpg
+                    title: "Test title from yml"
+                    field_test_body: "Test body from yml"
+                    field_test_tags: "Test Tag 1 from yml, Test Tag 2 from yml"
+                    field_test_related_articles: "Art 1 from yml, Art 2 from yml"
+                    field_test_image: "Image_from_yml.jpg"
+                    #@todo field_test_media: Media_from_yml.jpg
                 taxonomy_term:
                   tags:
-                    name: BDD Default Tag
+                    name: "Tag from yml"
                 image:
-                  field_file_image_title_text: Default image title
-                  field_file_image_alt_text: Default image alt text
+                  field_file_image_title_text: "Image title from yml"
+                  field_file_image_alt_text: "Image alt text from yml"
