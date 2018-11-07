@@ -13,7 +13,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: hPapq83JT-S0uCfUC6aegbs5W8dJT3KPdJMBhQmSPYo
+  default_config_hash: 9C9MsPdw4mmJ5KuJwfy7LZoqX5w3bFe6n2miFcFqSYA
 id: node.test.default
 targetEntityType: node
 bundle: test

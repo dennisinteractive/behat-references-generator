@@ -5,7 +5,7 @@ dependencies:
     - node
     - taxonomy
 _core:
-  default_config_hash: QC-LfAEAN8AOvSTL4PtG0vBiUKoauKmtikWD-7YbOx8
+  default_config_hash: x3rvZwccmlOd64PGFq5aAXAlp8E2K2uX5eMxnrzJ1og
 id: node.field_test_tags
 field_name: field_test_tags
 entity_type: node

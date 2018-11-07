@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Test tags'
+vid: test_tags
+description: 'Used to test the behat extension'
+hierarchy: 0
+weight: 0

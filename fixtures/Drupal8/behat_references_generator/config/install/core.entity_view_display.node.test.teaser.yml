@@ -5,6 +5,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.test.field_test_body
     - field.field.node.test.field_test_image
+    - field.field.node.test.field_test_other_articles
     - field.field.node.test.field_test_related_articles
     - field.field.node.test.field_test_tags
     - node.type.test
@@ -12,7 +13,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: OfMYy3Q7Bopcvj8mwqECsje-C2KDdPIFxpJJHoJGVdM
+  default_config_hash: 3q1PtA-EG9JsoWYfjC8iUyWwbmweg_H1bpp8enxgY84
 id: node.test.teaser
 targetEntityType: node
 bundle: test
@@ -33,5 +34,6 @@ content:
     region: content
 hidden:
   field_test_image: true
+  field_test_other_articles: true
   field_test_related_articles: true
   field_test_tags: true

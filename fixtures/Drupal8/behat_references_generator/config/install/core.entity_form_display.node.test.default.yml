@@ -14,12 +14,18 @@ dependencies:
     - path
     - text
 _core:
-  default_config_hash: 05pkBF6IKKsygQhMSA89or-2vtbGI1FGKYo0VDaj7Xk
+  default_config_hash: w-t0Th3UbOx7R9_NJOowx4qrBaiTAxFZP-NYz7ZUAYg
 id: node.test.default
 targetEntityType: node
 bundle: test
 mode: default
 content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_test_body:
     type: text_textarea_with_summary
     weight: 121
@@ -29,12 +35,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: content
-  created:
-    type: datetime_timestamp
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_test_image:
     weight: 122
     settings:
