@@ -17,8 +17,8 @@ Feature: Default References Generator
     #@todo pathauto is not working here
     # Term created with behat.yml overrides
     Given a default "test_tags" term
-    Given I am on "tag-yml"
-    Then the response status code should not be 200
+    Then I wait 10 seconds
+    Then the response status code should be 200
     And I should see "Tag from yml"
     And I should see an "img[src*='Tag_image.jpg']" element
 
