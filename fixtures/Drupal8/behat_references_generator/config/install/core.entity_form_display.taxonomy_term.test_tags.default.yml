@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.test_tags.field_test_tags_image
+    - field.field.taxonomy_term.test_tags.field_test_image
     - taxonomy.vocabulary.test_tags
   module:
     - file
@@ -21,7 +21,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_test_tags_image:
+  field_test_image:
     weight: 31
     settings:
       progress_indicator: throbber

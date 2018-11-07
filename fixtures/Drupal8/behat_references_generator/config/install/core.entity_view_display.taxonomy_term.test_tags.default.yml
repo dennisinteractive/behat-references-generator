@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.test_tags.field_test_tags_image
+    - field.field.taxonomy_term.test_tags.field_test_image
     - taxonomy.vocabulary.test_tags
   module:
     - file

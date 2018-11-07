@@ -2,16 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_test_image
-    - node.type.test
+    - field.storage.taxonomy_term.field_test_image
+    - taxonomy.vocabulary.test_tags
   module:
     - image
-_core:
-  default_config_hash: Qx0_wS-WiYDRmHwophKE7FIYjJYC9_SZnchwu5LmW_4
-id: node.test.field_test_image
+id: taxonomy_term.test_tags.field_test_image
 field_name: field_test_image
-entity_type: node
-bundle: test
+entity_type: taxonomy_term
+bundle: test_tags
 label: 'Test Image'
 description: ''
 required: false

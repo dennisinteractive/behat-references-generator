@@ -25,8 +25,8 @@ Feature: Default References Generator
   @default_content @horizontal_table
   Scenario: Create content using tables and non-existing references, overriding the name
     Given a default "test_tags" term:
-      | name          | description     | field_test_tag_image |
-      | New term name | New description | New_image.jpg        |
+      | name          | description     | field_test_image |
+      | New term name | New description | New_image.jpg    |
     Given I am on "new-term-name"
     Then the response status code should be 200
     And I should see "New term name"
