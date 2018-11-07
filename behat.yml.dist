@@ -24,8 +24,9 @@ default:
                     field_test_image: "Image_from_yml.jpg"
                     #@todo field_test_media: Media_from_yml.jpg
                 taxonomy_term:
-                  tags:
+                  test_tags:
                     name: "Tag from yml"
+                    field_test_tag_image: "Tag_image.jpg"
                 image:
                   field_file_image_title_text: "Image title from yml"
                   field_file_image_alt_text: "Image alt text from yml"
