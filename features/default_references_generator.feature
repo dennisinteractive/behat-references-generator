@@ -16,7 +16,7 @@ Feature: Default References Generator
     Then I should see "Test Image"
     And I should see an "img[src*='article_image.jpg']" element
 
-    Then I should see "Test Media"
+    #@todo Then I should see "Test Media"
     #@todo And I should see an "img[src*='media_image.jpg']" element
 
     Then I should see "Test title from yml"
