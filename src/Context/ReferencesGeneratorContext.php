@@ -212,7 +212,7 @@ var_dump($node);
    * | status    | 1              |
    * | ...       | ...            |
    *
-   * @Given I am viewing default :type (content):
+   * @Given I am viewing a default :type (content):
    */
   public function viewingDefaultNode($type, TableNode $fields) {
     $node = (object) array(
