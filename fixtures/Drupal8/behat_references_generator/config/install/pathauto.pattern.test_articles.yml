@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: test_articles
+label: 'Test articles'
+type: 'canonical_entities:node'
+pattern: '[node:title]'
+selection_criteria:
+  a2a1300b-a5bc-4793-b46f-d3a79c9a5489:
+    id: node_type
+    bundles:
+      test: test
+    negate: false
+    context_mapping:
+      node: node
+    uuid: a2a1300b-a5bc-4793-b46f-d3a79c9a5489
+selection_logic: and
+weight: -5
+relationships: {  }
+
