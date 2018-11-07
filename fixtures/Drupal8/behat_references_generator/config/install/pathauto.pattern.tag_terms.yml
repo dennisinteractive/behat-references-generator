@@ -4,20 +4,22 @@ dependencies:
   module:
     - ctools
     - taxonomy
+_core:
+  default_config_hash: 1skbGJX6cunKZGWxY3dvLYpoyQNnOH_MTMn0e1G0DkU
 id: tag_terms
 label: 'Tag terms'
 type: 'canonical_entities:taxonomy_term'
 pattern: '[term:name]'
 selection_criteria:
-  de43e0bc-5493-43f9-af34-d077c38585cd:
+  4edc0a9c-5f68-4b17-9cde-c22e0121233c:
     id: 'entity_bundle:taxonomy_term'
     bundles:
       tags: tags
+      test_tags: test_tags
     negate: false
     context_mapping:
       taxonomy_term: taxonomy_term
-    uuid: de43e0bc-5493-43f9-af34-d077c38585cd
+    uuid: 4edc0a9c-5f68-4b17-9cde-c22e0121233c
 selection_logic: and
 weight: -5
 relationships: {  }
-
