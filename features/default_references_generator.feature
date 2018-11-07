@@ -13,6 +13,12 @@ Feature: Default References Generator
     # All values come from behat.yml
     When I click "Test title from yml"
 
+    Then I should see "Test Image"
+    And I should see an "img[src*='article_image.jpg']" element
+
+    Then I should see "Test Media"
+    #@todo And I should see an "img[src*='media_image.jpg']" element
+
     Then I should see "Test title from yml"
     Then I should see "Test body from yml"
 
