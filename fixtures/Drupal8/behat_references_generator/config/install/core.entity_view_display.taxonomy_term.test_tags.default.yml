@@ -3,10 +3,13 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.test_tags.field_test_image
+    - image.style.medium
     - taxonomy.vocabulary.test_tags
   module:
-    - file
+    - image
     - text
+_core:
+  default_config_hash: tt9ATs-27Wf1KTG8rWndG96rycoXbiDFszulmxvP6_I
 id: taxonomy_term.test_tags.default
 targetEntityType: taxonomy_term
 bundle: test_tags
@@ -15,9 +18,18 @@ content:
   description:
     label: hidden
     type: text_default
-    weight: 1
+    weight: 0
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_test_image:
+    type: image
+    weight: 1
+    region: content
+    label: above
+    settings:
+      image_style: medium
+      image_link: content
     third_party_settings: {  }
   field_test_tags_image:
     weight: 0

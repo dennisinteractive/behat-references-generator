@@ -22,7 +22,7 @@ Feature: Default References Generator
     And I should see "Tag from yml"
     And I should see an "img[src*='Tag_image.jpg']" element
 
-  @default_content @horizontal_table
+  @default_content @horizontal_table @behat_references_generator1
   Scenario: Create content using tables and non-existing references, overriding the name
     Given a default "test_tags" term:
       | name          | description     | field_test_image |
@@ -37,7 +37,7 @@ Feature: Default References Generator
   Scenario: Create content using table and non-existing references
     Given I am viewing a default "test_tags" term:
       | name        | New term name    |
-      | description | CNew description |
+      | description | New description  |
     And I should see "New term name"
     And I should see "New description"
-    And I should see an "img[src*='Tag_image.jpg']" element
+    And I should see an "img[src*='Tag_image_from_yml.jpg']" element
