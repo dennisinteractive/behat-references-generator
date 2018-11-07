@@ -58,6 +58,7 @@ abstract class AbstractEntity implements EntityInterface {
    * Generate references.
    */
   protected function generateReferences() {
+var_dump($this->data);
     foreach ($this->data as $field_name => $field_values) {
       if (empty($field_name)) {
         continue;
