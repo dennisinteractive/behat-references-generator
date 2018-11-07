@@ -9,7 +9,7 @@ Feature: Default References Generator
     # Term created using default content
     Given a default "tags" term
     Given I am on "behat-test-term"
-    Then the response status code should not be 200
+    Then the response status code should be 200
     And I should see "Behat Test Term"
 
     # Term created with behat.yml overrides
@@ -25,7 +25,7 @@ Feature: Default References Generator
       | name          | description     | field_test_tag_image |
       | New term name | New description | New_image.jpg        |
     Given I am on "new-term-name"
-    Then the response status code should not be 200
+    Then the response status code should be 200
     And I should see "New term name"
     And I should see "New description"
     And I should see an "img[src*='New_image.jpg']" element
