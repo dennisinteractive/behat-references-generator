@@ -40,10 +40,7 @@ class EntityManager {
   public function short_backtrace($limit = 0) {
     $r = [];
     $t = debug_backtrace();
-    array_shift($t);
-    if ($limit == 0) {
-      $limit = sizeof($t);
-    }
+    $t = array_slice($t, 1, $limit);
     for ($i = 0; $i <= $limit; $i++) {
       if (isset($t[$i]['file'])) {
         $r[] = [
@@ -76,7 +73,7 @@ class EntityManager {
 //    var_dump($type);
 //    var_dump($data);
   //if ($type == 'taxonomy_vocabulary') {
-    //var_dump($this->short_backtrace(0));
+    var_dump($this->short_backtrace(4));
 //  }
     if (isset($mapping[$type])) {
       $class_name = sprintf('\DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\Drupal%s\%s', $core, $mapping[$type]);

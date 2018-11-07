@@ -4,7 +4,7 @@ Feature: Default References Generator
   as a user,
   I want to automatically generate content dependencies
 
-  @default_content
+  @default_content @tag
   Scenario: Create content using one line
     # Term created using default content
     Given a default "tags" term
@@ -12,6 +12,8 @@ Feature: Default References Generator
     Then the response status code should be 200
     And I should see "Behat Test Term"
 
+  @default_content @test_tag
+  Scenario: Create content using one line
     # Term created with behat.yml overrides
     Given a default "test_tags" term
     Given I am on "tag-yml"
