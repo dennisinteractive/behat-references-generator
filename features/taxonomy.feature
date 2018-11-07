@@ -17,10 +17,9 @@ Feature: Default References Generator
     #@todo pathauto is not working here
     # Term created with behat.yml overrides
     Given a default "test_tags" term
-    Then I wait 10 seconds
     Then the response status code should be 200
     And I should see "Tag from yml"
-    And I should see an "img[src*='Tag_image.jpg']" element
+    And I should see an "img[src*='Tag_image_from_yml.jpg']" element
 
   @default_content @horizontal_table @behat_references_generator1
   Scenario: Create content using tables and non-existing references, overriding the name
