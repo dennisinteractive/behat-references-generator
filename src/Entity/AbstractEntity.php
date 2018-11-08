@@ -45,6 +45,8 @@ abstract class AbstractEntity implements EntityInterface {
 
     // Merge data with default data.
     $data = empty($data) ? [] : $data;
+var_dump($this->getDefaultContent());
+var_dump($data);
     $this->data = (object) array_merge($this->getDefaultContent(), (array) $data);
     $this->data->entityType = $this->type;
     $this->data->bundle = $this->bundle;
