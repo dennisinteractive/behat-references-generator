@@ -4,21 +4,25 @@ Feature: Default References Generator
   as a user,
   I want to automatically generate content dependencies
 
-  @default_content @tag
+  @default_content @one_line @tag
   Scenario: Create content using one line
     # Term created using default content
     Given a default "tags" term
+
     Given I am on "behat-test-term"
+
     Then the response status code should be 200
     And I should see "Behat Test Term"
 
-  @default_content @test_tag
+  @default_content @one_line @test_tag
   Scenario: Create content using one line
-    #@todo pathauto is not working here
     # Term created with behat.yml overrides
     Given a default "test_tags" term
+
+    Given I am on "test-tag-name"
     Then the response status code should be 200
-    And I should see "Tag from yml"
+
+    And I should see "Test tag name"
     And I should see an "img[src*='Tag_image_from_yml.jpg']" element
 
   @default_content @horizontal_table @behat_references_generator1
@@ -26,6 +30,7 @@ Feature: Default References Generator
     Given a default "test_tags" term:
       | name          | description     | field_test_image |
       | New term name | New description | New_image.jpg    |
+
     Given I am on "new-term-name"
     Then the response status code should be 200
     And I should see "New term name"
@@ -37,6 +42,8 @@ Feature: Default References Generator
     Given I am viewing a default "test_tags" term:
       | name        | New term name    |
       | description | New description  |
+
+    Then the response status code should be 200
     And I should see "New term name"
     And I should see "New description"
     And I should see an "img[src*='Tag_image_from_yml.jpg']" element

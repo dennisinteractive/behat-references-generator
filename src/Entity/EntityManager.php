@@ -108,7 +108,7 @@ class EntityManager {
 //    }
 
     $entity = $this->getEntity($type, $bundle, $data);
-    //var_dump(__FUNCTION__);
+var_dump(__FUNCTION__);
 var_dump($data);
     $saved = $entity->save();
     $this->entities[] = $entity;
