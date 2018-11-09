@@ -25,7 +25,7 @@ Feature: Default References Generator
     And I should see "Test tag name"
     And I should see an "img[src*='Tag_image_from_yml.jpg']" element
 
-  @default_content @horizontal_table @behat_references_generator1
+  @default_content @horizontal_table
   Scenario: Create content using tables and non-existing references, overriding the name
     Given a default "test_tags" term:
       | name          | description     | field_test_image |
