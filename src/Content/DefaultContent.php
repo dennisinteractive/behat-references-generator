@@ -26,6 +26,7 @@ class DefaultContent {
     'node' => [
       'title' => 'Behat Test Node',
       'status' => '1',
+      'author' => 'BDD Author',
     ],
     'taxonomy_term' => [
       'name' => 'Behat Test Term',

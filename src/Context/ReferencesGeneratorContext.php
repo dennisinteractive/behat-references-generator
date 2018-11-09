@@ -64,7 +64,6 @@ class ReferencesGeneratorContext extends RawDrupalContext {
       $term->vocabulary_machine_name = $vocab;
       $term->vid = $vocab;
       $term->useDefaultContent = TRUE;
-//var_dump($term);
       $this->termCreate($term);
     }
   }
@@ -80,7 +79,6 @@ class ReferencesGeneratorContext extends RawDrupalContext {
       $node = (object) $hash;
       $node->type = $type;
       $node->useDefaultContent = TRUE;
-//var_dump($node);
       $this->nodeCreate($node);
     }
   }

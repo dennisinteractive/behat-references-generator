@@ -37,26 +37,6 @@ class EntityManager {
     return $this->getGeneratorManager()->getDrupal();
   }
 
-  function short_backtrace($limit = 0) {
-    $r = [];
-    $t = debug_backtrace();
-    $t = array_slice($t, 1, $limit);
-    for ($i = 0; $i <= $limit; $i++) {
-      if (isset($t[$i]['file'])) {
-        $f = '';
-        if (isset($t[$i]['function'])) {
-          $f = ' called ' . $t[$i]['function'] . '()';
-        }
-        $r[] = [
-          'Line' => $t[$i]['file'] . ':' . $t[$i]['line'] . $f,
-          'With args' => $t[$i]['args'],
-        ];
-      }
-    }
-
-    return $r;
-  }
-
   /**
    * Gets the entity class.
    *
@@ -74,7 +54,6 @@ class EntityManager {
       'node' => 'Node',
       'taxonomy_term' => 'TaxonomyTerm',
     );
-    ////var_dump($this->short_backtrace(10));
 
     if (isset($mapping[$type])) {
       $class_name = sprintf('\DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\Drupal%s\%s', $core, $mapping[$type]);
