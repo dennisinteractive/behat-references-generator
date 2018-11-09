@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ *
+ * Module file for Behat References Generator.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function behat_references_generator_install() {
+  // Configure permissions.
+  foreach (['administrator', 'authenticated', 'anonymous'] as $role) {
+    $config = \Drupal::configFactory()->getEditable('user.role.' . $role);
+    $permissions = $config->get('permissions');
+    $permissions[] = 'view published terms in test_tags';
+    $config->set('permissions', $permissions)->save();
+  }
+}
