@@ -17,6 +17,11 @@ class ReferencesGeneratorContext extends RawDrupalContext {
   protected $defaultContentMapping;
 
   /**
+   * Stores the default user mapping.
+   */
+  protected $defaultUser;
+
+  /**
    * @var GeneratorManager
    */
   protected $generatorManager;
@@ -26,6 +31,7 @@ class ReferencesGeneratorContext extends RawDrupalContext {
    */
   public function __construct($parameters = array()) {
     $this->defaultContentMapping = $parameters['default_content'];
+    $this->defaultUser = $parameters['user'];
   }
 
   /**
@@ -36,8 +42,9 @@ class ReferencesGeneratorContext extends RawDrupalContext {
   protected function getGeneratorManager() {
     if (!isset($this->generatorManager)) {
       $default_content = new DefaultContent($this->defaultContentMapping);
-      $this->generatorManager = new GeneratorManager($this->getDrupal(), $default_content);
+      $this->generatorManager = new GeneratorManager($this->getDrupal(), $default_content, $this->defaultUser);
     }
+
     return $this->generatorManager;
   }
 

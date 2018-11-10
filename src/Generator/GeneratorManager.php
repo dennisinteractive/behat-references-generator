@@ -28,12 +28,18 @@ class GeneratorManager {
   protected $defaultContent;
 
   /**
+   * Stores users/
+   */
+  protected $defaultUser;
+
+  /**
    * @inheritdoc
    */
-  public function __construct(DrupalDriverManager $drupal, DefaultContent $default_content) {
+  public function __construct(DrupalDriverManager $drupal, DefaultContent $default_content, $default_user) {
     $this->drupal = $drupal;
     $this->entityManager = new EntityManager($this);
     $this->defaultContent = $default_content;
+    $this->defaultUser = $default_user;
   }
 
   /**
@@ -51,6 +57,13 @@ class GeneratorManager {
   }
 
   /**
+   * @return \DennisDigital\Behat\Drupal\ReferencesGenerator\Content\defaultUser
+   */
+  public function getDefaultUser() {
+    return $this->defaultUser;
+  }
+
+  /**
    * Gets the generator class.
    *
    * @param $entity
@@ -61,13 +74,18 @@ class GeneratorManager {
    * @throws \Exception
    */
   public function getReferenceGenerator($entity, $field_name) {
-    if (!$field_handler = $this->getFieldHandler($entity, $entity->entityType, $field_name)) {
-      return FALSE;
+    if ($field_name == 'author') {
+      // This is a special case because author is linked to the user via uid.
+      $field_type = 'user';
     }
-
-    $field_type = $field_handler->getType();
-    if (empty($field_type)) {
-      return FALSE;
+    else {
+      if (!$field_handler = $this->getFieldHandler($entity, $entity->entityType, $field_name)) {
+        return FALSE;
+      }
+      $field_type = $field_handler->getType();
+      if (empty($field_type)) {
+        return FALSE;
+      }
     }
 
     $core = $this->getDrupal()->getDriver()->getDrupalVersion();
@@ -79,6 +97,7 @@ class GeneratorManager {
       'car_reference' => 'CarReference',
       'entityreference' => 'EntityReference',
       'entity_reference' => 'EntityReference',
+      'user' => 'User',
     );
 
     if (isset($mapping[$field_type])) {

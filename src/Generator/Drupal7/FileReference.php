@@ -3,7 +3,7 @@
 namespace DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\Drupal7;
 
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Generator\AbstractGenerator;
-use DennisDigital\Behat\Drupal\ReferencesGenerator\Content\DefaultContent;
+//use DennisDigital\Behat\Drupal\ReferencesGenerator\Content\DefaultContent;
 use DennisDigital\Behat\Drupal\ReferencesGenerator\Entity\Drupal7\Image;
 
 /**

@@ -12,6 +12,11 @@ default:
                 Image: field_test_image
                 Image title: field_file_image_title_text
                 Image alt: field_file_image_alt_text
+              user:
+                administrator:
+                  - BDD Admin
+                editor:
+                  - BDD Author
               default_content:
                 node:
                   article:
