@@ -67,7 +67,6 @@ abstract class AbstractEntity implements EntityInterface {
       if (!is_array($field_values)) {
         $field_values = array($field_values);
       }
-
       foreach ($field_values as $key => $field_value) {
         if ($generator = $this->getReferenceGenerator($this->data, $field_name)) {
           if (!$generator->referenceExists($field_value)) {

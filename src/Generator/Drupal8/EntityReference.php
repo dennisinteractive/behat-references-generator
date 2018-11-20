@@ -50,12 +50,12 @@ class EntityReference extends AbstractGenerator {
     if ($entity_type_id == 'taxonomy_term') {
       $entity->vocabulary_machine_name = $target_bundle;
     }
-    if ($entity_type_id == 'node_type') {
-      $entity->vocabulary_machine_name = $target_bundle;
-    }
 
     //@todo This is only here because of a bug that needs to be investigated.
     if ($entity_type_id == 'taxonomy_vocabulary') {
+      return;
+    }
+    if ($entity_type_id == 'node_type') {
       return;
     }
 
